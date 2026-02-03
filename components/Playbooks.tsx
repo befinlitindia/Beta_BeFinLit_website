@@ -1,0 +1,63 @@
+import React from 'react';
+import { ArrowRight, BookOpen, Clock, Tag } from 'lucide-react';
+
+interface PlaybooksProps {
+  onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook') => void;
+}
+
+const Playbooks: React.FC<PlaybooksProps> = ({ onNavigate }) => {
+  const playbooksList = [
+    {
+      id: 'playbook',
+      title: "The Moonlighter's Playbook",
+      subtitle: "How to Side-Hustle Without Getting into Trouble",
+      description: "A comprehensive CA-led guide to navigating tax laws, presumptive income benefits, and corporate compliance for Indian freelancers.",
+      tag: "Tax Strategy",
+      readTime: "12 min read"
+    }
+  ];
+
+  return (
+    <div className="animate-fade-in pt-40 pb-20 px-6 max-w-4xl mx-auto">
+      <header className="mb-16 border-b border-befinlit-navy/10 pb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-befinlit-navy mb-6 font-serif">The Playbooks</h1>
+        <p className="text-lg text-befinlit-navy/60 max-w-2xl leading-relaxed">
+          In-depth technical guides and strategic blueprints for the modern Indian professional.
+        </p>
+      </header>
+
+      <div className="space-y-12">
+        {playbooksList.map((item) => (
+          <div 
+            key={item.id}
+            onClick={() => onNavigate(item.id as any)}
+            className="group cursor-pointer bg-white border border-befinlit-navy/5 p-8 rounded-sm hover:border-befinlit-gold transition-all shadow-sm hover:shadow-md flex flex-col md:flex-row gap-8"
+          >
+            <div className="w-full md:w-1/3 aspect-[4/3] bg-befinlit-navy rounded-sm flex items-center justify-center p-6 relative overflow-hidden shrink-0">
+               <BookOpen size={40} className="text-befinlit-gold opacity-10 absolute -bottom-2 -right-2" />
+               <div className="text-white text-center font-bold font-serif leading-tight">
+                  <p className="text-[10px] uppercase tracking-widest text-befinlit-gold mb-1">Playbook</p>
+                  <p className="text-lg">{item.title}</p>
+               </div>
+            </div>
+            <div className="flex-grow">
+              <div className="flex items-center gap-4 mb-3 text-[10px] uppercase tracking-widest font-bold">
+                 <span className="text-befinlit-gold flex items-center gap-1"><Tag size={12}/> {item.tag}</span>
+                 <span className="text-befinlit-navy/40 flex items-center gap-1"><Clock size={12}/> {item.readTime}</span>
+              </div>
+              <h3 className="text-2xl font-bold text-befinlit-navy mb-3 group-hover:text-befinlit-gold transition-colors">{item.title}</h3>
+              <p className="text-befinlit-navy/70 text-sm mb-6 leading-relaxed">
+                {item.description}
+              </p>
+              <div className="flex items-center gap-2 text-befinlit-navy font-bold text-sm">
+                Read Playbook <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Playbooks;
