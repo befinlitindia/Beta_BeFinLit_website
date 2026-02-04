@@ -8,16 +8,19 @@ interface AboutUsProps {
 const AboutUs: React.FC<AboutUsProps> = ({ onNavigate }) => {
   return (
     <div className="animate-fade-in">
-      <section className="pt-40 pb-20 px-6 max-w-4xl mx-auto">
+      <section className="pt-48 pb-20 px-6 max-w-screen-xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] font-bold text-befinlit-gold mb-4 block">
+          <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy mb-8 bg-white/50 backdrop-blur-sm">
             Our Story
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-befinlit-navy mb-10 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-befinlit-navy mb-10 leading-tight">
             The BeFinLit India<br />Mission.
           </h1>
-          <div className="max-w-2xl mx-auto">
-            <p className="text-xl text-befinlit-navy/70 italic leading-relaxed py-10 border-y border-befinlit-navy/10">
+          <div className="max-w-2xl mx-auto relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[100px] md:text-[150px] font-bold text-befinlit-navy/[0.03] pointer-events-none select-none whitespace-nowrap leading-none z-0 font-serif">
+              MISSION
+            </div>
+            <p className="relative z-10 text-xl text-befinlit-navy/70 italic leading-relaxed py-10 border-y border-befinlit-navy/10">
               "To empower the modern Indian professional with the financial intelligence required to navigate a high-growth economy."
             </p>
           </div>
@@ -51,7 +54,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ onNavigate }) => {
               <li className="flex items-start gap-4">
                 <ShieldCheck className="text-befinlit-gold shrink-0 mt-0.5" size={20} />
                 <div>
-                  <p className="text-white text-sm font-bold leading-snug mb-0.5">CA-Led Research</p>
+                  <p className="text-white text-sm font-bold leading-snug mb-0.5">Professional-Led Research</p>
                   <p className="text-white/60 text-[13px] leading-relaxed">
                     Our content is vetted for technical accuracy against the latest Income Tax Act and Finance Act.
                   </p>
@@ -81,25 +84,25 @@ const AboutUs: React.FC<AboutUsProps> = ({ onNavigate }) => {
       </section>
 
       <section className="bg-befinlit-navy text-befinlit-cream py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-screen-xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Be the master of your own money.</h2>
           <p className="text-white/60 mb-10 max-w-xl mx-auto">
             Join thousands of professionals who rely on BeFinLit India to keep their finances compliant and their wealth growing.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-stretch items-center justify-center gap-4">
             <button
               onClick={() => onNavigate && onNavigate('playbooks')}
-              className="bg-befinlit-gold text-befinlit-navy px-8 py-4 rounded-sm font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
+              className="bg-befinlit-gold text-befinlit-navy px-6 py-4 rounded-sm font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 w-full sm:w-80"
             >
               Explore our Playbooks <BookOpen size={18} />
             </button>
             <button
               onClick={() => onNavigate && onNavigate('tools')}
-              className="bg-befinlit-cream text-befinlit-navy px-8 py-4 rounded-sm font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
+              className="bg-befinlit-gold text-befinlit-navy px-6 py-4 rounded-sm font-bold hover:bg-white transition-colors flex items-center justify-center gap-2 w-full sm:w-80"
             >
               Use our Toolkits <Wrench size={18} />
             </button>
-            <button className="border border-befinlit-gold text-befinlit-gold px-8 py-4 rounded-sm font-bold hover:bg-befinlit-gold hover:text-befinlit-navy transition-all flex items-center justify-center gap-2 w-full sm:w-auto">
+            <button className="bg-befinlit-gold text-befinlit-navy px-6 py-4 rounded-sm font-bold hover:bg-white transition-all flex items-center justify-center gap-2 w-full sm:w-80">
               Schedule a Paid Consultation <Calendar size={18} />
             </button>
           </div>

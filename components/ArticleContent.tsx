@@ -8,9 +8,9 @@ const IncomeImpactCalculator = () => {
   const [freelance, setFreelance] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [hasUnlocked, setHasUnlocked] = useState(false);
-  const [result, setResult] = useState<null | { 
-    taxDiff: number, 
-    salaryTax: number, 
+  const [result, setResult] = useState<null | {
+    taxDiff: number,
+    salaryTax: number,
     combinedTax: number,
     salaryIncome: number,
     combinedIncome: number,
@@ -85,7 +85,7 @@ const IncomeImpactCalculator = () => {
       surcharge = baseTax * rate;
       const totalTaxWithSurcharge = baseTax + surcharge;
       const cap = (taxAtThreshold + surchargeAtThreshold) + (netIncome - threshold);
-      
+
       if (totalTaxWithSurcharge > cap) {
         surcharge = Math.max(0, cap - baseTax);
       }
@@ -100,7 +100,7 @@ const IncomeImpactCalculator = () => {
   const performCalculation = () => {
     const s = parseFloat(salary.replace(/,/g, '')) || 0;
     const f = parseFloat(freelance.replace(/,/g, '')) || 0;
-    
+
     // Total Income = Annual Gross salary + Freelance Revenue (presumptive taxable portion)
     const freelanceTaxableIncome = f >= 7500000 ? f * 0.8 : f * 0.5;
 
@@ -118,7 +118,7 @@ const IncomeImpactCalculator = () => {
   };
 
   const handleCalculateClick = () => {
-    if(!salary || !freelance) return;
+    if (!salary || !freelance) return;
     if (hasUnlocked) {
       performCalculation();
     } else {
@@ -133,7 +133,7 @@ const IncomeImpactCalculator = () => {
     setShowPopup(false);
   };
 
-  const formatINR = (val: number) => 
+  const formatINR = (val: number) =>
     new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
 
   const getImplications = () => {
@@ -162,31 +162,31 @@ const IncomeImpactCalculator = () => {
           The "Success Penalty" Calculator
         </h3>
         <p className="text-sm text-white/70 mb-1 italic">
-          Based on New Tax Regime (Budget 2024) rules.
+          Based on New Tax Regime rules.
         </p>
         <p className="text-[11px] text-white/50 mb-6 italic leading-relaxed">
           Note: We apply 50% presumptive rate (u/s 44ADA) on freelance revenue and follow the new tax regime by default.
         </p>
-        
+
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div>
             <label className="text-xs uppercase tracking-wider font-semibold text-white/50 block mb-2">Annual Gross Salary (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               value={salary}
               onChange={e => setSalary(e.target.value)}
               className="w-full bg-white/10 border border-white/20 p-3 rounded-sm text-white focus:border-befinlit-gold outline-none"
-              placeholder="e.g. 1295000"
+              placeholder="e.g. 4200000"
             />
           </div>
           <div>
             <label className="text-xs uppercase tracking-wider font-semibold text-white/50 block mb-2">Freelance Revenue (₹)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               value={freelance}
               onChange={e => setFreelance(e.target.value)}
               className="w-full bg-white/10 border border-white/20 p-3 rounded-sm text-white focus:border-befinlit-gold outline-none"
-              placeholder="e.g. 1500000"
+              placeholder="e.g. 2500000"
             />
           </div>
         </div>
@@ -197,57 +197,57 @@ const IncomeImpactCalculator = () => {
           </button>
         ) : (
           <div className="space-y-6 animate-fade-in">
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
-                   <p className="text-[10px] uppercase text-white/40 mb-1">Before Side-Hustle</p>
-                   <p className="text-sm font-medium text-white/80">Salary Only Tax</p>
-                   <p className="text-xl font-bold text-white mt-1">{formatINR(result.salaryTax)}</p>
-                </div>
-                <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
-                   <p className="text-[10px] uppercase text-white/40 mb-1">With Side-Hustle</p>
-                   <p className="text-sm font-medium text-white/80">Combined Total Tax</p>
-                   <p className="text-xl font-bold text-white mt-1">{formatINR(result.combinedTax)}</p>
-                </div>
-                <div className="bg-befinlit-gold/20 p-4 border border-befinlit-gold/30 rounded-sm">
-                   <p className="text-[10px] uppercase text-befinlit-gold mb-1">Additional Liability</p>
-                   <p className="text-sm font-medium text-befinlit-gold">The "Success Penalty"</p>
-                   <p className="text-xl font-bold text-befinlit-gold mt-1">{formatINR(result.taxDiff)}</p>
-                </div>
-             </div>
-             
-             <div className="bg-white/10 p-6 rounded-sm border border-befinlit-gold/30">
-                <div className="text-center">
-                   <p className="text-xs uppercase text-white/60 mb-2 font-bold">The Verdict</p>
-                   <p className="text-2xl font-bold text-befinlit-gold">
-                     {formatINR(result.taxDiff)}
-                   </p>
-                   <p className="text-xs text-white/50 mt-2">
-                     {result.taxDiff > 0 
-                       ? "Your side-hustle revenue is taxed at a high marginal rate due to slab jumping and reduction in available rebates."
-                       : result.combinedTax === 0 
-                         ? "Your combined income still stays within the tax-free rebate limit (Section 87A), resulting in zero additional tax liability."
-                         : "Your combined income results in no additional tax liability compared to your salary alone."}
-                   </p>
-                </div>
-             </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
+                <p className="text-[10px] uppercase text-white/40 mb-1">Before Side-Hustle</p>
+                <p className="text-sm font-medium text-white/80">Salary Only Tax</p>
+                <p className="text-xl font-bold text-white mt-1">{formatINR(result.salaryTax)}</p>
+              </div>
+              <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
+                <p className="text-[10px] uppercase text-white/40 mb-1">With Side-Hustle</p>
+                <p className="text-sm font-medium text-white/80">Combined Total Tax</p>
+                <p className="text-xl font-bold text-white mt-1">{formatINR(result.combinedTax)}</p>
+              </div>
+              <div className="bg-befinlit-gold/20 p-4 border border-befinlit-gold/30 rounded-sm">
+                <p className="text-[10px] uppercase text-befinlit-gold mb-1">Additional Liability</p>
+                <p className="text-sm font-medium text-befinlit-gold">The "Success Penalty"</p>
+                <p className="text-xl font-bold text-befinlit-gold mt-1">{formatINR(result.taxDiff)}</p>
+              </div>
+            </div>
 
-             {implications.length > 0 && (
-               <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-sm">
-                 <h4 className="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-2 flex items-center gap-2">
-                   <AlertCircle size={14} /> Critical Implications
-                 </h4>
-                 <ul className="space-y-2">
-                   {implications.map((note, i) => (
-                     <li key={i} className="text-xs text-white/70 flex items-start gap-2">
-                       <span className="w-1 h-1 rounded-full bg-red-400 mt-1.5 shrink-0" />
-                       {note}
-                     </li>
-                   ))}
-                 </ul>
-               </div>
-             )}
+            <div className="bg-white/10 p-6 rounded-sm border border-befinlit-gold/30">
+              <div className="text-center">
+                <p className="text-xs uppercase text-white/60 mb-2 font-bold">The Verdict</p>
+                <p className="text-2xl font-bold text-befinlit-gold">
+                  {formatINR(result.taxDiff)}
+                </p>
+                <p className="text-xs text-white/50 mt-2">
+                  {result.taxDiff > 0
+                    ? "Your side-hustle revenue is taxed at a high marginal rate due to slab jumping and reduction in available rebates."
+                    : result.combinedTax === 0
+                      ? "Your combined income still stays within the tax-free rebate limit (Section 87A), resulting in zero additional tax liability."
+                      : "Your combined income results in no additional tax liability compared to your salary alone."}
+                </p>
+              </div>
+            </div>
 
-             <button onClick={() => setResult(null)} className="text-xs text-white/40 hover:text-white underline block mx-auto">Start Over</button>
+            {implications.length > 0 && (
+              <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-sm">
+                <h4 className="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-2 flex items-center gap-2">
+                  <AlertCircle size={14} /> Critical Implications
+                </h4>
+                <ul className="space-y-2">
+                  {implications.map((note, i) => (
+                    <li key={i} className="text-xs text-white/70 flex items-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-red-400 mt-1.5 shrink-0" />
+                      {note}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button onClick={() => setResult(null)} className="text-xs text-white/40 hover:text-white underline block mx-auto">Start Over</button>
           </div>
         )}
       </div>
@@ -256,7 +256,7 @@ const IncomeImpactCalculator = () => {
       {showPopup && !hasUnlocked && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-befinlit-navy/90 backdrop-blur-sm">
           <div className="bg-befinlit-cream text-befinlit-navy p-8 rounded-sm max-w-md w-full relative shadow-2xl">
-            <button onClick={() => setShowPopup(false)} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><X size={20}/></button>
+            <button onClick={() => setShowPopup(false)} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><X size={20} /></button>
             <h4 className="text-xl font-bold mb-2">Unlock Your Comparison Report</h4>
             <p className="text-sm text-gray-600 mb-6">We use official New Tax Regime slabs to generate your personalized tax impact report.</p>
             <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -286,164 +286,164 @@ const IncomeImpactCalculator = () => {
 const StructureExplorer = () => {
   const [activeTab, setActiveTab] = useState('prop');
 
-  const structures: Record<string, { 
-    name: string; 
-    content?: string; 
+  const structures: Record<string, {
+    name: string;
+    content?: string;
     description?: string;
-    pros?: string[]; 
-    cons?: string[]; 
+    pros?: string[];
+    cons?: string[];
   }> = {
-    prop: { 
-      name: 'Individually', 
+    prop: {
+      name: 'Individually',
       description: 'Single individual owner, no separate legal entity.',
       pros: [
-        'Lowest compliance cost', 
-        'Easiest setup & closure', 
+        'Lowest compliance cost',
+        'Easiest setup & closure',
         'No separate tax registration (PAN based)',
         'Audit if Turnover ≥ ₹50L (cash transactions > 5%) or ₹75L'
       ],
       cons: [
-        'Unlimited liability (personal assets at risk)', 
-        'Difficult to raise funding', 
+        'Unlimited liability (personal assets at risk)',
+        'Difficult to raise funding',
         'Taxed at individual slab rates (can hit 42%+)'
       ],
     },
-    part: { 
-      name: 'Partnership', 
+    part: {
+      name: 'Partnership',
       description: 'Two or more persons agreeing to share profits.',
       pros: [
-        'Partners salaries & interest allowed as expense', 
-        'Simplified shared management', 
+        'Partners salaries & interest allowed as expense',
+        'Simplified shared management',
         'Easy to draft and execute partnership deed',
         'Ease of exit - Easy',
         'Audit if Turnover ≥ ₹50L (cash transactions > 5%) or ₹75L'
       ],
       cons: [
-        'Unlimited liability for all partners', 
-        '30% flat tax rate (expensive for low revenue)', 
+        'Unlimited liability for all partners',
+        '30% flat tax rate (expensive for low revenue)',
         'Legal risk of partner disputes'
       ],
     },
-    llp: { 
-      name: 'LLP', 
+    llp: {
+      name: 'LLP',
       description: 'Hybrid of partnership and corporate body.',
       pros: [
-        'Limited liability protection', 
-        'No surcharge on tax if income < ₹1Cr', 
+        'Limited liability protection',
+        'No surcharge on tax if income < ₹1Cr',
         'Flexibility of a partnership with corporate status',
         'Ease of exit - Moderate'
       ],
       cons: [
-        '30% flat tax rate', 
-        'Higher compliance than proprietorship/partnership', 
+        '30% flat tax rate',
+        'Higher compliance than proprietorship/partnership',
         'Foreign funding involves more scrutiny',
         'Audit if Turnover ≥ ₹40L or Contribution ≥ ₹25L'
       ],
     },
-    opc: { 
-      name: 'OPC', 
+    opc: {
+      name: 'OPC',
       description: 'Company with only one member.',
       pros: [
-        'Solo ownership with corporate status', 
-        'Limited liability protection', 
+        'Solo ownership with corporate status',
+        'Limited liability protection',
         '25% corporate tax rate'
       ],
       cons: [
         'Mandatory Statutory Audit',
-        'High compliance costs for a solo founder', 
+        'High compliance costs for a solo founder',
         'Ease of exit - Difficult',
         'Maximum Turnover limit is ₹2Cr'
       ],
     },
-    pvt: { 
-      name: 'Pvt Ltd', 
+    pvt: {
+      name: 'Pvt Ltd',
       description: 'Private company with restricted share transfers.',
       pros: [
-        'Gold standard for raising external funding', 
-        '25% corporate tax rate', 
+        'Gold standard for raising external funding',
+        '25% corporate tax rate',
         'Separate legal entity status'
       ],
       cons: [
         'Mandatory Statutory Audit',
-        'Minimum 2 directors required', 
+        'Minimum 2 directors required',
         'Ease of exit - Difficult'
       ],
     },
-    huf: { 
-      name: 'HUF', 
+    huf: {
+      name: 'HUF',
       description: 'HUF',
-      content: 'Hindu Undivided Family (HUF) is a separate tax entity formed by family members. Not recommended for professional side-hustles due to legal scrutiny.', 
+      content: 'Hindu Undivided Family (HUF) is a separate tax entity formed by family members. Not recommended for professional side-hustles due to legal scrutiny.',
     }
   };
 
   const matrixRows = [
-    { 
-      label: 'Tax rate', 
-      prop: { val: 'Slab Rate', type: 'gradient-rg' }, 
-      part: { val: '30% + Cess', type: 'con' }, 
-      llp: { val: '30% + Cess', type: 'con' }, 
-      opc: { val: '25% + Cess', type: 'pro' }, 
+    {
+      label: 'Tax rate',
+      prop: { val: 'Slab Rate', type: 'gradient-rg' },
+      part: { val: '30% + Cess', type: 'con' },
+      llp: { val: '30% + Cess', type: 'con' },
+      opc: { val: '25% + Cess', type: 'pro' },
       pvt: { val: '25% + Cess', type: 'pro' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Audit', 
-      prop: { val: 'T.O ≥ ₹75L', type: 'pro' }, 
-      part: { val: 'T.O ≥ ₹75L', type: 'pro' }, 
-      llp: { val: 'T.O > ₹40L', type: 'con' }, 
-      opc: { val: 'Mandatory', type: 'con' }, 
+    {
+      label: 'Audit',
+      prop: { val: 'T.O ≥ ₹50L/₹75L', type: 'pro' },
+      part: { val: 'T.O ≥ ₹50L/₹75L', type: 'pro' },
+      llp: { val: 'T.O ≥ ₹40L or Contribution ≥ ₹25L', type: 'con' },
+      opc: { val: 'Mandatory', type: 'con' },
       pvt: { val: 'Mandatory', type: 'con' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Compliance', 
-      prop: { val: 'Low', type: 'pro' }, 
-      part: { val: 'Medium', type: 'gradient-gr-more-g' }, 
-      llp: { val: 'Medium/High', type: 'gradient-rg-more-r' }, 
-      opc: { val: 'High', type: 'con' }, 
+    {
+      label: 'Compliance',
+      prop: { val: 'Low', type: 'pro' },
+      part: { val: 'Medium', type: 'gradient-gr-more-g' },
+      llp: { val: 'Medium/High', type: 'gradient-rg-more-r' },
+      opc: { val: 'High', type: 'con' },
       pvt: { val: 'High', type: 'con' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Scalability', 
-      prop: { val: 'Low', type: 'con' }, 
-      part: { val: 'Medium', type: 'gradient-rg-equal' }, 
-      llp: { val: 'High', type: 'pro' }, 
-      opc: { val: 'Medium', type: 'gradient-rg-equal' }, 
+    {
+      label: 'Scalability',
+      prop: { val: 'Low', type: 'con' },
+      part: { val: 'Medium', type: 'gradient-rg-equal' },
+      llp: { val: 'High', type: 'pro' },
+      opc: { val: 'Medium', type: 'gradient-rg-equal' },
       pvt: { val: 'High', type: 'pro' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Taking Money Out', 
-      prop: { val: 'Easy', type: 'pro' }, 
-      part: { val: 'Easy', type: 'pro' }, 
-      llp: { val: 'Easy', type: 'pro' }, 
-      opc: { val: 'Difficult', type: 'con' }, 
+    {
+      label: 'Taking Money Out',
+      prop: { val: 'Easy', type: 'pro' },
+      part: { val: 'Easy', type: 'pro' },
+      llp: { val: 'Easy', type: 'pro' },
+      opc: { val: 'Difficult', type: 'con' },
       pvt: { val: 'Difficult', type: 'con' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Liability', 
-      prop: { val: 'Unlimited', type: 'con' }, 
-      part: { val: 'Unlimited', type: 'con' }, 
-      llp: { val: 'Limited', type: 'pro' }, 
-      opc: { val: 'Limited', type: 'pro' }, 
+    {
+      label: 'Liability',
+      prop: { val: 'Unlimited', type: 'con' },
+      part: { val: 'Unlimited', type: 'con' },
+      llp: { val: 'Limited', type: 'pro' },
+      opc: { val: 'Limited', type: 'pro' },
       pvt: { val: 'Limited', type: 'pro' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
-    { 
-      label: 'Deemed Dividend', 
-      prop: { val: 'N/A', type: 'pro' }, 
-      part: { val: 'N/A', type: 'pro' }, 
-      llp: { val: 'N/A', type: 'pro' }, 
-      opc: { val: 'Applicable', type: 'con' }, 
+    {
+      label: 'Deemed Dividend',
+      prop: { val: 'N/A', type: 'pro' },
+      part: { val: 'N/A', type: 'pro' },
+      llp: { val: 'N/A', type: 'pro' },
+      opc: { val: 'Applicable', type: 'con' },
       pvt: { val: 'Applicable', type: 'con' },
-      huf: { val: '', type: 'huf' } 
+      huf: { val: '', type: 'huf' }
     },
   ];
 
   const getCellBg = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'pro': return 'bg-green-100/60';
       case 'con': return 'bg-red-100/60';
       case 'gradient-rg': return 'bg-gradient-to-r from-green-100/60 to-red-100/60';
@@ -464,66 +464,65 @@ const StructureExplorer = () => {
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`px-4 py-3 text-sm font-medium transition-colors flex-grow md:flex-grow-0 ${
-                activeTab === key 
-                  ? 'bg-befinlit-navy text-white' 
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
+              className={`px-4 py-3 text-sm font-medium transition-colors flex-grow md:flex-grow-0 ${activeTab === key
+                ? 'bg-befinlit-navy text-white'
+                : 'text-gray-600 hover:bg-gray-50'
+                }`}
             >
               {data.name}
             </button>
           ))}
         </div>
-        
+
         <div className="p-8 relative min-h-[250px]">
           {activeTab === 'huf' && (
             <div className="absolute inset-0 bg-red-50/90 z-10 flex flex-col items-center justify-center text-center p-6 backdrop-blur-[1px]">
-               <XCircle size={64} className="text-red-500 mb-4" />
-               <h4 className="text-2xl font-bold text-red-800 mb-2">Not Recommended for Freelancers</h4>
-               <p className="text-red-700 max-w-lg">
-                 Using an HUF for professional income is aggressively litigated. Unless you have independent employees and physical infrastructure, this income is often clubbed with your personal salary.
-               </p>
+              <XCircle size={64} className="text-red-500 mb-4" />
+              <h4 className="text-2xl font-bold text-red-800 mb-2">Not Recommended for Freelancers</h4>
+              <p className="text-red-700 max-w-lg">
+                Using an HUF for professional income is aggressively litigated. Unless you have independent employees and physical infrastructure, this income is often clubbed with your personal salary.
+              </p>
             </div>
           )}
 
           <div className={`${activeTab === 'huf' ? 'opacity-20 blur-sm' : ''}`}>
-             <h3 className="text-2xl font-bold text-befinlit-navy mb-2">{structures[activeTab].name}</h3>
-             <p className="text-sm text-gray-500 mb-6 italic">{structures[activeTab].description}</p>
-             
-             {structures[activeTab].pros ? (
-               <div className="grid md:grid-cols-2 gap-8">
-                 <div>
-                   <h4 className="text-[10px] uppercase tracking-widest font-bold text-green-600 mb-4 flex items-center gap-2">
-                     <Check size={14} /> Pros
-                   </h4>
-                   <ul className="space-y-3">
-                     {structures[activeTab].pros?.map((pro, i) => (
-                       <li key={i} className="text-sm text-gray-700 flex items-start gap-3">
-                         <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0" />
-                         {pro}
-                       </li>
-                     ))}
-                   </ul>
-                 </div>
-                 <div>
-                   <h4 className="text-[10px] uppercase tracking-widest font-bold text-red-600 mb-4 flex items-center gap-2">
-                     <X size={14} /> Cons
-                   </h4>
-                   <ul className="space-y-3">
-                     {structures[activeTab].cons?.map((con, i) => (
-                       <li key={i} className="text-sm text-gray-700 flex items-start gap-3">
-                         <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
-                         {con}
-                       </li>
-                     ))}
-                   </ul>
-                 </div>
-               </div>
-             ) : (
-               <div className="space-y-6">
-                  <p className="text-gray-600 leading-relaxed">{structures[activeTab].content}</p>
-               </div>
-             )}
+            <h3 className="text-2xl font-bold text-befinlit-navy mb-2">{structures[activeTab].name}</h3>
+            <p className="text-sm text-gray-500 mb-6 italic">{structures[activeTab].description}</p>
+
+            {structures[activeTab].pros ? (
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-[10px] uppercase tracking-widest font-bold text-green-600 mb-4 flex items-center gap-2">
+                    <Check size={14} /> Pros
+                  </h4>
+                  <ul className="space-y-3">
+                    {structures[activeTab].pros?.map((pro, i) => (
+                      <li key={i} className="text-sm text-gray-700 flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shrink-0" />
+                        {pro}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-[10px] uppercase tracking-widest font-bold text-red-600 mb-4 flex items-center gap-2">
+                    <X size={14} /> Cons
+                  </h4>
+                  <ul className="space-y-3">
+                    {structures[activeTab].cons?.map((con, i) => (
+                      <li key={i} className="text-sm text-gray-700 flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
+                        {con}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <p className="text-gray-600 leading-relaxed">{structures[activeTab].content}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -598,13 +597,10 @@ const EntityTaxEstimator = () => {
         <div>
           <h4 className="text-lg font-bold text-befinlit-navy mb-2">Compare Entity Tax Liabilities</h4>
           <p className="text-sm text-befinlit-navy/70 max-w-4xl">
-            Want to see exactly how much tax you save in an individually owned business vs other business organisations for your specific income? We have a comprehensive model. Reach out to us over email. <br/><br/>
-            <span className="font-bold italic text-befinlit-navy">
-              I am interested in a paid consultation.
-              <a href="#" className="ml-2 text-befinlit-gold underline hover:text-befinlit-navy transition-colors">
-                Schedule Now
-              </a>
-            </span>
+            Want to see exactly how much tax you save in an individually owned business vs other business organisations for your specific income? We have a comprehensive model. Reach out to us over email. <br /><br />
+            <button className="mt-4 inline-block bg-befinlit-navy text-befinlit-cream px-6 py-3 rounded-sm font-bold hover:bg-befinlit-gold hover:text-befinlit-navy transition-all shadow-md">
+              Schedule a paid Consultation
+            </button>
           </p>
         </div>
       </div>
@@ -618,19 +614,10 @@ const ArticleContent: React.FC = () => {
   const [showHelpModal, setShowHelpModal] = useState(false);
 
   return (
-    <article className="max-w-4xl mx-auto px-6 pt-32 md:pt-40 pb-12">
+    <article className="max-w-4xl mx-auto px-6 pt-48 pb-12">
       {/* Header */}
       <header className="text-center mb-16 border-b border-befinlit-navy/10 pb-12">
-         {/* Branding Placeholder */}
-        <div className="flex flex-col items-center justify-center mb-8">
-            <div className="w-16 h-16 bg-befinlit-navy text-befinlit-cream flex items-center justify-center rounded-sm mb-3 shadow-lg">
-                 <span className="font-serif font-bold text-3xl">B</span>
-            </div>
-            <h2 className="text-xl font-bold tracking-tight text-befinlit-navy">BeFinLit India</h2>
-             <p className="text-[0.65rem] tracking-widest text-befinlit-lightNavy font-semibold">
-              #BecomeFinanciallyLiterate
-            </p>
-        </div>
+
 
         <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy mb-6">
           Tax Strategy
@@ -646,13 +633,13 @@ const ArticleContent: React.FC = () => {
       {/* Intro */}
       <div className="prose prose-lg prose-slate font-serif mx-auto text-befinlit-navy/80 mb-16">
         <p>
-            The remote work boom has blurred the lines between the 9-to-5 and the 5-to-9. Platforms like Upwork have democratized access to global capital. But distinguishing between what you <em>can</em> do and what you <em>should</em> do is where the taxman comes in.
+          The remote work boom has blurred the lines between the 9-to-5 and the 5-to-9. Platforms like Upwork have democratized access to global capital. But distinguishing between what you <em>can</em> do and what you <em>should</em> do is where the taxman comes in.
         </p>
-        <div className="bg-white p-6 border-l-4 border-befinlit-navy shadow-sm">
-           <h4 className="font-bold text-befinlit-navy mb-2">The Reality Check</h4>
-           <p className="text-sm italic">
-             The Indian tax ecosystem is quieter than ever, but it watches everything. The days of "cash under the table" are dead. The system is silent, but it never forgets.
-           </p>
+        <div className="bg-white p-6 border-l-4 border-befinlit-navy shadow-sm mt-10">
+          <h4 className="font-bold text-befinlit-navy mb-2">The Reality Check</h4>
+          <p className="text-sm italic">
+            The Indian tax ecosystem is quieter than ever, but it watches everything. The days of "cash under the table" are dead. The system is silent, but it never forgets.
+          </p>
         </div>
       </div>
 
@@ -663,13 +650,13 @@ const ArticleContent: React.FC = () => {
           The Initial Start: Testing the Waters
         </h2>
         <div className="bg-white p-6 rounded-sm shadow-sm space-y-4">
-            <p className="text-befinlit-navy/80 text-sm leading-relaxed">
-                Most journeys start with confusion. You get a gig, you give your PAN, and you get paid. You think no one notices because it's "just a small amount."
-            </p>
-            <ul className="list-disc pl-5 space-y-3 text-befinlit-navy/70 text-sm">
-                <li><strong>26AS & AIS:</strong> This is your financial horoscope. Every time a client deducts TDS, it hits this ledger. Employers doing background checks don't need a detective; they just need access to your AIS.</li>
-                <li><strong>The GST-PAN Link:</strong> GST is legally linked to your PAN. Since the GST portal is public, anyone with access to your PAN can easily verify if you have an active GST registration. Companies frequently use this during background checks (BGV) to identify side-hustles that may not have been disclosed.</li>
-            </ul>
+          <p className="text-befinlit-navy/80 text-sm leading-relaxed">
+            Most journeys start with confusion. You get a gig, you give your PAN, and you get paid. You think no one notices because it's "just a small amount."
+          </p>
+          <ul className="list-disc pl-5 space-y-3 text-befinlit-navy/70 text-sm">
+            <li><strong>26AS & AIS:</strong> This is your financial horoscope. Every time a client deducts TDS, it hits this ledger. Employers doing background checks don't need a detective; they just need access to your AIS.</li>
+            <li><strong>The GST-PAN Link:</strong> GST is legally linked to your PAN. Since the GST portal is public, anyone with access to your PAN can easily verify if you have an active GST registration. Companies frequently use this during background checks (BGV) to identify side-hustles that may not have been disclosed.</li>
+          </ul>
         </div>
       </section>
 
@@ -680,9 +667,9 @@ const ArticleContent: React.FC = () => {
           The Growth Phase: When the Same PAN Hurts
         </h2>
         <p className="text-befinlit-navy/80 mb-6 text-sm leading-relaxed">
-            As you scale, you hit the "Surcharge Trap". Your side income is added to your salary, often pushing you into the 10% or 15% surcharge brackets. Suddenly, your effective tax rate isn't 30%—it's 42%+.
+          As you scale, you hit the "Surcharge Trap". Your side income is added to your salary, often pushing you into the 10% or 15% surcharge brackets. Suddenly, your effective tax rate isn't 30%—it's 42%+.
         </p>
-        
+
         {/* Interactive Income Impact Calculator */}
         <IncomeImpactCalculator />
       </section>
@@ -694,27 +681,30 @@ const ArticleContent: React.FC = () => {
           The Next Common Step: "The Indian Jugaad"
         </h2>
         <div className="bg-befinlit-cream p-8 border border-befinlit-navy/10 rounded-sm">
-            <h3 className="font-bold text-befinlit-navy text-lg mb-4">"I'll just bill it in my Mom's name."</h3>
-            <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-4">
-                It sounds genius. She has no income, so you use her basic exemption limit. But here is the risk that nobody talks about.
-            </p>
-            <div className="flex items-start gap-3 bg-red-50 p-4 rounded-sm border border-red-100">
-                <AlertCircle className="text-red-700 shrink-0 mt-1" size={18} />
-                <div className="text-sm text-red-800 space-y-4">
-                    <div>
-                        <p className="font-bold mb-1">The Internal Auditor Block</p>
-                        <p>
-                            Most corporate clients (especially MNCs) have strict internal audit rules. They cannot pay "Mrs. Sharma (Homemaker)" for "Python Development Services". It flags as a vendor discrepancy or potential money laundering.
-                        </p>
-                    </div>
-                    <div>
-                        <p className="font-bold mb-1">Caution: Long-term Sustainability</p>
-                        <p>
-                            This approach is not sustainable for a long term plan where you do not show your personal income increasing over the years. Therefore, in the long run if you require income proof for any loans, visas, insurance, or credit cards - it will be extremely bothersome.
-                        </p>
-                    </div>
-                </div>
+          <h3 className="font-bold text-befinlit-navy text-lg mb-4">"I'll just bill it in my Mom's name."</h3>
+          <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-4">
+            It sounds genius. She has no income, so you use her basic exemption limit. But here is the risk that nobody talks about.
+          </p>
+          <div className="bg-red-50 p-4 rounded-sm border border-red-100 space-y-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="text-red-700 shrink-0 mt-1" size={18} />
+              <div className="text-sm text-red-800">
+                <p className="font-bold mb-1">The Internal Auditor Block</p>
+                <p>
+                  Most corporate clients (especially MNCs) have strict internal audit rules. They cannot pay "Mrs. Sharma (Homemaker)" for "Python Development Services". It flags as a vendor discrepancy or potential money laundering.
+                </p>
+              </div>
             </div>
+            <div className="flex items-start gap-3">
+              <AlertCircle className="text-red-700 shrink-0 mt-1" size={18} />
+              <div className="text-sm text-red-800">
+                <p className="font-bold mb-1">No Long-term Sustainability</p>
+                <p>
+                  This approach is not sustainable for a long term plan where you do not show your personal income increasing over the years. Therefore, in the long run if you require income proof for any loans, visas, insurance, or credit cards - it will be extremely bothersome.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -725,9 +715,9 @@ const ArticleContent: React.FC = () => {
           Structuring Your Hustle
         </h2>
         <p className="text-sm text-befinlit-navy/70 mb-6">
-            Click on the tabs below to understand which vehicle suits your journey.
+          Click on the tabs below to understand which vehicle suits your journey.
         </p>
-        
+
         {/* Structure Tabs Component */}
         <StructureExplorer />
       </section>
@@ -739,20 +729,20 @@ const ArticleContent: React.FC = () => {
           The 44AD vs 44ADA "Grey Area"
         </h2>
         <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-                <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed">
-                    Many freelancers file under 44AD (declaring 6% profit) because it's cheaper than 44ADA (50% profit).
-                </p>
-                <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed font-bold">
-                    Is it wrong? Technically, no. Is it safe? Absolutely not.
-                </p>
-                <p className="text-befinlit-navy/70 text-xs leading-relaxed">
-                    If your TDS is deducted under 194J (Technical / Professional Services), claiming to be a "trader" under 44AD invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
-                </p>
-            </div>
-            <div className="bg-befinlit-navy text-white p-6 rounded-sm text-center">
-                <p className="font-serif italic text-lg mb-4">"Compliance is expensive. Non-compliance is unaffordable."</p>
-            </div>
+          <div>
+            <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed">
+              Many freelancers file under 44AD (declaring 6%/8% profit) because it's cheaper than 44ADA (50% profit).
+            </p>
+            <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed font-bold">
+              Is it wrong? Technically, no. Is it safe? Absolutely not.
+            </p>
+            <p className="text-befinlit-navy/70 text-xs leading-relaxed">
+              If your TDS is deducted under 194J (Technical / Professional Services), claiming to be a "trader" under 44AD invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
+            </p>
+          </div>
+          <div className="bg-befinlit-navy text-white p-6 rounded-sm text-center">
+            <p className="font-serif italic text-lg mb-4">"Compliance is expensive. Non-compliance is unaffordable."</p>
+          </div>
         </div>
       </section>
 
@@ -761,11 +751,11 @@ const ArticleContent: React.FC = () => {
         <EntityTaxEstimator />
       </section>
 
-       {/* Contact Modal */}
-       {showHelpModal && (
+      {/* Contact Modal */}
+      {showHelpModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-befinlit-navy/90 backdrop-blur-sm">
           <div className="bg-white p-8 rounded-sm max-sm w-full relative text-center">
-            <button onClick={() => setShowHelpModal(false)} className="absolute top-4 right-4 text-gray-400"><X size={20}/></button>
+            <button onClick={() => setShowHelpModal(false)} className="absolute top-4 right-4 text-gray-400"><X size={20} /></button>
             <Mail size={48} className="text-befinlit-gold mx-auto mb-4" />
             <h3 className="text-xl font-bold text-befinlit-navy mb-2">Let's Discuss</h3>
             <p className="text-gray-600 text-sm mb-6">
