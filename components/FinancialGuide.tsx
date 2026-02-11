@@ -57,11 +57,16 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     The Freelancer's Financial Playbook
                 </h1>
                 <p className="text-lg md:text-xl text-befinlit-navy/70 italic font-serif leading-relaxed max-w-2xl mx-auto">
-                    For Indian Freelancers & Professionals
+                    The Ultimate Playbook for all Indian Freelancers & Professionals.
                 </p>
-                <p className="text-xs text-befinlit-navy/40 mt-4 uppercase tracking-widest">Last Updated: June 2025</p>
-                <p className="text-sm text-befinlit-navy/60 mt-2 italic">Disclaimer: This is a general guide. Always consult a qualified professional for advice tailored to your situation.</p>
             </header>
+
+            {/* Intro */}
+            <div className="prose prose-lg prose-slate font-serif mx-auto text-befinlit-navy/80 mb-16">
+                <p>
+                    The gig economy has liberated talent from traditional employment. Whether you're a consultant, a designer, or a developer, you are your own boss. But with great freedom comes great compliance. From income tax slabs to GST registrations, navigating the regulatory maze is the price of admission for your independent career.
+                </p>
+            </div>
 
             {/* Internal Navigation */}
             <nav className="bg-white/80 backdrop-blur-md rounded-sm border border-befinlit-navy/10 p-4 sticky top-24 z-10 mb-12 shadow-sm print:hidden">
@@ -86,14 +91,14 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     </div>
 
                     <h2 className="text-3xl font-bold font-serif text-center mb-8 text-befinlit-navy flex items-center justify-center gap-3">
-                        <FileText className="text-befinlit-gold" /> Income Tax Act, 1961
+                        <FileText className="text-befinlit-gold" /> Income Tax Act 2025
                     </h2>
 
                     <div className="flex flex-col md:flex-row gap-8">
                         <div className="w-full md:w-2/3 space-y-8">
                             <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 h-full flex flex-col">
                                 <div className="flex-grow">
-                                    <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy">Section 44ADA: Presumptive Taxation</h3>
+                                    <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy">Section 58<sup>*</sup>: Presumptive Taxation</h3>
                                     <p className="text-befinlit-navy/70 mb-8 leading-relaxed">A simplified taxation scheme for Resident Individuals and Partnership Firms (not LLPs) who are specified professionals.</p>
                                     <h4 className="font-bold text-xs uppercase tracking-widest text-befinlit-navy/50 mb-4">Turnover Criteria (FY 2024-25 / AY 2025-26)</h4>
                                     <div className="flex flex-col sm:flex-row gap-4 mb-4">
@@ -112,8 +117,8 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                         </div>
                         <div className="w-full md:w-1/3">
                             <div className="bg-befinlit-navy text-befinlit-cream p-8 rounded-sm h-full flex flex-col justify-center">
-                                <h3 className="text-xl font-bold mb-4 text-befinlit-gold text-center font-serif">Professionals Notified u/s 44AA</h3>
-                                <p className="text-xs text-white/60 mb-8 text-center uppercase tracking-widest">Eligible for Section 44ADA</p>
+                                <h3 className="text-xl font-bold mb-4 text-befinlit-gold text-center font-serif">Professionals Notified u/s 62<sup>*</sup></h3>
+                                <p className="text-xs text-white/60 mb-8 text-center uppercase tracking-widest">Eligible for Section 58<sup>*</sup></p>
                                 <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm font-medium">
                                     <span>✓ Legal</span>
                                     <span>✓ Medical</span>
@@ -181,7 +186,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6">
                                 <div className="w-full md:w-2/5">
                                     <div className="p-6 rounded-sm border border-befinlit-gold/30 bg-befinlit-gold/5 h-full">
-                                        <h4 className="font-bold text-center text-befinlit-navy mb-4 font-serif">Basic Books for 44ADA</h4>
+                                        <h4 className="font-bold text-center text-befinlit-navy mb-4 font-serif">Basic Books for Section 58<sup>*</sup></h4>
                                         <ul className="text-sm text-befinlit-navy/80 space-y-2 list-disc list-inside">
                                             <li>Capital Account</li>
                                             <li>Sundry Creditors</li>
@@ -195,7 +200,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                 </div>
                                 <div className="w-full md:w-2/5">
                                     <div className="p-6 rounded-sm bg-gray-50 border border-gray-200 h-full flex flex-col justify-center text-center">
-                                        <h4 className="font-bold text-lg text-befinlit-navy mb-2">The Best Part of 44ADA</h4>
+                                        <h4 className="font-bold text-lg text-befinlit-navy mb-2">The Best Part of Section 58<sup>*</sup></h4>
                                         <p className="text-sm text-befinlit-navy/70 leading-relaxed">You are <b className="font-bold text-befinlit-navy">not required to maintain detailed books</b> of accounts. Only basic records are needed to fill your ITR.</p>
                                     </div>
                                 </div>
@@ -222,7 +227,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                 <div className="w-full md:w-2/5">
                                     <div className="p-6 rounded-sm bg-red-50 border border-red-100 h-full text-center">
                                         <h4 className="font-bold text-lg text-red-800 mb-2">When Tax Audit is Required</h4>
-                                        <p className="text-sm text-red-700/80 mb-3">You must opt out of 44ADA and get a tax audit if either of these conditions apply:</p>
+                                        <p className="text-sm text-red-700/80 mb-3">You must opt out of Section 58<sup>*</sup> and get a tax audit if either of these conditions apply:</p>
                                         <ul className="text-sm text-red-700/80 list-disc list-inside space-y-1 text-left inline-block">
                                             <li>Your profits are <b className="font-bold">&lt; 50%</b> of gross receipts.</li>
                                             <li>Your gross receipts exceed the presumptive limits (<b className="font-bold">₹50 lakh or ₹75 lakh</b>).</li>
@@ -389,6 +394,19 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                         Schedule a Consultation
                     </button>
                 </section>
+
+                {/* Glossary */}
+                <section className="border-t border-befinlit-navy/10 pt-12 print:hidden">
+                    <h3 className="text-xl font-bold font-serif text-befinlit-navy mb-4">Glossary of Changes (Income Tax Act 2025)</h3>
+                    <div className="bg-gray-50 p-6 rounded-sm border border-gray-200">
+                        <ul className="space-y-2 text-sm text-befinlit-navy/70">
+                            <li><b className="text-befinlit-navy">Section 58<sup>*</sup>:</b> Corresponds to Section 44ADA of the Income Tax Act, 1961 (Presumptive Taxation).</li>
+                            <li><b className="text-befinlit-navy">Section 62<sup>*</sup>:</b> Corresponds to Section 44AA of the Income Tax Act, 1961 (Maintenance of Accounts).</li>
+                            <li><b className="text-befinlit-navy">Section 393<sup>*</sup>:</b> Corresponds to Section 195 of the Income Tax Act, 1961 (TDS on Non-Residents).</li>
+                        </ul>
+                    </div>
+                </section>
+
 
             </main>
         </article>
