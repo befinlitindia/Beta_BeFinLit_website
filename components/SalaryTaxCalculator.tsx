@@ -110,9 +110,9 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
 
                         {/* SECTION A */}
                         <div className="space-y-8">
-                            <div className="border-b-2 border-[#000a2e] pb-4">
-                                <h2 className="text-3xl font-black text-[#000a2e] tracking-tight">Section A: Taxpayer Profile</h2>
-                            </div>
+                            <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
+                                Section A: Taxpayer Profile
+                            </h2>
                             <Section title="Demographic Details" description="Foundational details required to determine tax slab eligibility." delay={100}>
                                 <InputField label="Current Age" name="userAge" value={inputs.userAge} onChange={handleInputChange} showCurrency={false} tooltip="Determines tax slab limits in Old Regime." />
                                 <ToggleField label="Residence Location" name="isMetro" value={inputs.isMetro} onChange={handleInputChange} leftLabel="Metro City" rightLabel="Non-Metro" subText="Metro: Mumbai, Delhi, Kolkata, Chennai." />
@@ -123,9 +123,9 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
 
                         {/* SECTION B: SALARY COMPONENTS */}
                         <div className="space-y-12">
-                            <div className="border-b-2 border-[#000a2e] pb-4">
-                                <h2 className="text-3xl font-black text-[#000a2e] tracking-tight">Section B: Salary Components</h2>
-                            </div>
+                            <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
+                                Section B: Salary Components
+                            </h2>
 
                             {/* BLOCK 1: FIXED TAXABLE COMPONENTS */}
                             <Section

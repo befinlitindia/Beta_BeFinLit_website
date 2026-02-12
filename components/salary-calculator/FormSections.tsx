@@ -15,8 +15,8 @@ export const Section: React.FC<SectionProps> = ({ title, description, children, 
         style={{ animationDelay: `${delay}ms` }}
     >
         <div className="mb-10">
-            <h3 className="text-xl font-black text-[#000a2e] tracking-tight mb-2">{title}</h3>
-            <p className="text-sm text-slate-500 font-medium italic opacity-80">{description}</p>
+            <h3 className="text-lg font-bold text-befinlit-navy mb-4">{title}</h3>
+            <p className="text-xs text-slate-500 font-medium italic opacity-80">{description}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {children}
