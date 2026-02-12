@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, onOpenConsulta
           onClick={() => handleLinkClick('home')}
         >
           {/* Brand Logo - Image */}
-          <img src="/logo.png" alt="BeFinLit India" className="h-28 w-auto object-contain" />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="BeFinLit India" className="h-28 w-auto object-contain" />
 
           {/* Divider */}
           <div className="h-8 w-px bg-befinlit-navy/20"></div>
