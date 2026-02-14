@@ -15,7 +15,7 @@ export const Section: React.FC<SectionProps> = ({ title, description, children, 
         style={{ animationDelay: `${delay}ms` }}
     >
         <div className="mb-10">
-            <h3 className="text-lg font-bold text-befinlit-navy mb-4">{title}</h3>
+            <h3 className="text-lg font-bold font-serif text-befinlit-navy mb-4">{title}</h3>
             <p className="text-xs text-slate-500 font-medium italic opacity-80">{description}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -32,9 +32,10 @@ interface InputFieldProps {
     tooltip?: string;
     helpText?: string;
     showCurrency?: boolean;
+    warning?: string;
 }
 
-export const InputField: React.FC<InputFieldProps> = ({ label, name, value, onChange, tooltip, helpText, showCurrency = true }) => (
+export const InputField: React.FC<InputFieldProps> = ({ label, name, value, onChange, tooltip, helpText, showCurrency = true, warning }) => (
     <div className="relative group">
         <label className="block text-sm font-bold text-slate-700 mb-2.5 flex items-center gap-1.5 transition-colors group-hover:text-[#000a2e]">
             {label}
@@ -53,10 +54,11 @@ export const InputField: React.FC<InputFieldProps> = ({ label, name, value, onCh
                 type="number"
                 value={value === 0 ? '' : value}
                 onChange={(e) => onChange(name, parseFloat(e.target.value) || 0)}
-                className={`w-full ${showCurrency ? 'pl-8' : 'pl-3'} pr-3 py-3 bg-slate-50 border border-slate-200 rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:ring-1 focus:ring-[#000a2e] focus:bg-white transition-all hover:border-slate-300 placeholder-slate-300`}
+                className={`w-full ${showCurrency ? 'pl-8' : 'pl-3'} pr-3 py-2 bg-slate-50 border ${warning ? 'border-amber-400' : 'border-slate-200'} rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:ring-1 ${warning ? 'focus:ring-amber-500' : 'focus:ring-[#000a2e]'} focus:bg-white transition-all hover:border-slate-300 placeholder-slate-300`}
                 placeholder="0"
             />
         </div>
+        {warning && <p className="text-[10px] text-amber-600 mt-1 font-bold flex items-center gap-1">⚠️ {warning}</p>}
         {helpText && <p className="text-[10px] text-slate-400 mt-2 font-semibold italic">{helpText}</p>}
     </div>
 );
@@ -122,7 +124,7 @@ export const DynamicRow: React.FC<DynamicRowProps> = ({ items, onAdd, onRemove, 
                             value={item.name}
                             onChange={(e) => onChange(item.id, 'name', e.target.value)}
                             placeholder="Component Name"
-                            className="flex-1 py-3 px-4 bg-white border border-slate-200 rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:border-[#000a2e]"
+                            className="flex-1 py-2 px-4 bg-white border border-slate-200 rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:border-[#000a2e]"
                         />
                         <div className="relative w-40 md:w-56">
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
@@ -131,7 +133,7 @@ export const DynamicRow: React.FC<DynamicRowProps> = ({ items, onAdd, onRemove, 
                                 value={item.value === 0 ? '' : item.value}
                                 onChange={(e) => onChange(item.id, 'value', parseFloat(e.target.value) || 0)}
                                 placeholder="0"
-                                className="w-full pl-8 pr-3 py-3 bg-white border border-slate-200 rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:border-[#000a2e] placeholder-slate-300"
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-200 rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:border-[#000a2e] placeholder-slate-300"
                             />
                         </div>
                         <button

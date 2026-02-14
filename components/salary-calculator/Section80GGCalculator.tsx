@@ -52,34 +52,32 @@ const Section80GGCalculator: React.FC<Section80GGCalculatorProps> = ({ inputs, b
                     )}
                 </div>
 
-                <div className="lg:col-span-5 bg-[#000a2e] p-6 rounded-sm flex flex-col shadow-xl text-white">
-                    <h5 className="text-[11px] font-bold text-slate-400 mb-6 border-b border-white/10 pb-2">80GG relief summary</h5>
+                <div className="lg:col-span-5 bg-slate-50 p-4 rounded-sm space-y-3 h-fit border border-slate-100">
+                    <p className="text-xs font-bold text-slate-400 mb-2 text-center">80GG Relief Summary</p>
 
-                    <div className="space-y-4 mb-8">
-                        <div className="flex justify-between items-center">
-                            <span className="text-[10px] font-bold text-slate-400">Adjusted Total Income (ATI)</span>
-                            <span className="text-xs font-black">₹{formatINR(breakdown.ati)}</span>
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2">
+                            <span className="text-slate-500">Adjusted Total Income (ATI)</span>
+                            <span className="text-[#000a2e]">₹{formatINR(breakdown.ati)}</span>
                         </div>
 
-                        <div className="space-y-2 mt-4">
-                            <div className="flex justify-between text-[10px] font-medium opacity-80">
-                                <span>1. ₹5,000 per month (Max 60k)</span>
-                                <span>₹{formatINR(breakdown.limit1)}</span>
-                            </div>
-                            <div className="flex justify-between text-[10px] font-medium opacity-80">
-                                <span>2. 25% of ATI</span>
-                                <span>₹{formatINR(breakdown.limit2)}</span>
-                            </div>
-                            <div className="flex justify-between text-[10px] font-medium opacity-80">
-                                <span>3. Rent Paid minus 10% of ATI</span>
-                                <span>₹{formatINR(breakdown.limit3)}</span>
-                            </div>
+                        <div className={`flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2 ${breakdown.eligibleDeduction === breakdown.limit1 ? 'text-green-600' : ''}`}>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit1 ? 'text-green-600' : 'text-slate-500'}>1. ₹5,000 per month (Max 60k)</span>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit1 ? 'text-green-600' : 'text-[#000a2e]'}>₹{formatINR(breakdown.limit1)}</span>
+                        </div>
+                        <div className={`flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2 ${breakdown.eligibleDeduction === breakdown.limit2 ? 'text-green-600' : ''}`}>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit2 ? 'text-green-600' : 'text-slate-500'}>2. 25% of ATI</span>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit2 ? 'text-green-600' : 'text-[#000a2e]'}>₹{formatINR(breakdown.limit2)}</span>
+                        </div>
+                        <div className={`flex justify-between items-center text-xs font-semibold pt-1 ${breakdown.eligibleDeduction === breakdown.limit3 ? 'text-green-600' : ''}`}>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit3 ? 'text-green-600' : 'text-slate-500'}>3. Rent Paid minus 10% of ATI</span>
+                            <span className={breakdown.eligibleDeduction === breakdown.limit3 ? 'text-green-600' : 'text-[#000a2e]'}>₹{formatINR(breakdown.limit3)}</span>
                         </div>
                     </div>
 
-                    <div className="mt-auto pt-6 border-t border-yellow-400/30 text-center">
+                    <div className="mt-4 p-4 bg-[#000a2e] rounded-sm text-center">
                         <p className="text-[10px] font-bold text-slate-400 mb-1">Eligible deduction (Lowest of the three)</p>
-                        <p className="text-4xl font-black text-yellow-400">₹{formatINR(breakdown.eligibleDeduction)}</p>
+                        <p className="text-xl font-bold text-yellow-400">₹{formatINR(breakdown.eligibleDeduction)}</p>
                     </div>
                 </div>
             </div>

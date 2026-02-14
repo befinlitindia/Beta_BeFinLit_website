@@ -4,6 +4,18 @@ const STANDARD_DEDUCTION_NEW = 75000;
 const STANDARD_DEDUCTION_OLD = 50000;
 const CESS_RATE = 0.04;
 
+// Helper to round to nearest integer
+const round = (val: number) => Math.round(val);
+
+// Helper to round to nearest 10 (Section 288A/288B)
+const roundTo10 = (val: number) => {
+    const rounded = Math.round(val);
+    const remainder = rounded % 10;
+    if (remainder <= 4 && remainder >= 0) return rounded - remainder; // Round down (e.g., 52 -> 50)
+    if (remainder >= 5) return rounded + (10 - remainder); // Round up (e.g., 55 -> 60)
+    return rounded; // Should not happen for positive integers but safe
+};
+
 /**
  * Calculates Surcharge and Surcharge Marginal Relief based on Finance Act 2025
  * Tax Payable = Min(Tax on Income + Surcharge, Tax on Threshold + (Actual Income - Threshold))
@@ -20,7 +32,7 @@ const calculateSurchargeWithRelief = (baseTax: number, income: number, isNewRegi
 
     if (rate === 0) return { surcharge: 0, marginalRelief: 0 };
 
-    const rawSurcharge = baseTax * rate;
+    const rawSurcharge = round(baseTax * rate);
     const totalTaxWithSurcharge = baseTax + rawSurcharge;
 
     // Calculate Tax at Threshold
@@ -32,11 +44,11 @@ const calculateSurchargeWithRelief = (baseTax: number, income: number, isNewRegi
     else if (threshold === 10000000) surchargeRateAtThreshold = 0.10;
     else if (threshold === 5000000) surchargeRateAtThreshold = 0;
 
-    const surchargeAtThreshold = taxAtThreshold * surchargeRateAtThreshold;
+    const surchargeAtThreshold = round(taxAtThreshold * surchargeRateAtThreshold);
     const limitAmount = (taxAtThreshold + surchargeAtThreshold) + (income - threshold);
 
     if (totalTaxWithSurcharge > limitAmount) {
-        const relief = totalTaxWithSurcharge - limitAmount;
+        const relief = round(totalTaxWithSurcharge - limitAmount);
         return { surcharge: rawSurcharge, marginalRelief: relief };
     }
 
@@ -55,26 +67,26 @@ const calculateOldRegimeTax = (taxableIncome: number, age: number): { baseTax: n
 
     if (taxableIncome > slabLimit) {
         const taxable5 = Math.min(taxableIncome, 500000) - slabLimit;
-        const amount5 = Math.max(0, taxable5 * 0.05);
+        const amount5 = round(Math.max(0, taxable5 * 0.05));
         tax += amount5;
         slabs.push({ limit: `₹${(slabLimit / 1000).toFixed(0)}k - ₹5L`, rate: '5%', amount: amount5 });
 
         if (taxableIncome > 500000) {
             const taxable20 = Math.min(taxableIncome, 1000000) - 500000;
-            const amount20 = Math.max(0, taxable20 * 0.20);
+            const amount20 = round(Math.max(0, taxable20 * 0.20));
             tax += amount20;
             slabs.push({ limit: '₹5L - ₹10L', rate: '20%', amount: amount20 });
         }
 
         if (taxableIncome > 1000000) {
             const taxable30 = taxableIncome - 1000000;
-            const amount30 = Math.max(0, taxable30 * 0.30);
+            const amount30 = round(Math.max(0, taxable30 * 0.30));
             tax += amount30;
             slabs.push({ limit: 'Above ₹10L', rate: '30%', amount: amount30 });
         }
     }
 
-    return { baseTax: tax, slabs };
+    return { baseTax: round(tax), slabs };
 };
 
 const calculateNewRegimeTax = (taxableIncome: number): { baseTax: number; slabs: any[] } => {
@@ -94,7 +106,7 @@ const calculateNewRegimeTax = (taxableIncome: number): { baseTax: number; slabs:
     for (const bracket of brackets) {
         if (taxableIncome > prevLimit) {
             const taxableAmount = Math.min(taxableIncome, bracket.limit) - prevLimit;
-            const amount = taxableAmount * bracket.rate;
+            const amount = round(taxableAmount * bracket.rate);
             tax += amount;
             slabs.push({ limit: bracket.label, rate: bracket.rateStr, amount });
             prevLimit = bracket.limit;
@@ -103,7 +115,7 @@ const calculateNewRegimeTax = (taxableIncome: number): { baseTax: number; slabs:
         }
     }
 
-    return { baseTax: tax, slabs };
+    return { baseTax: round(tax), slabs };
 };
 
 export const calculateTax = (input: UserInput): ComparisonResult => {
@@ -116,41 +128,60 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
     let netHPIncomeOld = 0;
     if (input.isHomeLoanSelfOccupied) netHPIncomeOld = -Math.min(input.section24b, 200000);
     else netHPIncomeOld = Math.max(-200000, (input.rentalIncomeReceived * 0.7) - input.section24b);
+    netHPIncomeOld = round(netHPIncomeOld);
 
     let netHPIncomeNew = 0;
     if (!input.isHomeLoanSelfOccupied) netHPIncomeNew = Math.max(0, (input.rentalIncomeReceived * 0.7) - input.section24b);
+    netHPIncomeNew = round(netHPIncomeNew);
 
-    const gtiOld = salaryIncome + netHPIncomeOld + totalInterest;
-    const gtiNew = salaryIncome + netHPIncomeNew + totalInterest;
+    const gtiOld = round(salaryIncome + netHPIncomeOld + totalInterest);
+    const gtiNew = round(salaryIncome + netHPIncomeNew + totalInterest);
 
     const salaryForExemptions = input.basicSalary + input.da;
     const annualRent = input.rentFrequency === 'monthly' ? input.actualRentPaid * 12 : input.actualRentPaid;
     const l1HRA = Math.max(0, annualRent - (0.10 * salaryForExemptions));
     const l2HRA = (input.isMetro ? 0.50 : 0.40) * salaryForExemptions;
-    const hraEx = Math.min(input.hraReceived, l1HRA, l2HRA);
-    const ltaEx = Math.min(input.ltaReceived, input.ltaSpent);
+    const hraEx = round(Math.min(input.hraReceived, l1HRA, l2HRA));
+    const ltaEx = round(Math.min(input.ltaReceived, input.ltaSpent));
 
     const stdOld = Math.min(salaryIncome, STANDARD_DEDUCTION_OLD);
     const stdNew = Math.min(salaryIncome, STANDARD_DEDUCTION_NEW);
 
     const selfLim = input.userAge >= 60 ? 50000 : 25000;
     const parentsLim = Math.max(input.fatherAge || 0, input.motherAge || 0) >= 60 ? 50000 : 25000;
-    const ded80D = Math.min(input.section80D_SelfInsurance + Math.min(input.section80D_PreventiveCheckup, 5000), selfLim) + Math.min(input.section80D_ParentsInsurance, parentsLim);
+    const ded80D = round(Math.min(input.section80D_SelfInsurance + Math.min(input.section80D_PreventiveCheckup, 5000), selfLim) + Math.min(input.section80D_ParentsInsurance, parentsLim));
     const ded80CCD1B = Math.min(input.section80CCD1B, 50000);
-    const ded80CCD2 = Math.min(input.section80CCD2, 0.10 * salaryForExemptions);
+
+    // 80CCD(2) Logic:
+    // Old Regime: 14% for Govt, 10% for Non-Govt
+    // New Regime: 14% for All (as per latest Finance Act)
+    // However, since we need to calculate 'deductible' amount before regime comparison, we calculate both potentials or use the input structure to derive it.
+    // The previous logic was: const ded80CCD2 = round(Math.min(input.section80CCD2, 0.10 * salaryForExemptions));
+    // We need to be careful here because 'baseDedsATI' uses deductions common to Old Regime primarily.
+    // For the sake of 'baseDedsATI' (which feeds into Old Regime Gross), we use Old Regime logic.
+    // For New Regime, we will recalculate deduction limit if needed, but standard practice explains:
+    // Old Regime Deduction:
+    const limit80CCD2_Old = (input.isGovtEmployee ? 0.14 : 0.10) * salaryForExemptions;
+    const ded80CCD2_Old = round(Math.min(input.section80CCD2, limit80CCD2_Old));
+
+    // New Regime Deduction: always 14%
+    const limit80CCD2_New = 0.14 * salaryForExemptions;
+    const ded80CCD2_New = round(Math.min(input.section80CCD2, limit80CCD2_New));
+
     const dedTTA_TTB = input.userAge >= 60 ? Math.min(totalInterest, 50000) : Math.min(input.interestSavings || 0, 10000);
     const ded80C = Math.min(input.section80C, 150000);
     let customDeds = 0; input.customDeductions.forEach(d => customDeds += d.value);
 
-    const baseDedsATI = stdOld + input.professionalTax + ded80C + ded80D + ded80CCD1B + ded80CCD2 + dedTTA_TTB + input.section80E + hraEx + ltaEx + customDeds;
+    // baseDedsATI is used for Old Regime specific calculations (like 80GG)
+    const baseDedsATI = stdOld + input.professionalTax + ded80C + ded80D + ded80CCD1B + ded80CCD2_Old + dedTTA_TTB + input.section80E + hraEx + ltaEx + customDeds;
 
     let ded80GG = 0;
     let ggBreakdown = { ati: 0, limit1: 0, limit2: 0, limit3: 0, eligibleDeduction: 0 };
     if (input.hraReceived === 0 && annualRent > 0) {
         const atiGG = Math.max(0, gtiOld - baseDedsATI);
         const gl1 = 60000, gl2 = 0.25 * atiGG, gl3 = Math.max(0, annualRent - (0.10 * atiGG));
-        ded80GG = Math.min(gl1, gl2, gl3);
-        ggBreakdown = { ati: atiGG, limit1: gl1, limit2: gl2, limit3: gl3, eligibleDeduction: ded80GG };
+        ded80GG = round(Math.min(gl1, gl2, gl3));
+        ggBreakdown = { ati: round(atiGG), limit1: round(gl1), limit2: round(gl2), limit3: round(gl3), eligibleDeduction: ded80GG };
     }
 
     const ati80G = Math.max(0, gtiOld - (baseDedsATI + ded80GG));
@@ -160,17 +191,22 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
         if (d.blockType === 1) b1 += d.amount; else if (d.blockType === 2) b2 += d.amount; else if (d.blockType === 3) b3 += d.amount; else if (d.blockType === 4) b4 += d.amount;
     });
     const r1 = b1, r2 = b2 * 0.5, b3Elig = Math.min(b3, ql80G), r3 = b3Elig, r4 = Math.min(b4, Math.max(0, ql80G - b3Elig)) * 0.5;
-    const total80G = r1 + r2 + r3 + r4;
+    const total80G = round(r1 + r2 + r3 + r4);
 
-    const netOld = Math.max(0, gtiOld - (baseDedsATI + ded80GG + total80G));
-    const netNew = Math.max(0, gtiNew - (stdNew + ded80CCD2 + customDeds));
+    const totalDeductionsOld = baseDedsATI + ded80GG + total80G;
+    const unroundedNetOld = Math.max(0, gtiOld - totalDeductionsOld);
+    const netOld = roundTo10(unroundedNetOld);
+
+    const totalDeductionsNew = stdNew + ded80CCD2_New + customDeds;
+    const unroundedNetNew = Math.max(0, gtiNew - totalDeductionsNew);
+    const netNew = roundTo10(unroundedNetNew);
 
     // --- CALC OLD ---
     const oldBaseRes = calculateOldRegimeTax(netOld, input.userAge);
     const oldRebate87A = netOld <= 500000 ? oldBaseRes.baseTax : 0;
-    const oldTaxAfterRebate = oldBaseRes.baseTax - oldRebate87A;
+    const oldTaxAfterRebate = Math.max(0, oldBaseRes.baseTax - oldRebate87A);
     const oldSurchargeRes = calculateSurchargeWithRelief(oldTaxAfterRebate, netOld, false, (inc) => calculateOldRegimeTax(inc, input.userAge).baseTax);
-    const oldFinalCess = (oldTaxAfterRebate + oldSurchargeRes.surcharge - oldSurchargeRes.marginalRelief) * CESS_RATE;
+    const oldFinalCess = round((oldTaxAfterRebate + oldSurchargeRes.surcharge - oldSurchargeRes.marginalRelief) * CESS_RATE);
 
     // --- CALC NEW ---
     const newBaseRes = calculateNewRegimeTax(netNew);
@@ -181,23 +217,23 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
         const incomeExcess = netNew - 1200000;
         if (taxVal > incomeExcess) newMarginalRelief87A = taxVal - incomeExcess;
     }
-    const newTaxAfterRelief87A = newBaseRes.baseTax - newRebate87A - newMarginalRelief87A;
+    const newTaxAfterRelief87A = Math.max(0, newBaseRes.baseTax - newRebate87A - newMarginalRelief87A);
     const newSurchargeRes = calculateSurchargeWithRelief(newTaxAfterRelief87A, netNew, true, (inc) => {
         const b = calculateNewRegimeTax(inc).baseTax;
         if (inc <= 1200000) return 0;
         if (inc <= 1275000) return Math.min(b, inc - 1200000);
         return b;
     });
-    const newFinalCess = (newTaxAfterRelief87A + newSurchargeRes.surcharge - newSurchargeRes.marginalRelief) * CESS_RATE;
+    const newFinalCess = round((newTaxAfterRelief87A + newSurchargeRes.surcharge - newSurchargeRes.marginalRelief) * CESS_RATE);
 
-    const oldTotal = oldTaxAfterRebate + oldSurchargeRes.surcharge - oldSurchargeRes.marginalRelief + oldFinalCess;
-    const newTotal = newTaxAfterRelief87A + newSurchargeRes.surcharge - newSurchargeRes.marginalRelief + newFinalCess;
+    const oldTotal = roundTo10(oldTaxAfterRebate + oldSurchargeRes.surcharge - oldSurchargeRes.marginalRelief + oldFinalCess);
+    const newTotal = roundTo10(newTaxAfterRelief87A + newSurchargeRes.surcharge - newSurchargeRes.marginalRelief + newFinalCess);
 
     return {
         oldRegime: {
             grossTotalIncome: gtiOld,
-            totalDeductions: gtiOld - netOld,
-            netTaxableIncome: netOld,
+            totalDeductions: totalDeductionsOld,
+            netTaxableIncome: unroundedNetOld, // Display unrounded value first
             baseTax: oldBaseRes.baseTax,
             rebate87A: oldRebate87A,
             surcharge: oldSurchargeRes.surcharge,
@@ -210,8 +246,8 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
         },
         newRegime: {
             grossTotalIncome: gtiNew,
-            totalDeductions: gtiNew - netNew,
-            netTaxableIncome: netNew,
+            totalDeductions: totalDeductionsNew,
+            netTaxableIncome: unroundedNetNew, // Display unrounded value
             baseTax: newBaseRes.baseTax,
             rebate87A: newRebate87A,
             surcharge: newSurchargeRes.surcharge,
@@ -224,9 +260,14 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
         },
         recommendation: newTotal <= oldTotal ? 'NEW' : 'OLD',
         savings: Math.abs(newTotal - oldTotal),
-        hraBreakdown: { received: input.hraReceived, limit1: l1HRA, limit2: l2HRA, exemption: hraEx },
+        hraBreakdown: { received: input.hraReceived, limit1: round(l1HRA), limit2: round(l2HRA), exemption: hraEx },
         ltaExemption: ltaEx,
-        section80G_Breakdown: { ati: ati80G, ql: ql80G, reliefBlock1: r1, reliefBlock2: r2, reliefBlock3: r3, reliefBlock4: r4, total: total80G },
-        section80GG_Breakdown: ggBreakdown
+        section80G_Breakdown: { ati: round(ati80G), ql: round(ql80G), reliefBlock1: round(r1), reliefBlock2: round(r2), reliefBlock3: round(r3), reliefBlock4: round(r4), total: total80G },
+        section80GG_Breakdown: ggBreakdown,
+        section80CCD_Breakdown: {
+            eligible1B: ded80CCD1B,
+            eligible2_Old: ded80CCD2_Old,
+            eligible2_New: ded80CCD2_New
+        }
     };
 };

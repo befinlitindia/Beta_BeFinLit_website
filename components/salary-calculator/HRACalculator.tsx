@@ -51,16 +51,16 @@ const HRACalculator: React.FC<HRACalculatorProps> = ({
 
                     <div className="relative">
                         <label className="block text-sm font-bold text-slate-600 mb-2">Rent Paid Details</label>
-                        <div className="flex gap-1 bg-slate-100 p-1 rounded-sm mb-2">
+                        <div className="flex bg-slate-100 p-1 rounded-sm gap-1.5 mb-2">
                             <button
                                 onClick={() => onChange('rentFrequency', 'monthly')}
-                                className={`flex-1 py-1.5 text-xs font-bold rounded-sm transition-all ${rentFrequency === 'monthly' ? 'bg-white shadow-sm text-[#000a2e]' : 'text-slate-500'}`}
+                                className={`flex-1 py-1.5 text-xs font-bold rounded-sm transition-all duration-300 ${rentFrequency === 'monthly' ? 'bg-[#000a2e] text-white shadow-lg' : 'text-slate-500 hover:bg-white/50'}`}
                             >
                                 Monthly
                             </button>
                             <button
                                 onClick={() => onChange('rentFrequency', 'annual')}
-                                className={`flex-1 py-1.5 text-xs font-bold rounded-sm transition-all ${rentFrequency === 'annual' ? 'bg-white shadow-sm text-[#000a2e]' : 'text-slate-500'}`}
+                                className={`flex-1 py-1.5 text-xs font-bold rounded-sm transition-all duration-300 ${rentFrequency === 'annual' ? 'bg-[#000a2e] text-white shadow-lg' : 'text-slate-500 hover:bg-white/50'}`}
                             >
                                 Annual
                             </button>
@@ -80,17 +80,17 @@ const HRACalculator: React.FC<HRACalculatorProps> = ({
 
                 <div className="bg-slate-50 p-4 rounded-sm space-y-3">
                     <p className="text-xs font-bold text-slate-400 mb-2 text-center">Calculation Breakdown</p>
-                    <div className="flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2">
-                        <span className="text-slate-500">Rent Less 10% Salary</span>
-                        <span className="text-[#000a2e]">{formatCurrency(hraBreakdown.limit1)}</span>
+                    <div className={`flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2 ${hraBreakdown.exemption === hraBreakdown.limit1 ? 'text-green-600' : ''}`}>
+                        <span className={hraBreakdown.exemption === hraBreakdown.limit1 ? 'text-green-600' : 'text-slate-500'}>Rent Less 10% Salary</span>
+                        <span className={hraBreakdown.exemption === hraBreakdown.limit1 ? 'text-green-600' : 'text-[#000a2e]'}>{formatCurrency(hraBreakdown.limit1)}</span>
                     </div>
-                    <div className="flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2">
-                        <span className="text-slate-500">{isMetro ? '50% Salary (Metro)' : '40% Salary (Non-Metro)'}</span>
-                        <span className="text-[#000a2e]">{formatCurrency(hraBreakdown.limit2)}</span>
+                    <div className={`flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2 ${hraBreakdown.exemption === hraBreakdown.limit2 ? 'text-green-600' : ''}`}>
+                        <span className={hraBreakdown.exemption === hraBreakdown.limit2 ? 'text-green-600' : 'text-slate-500'}>{isMetro ? '50% Salary (Metro)' : '40% Salary (Non-Metro)'}</span>
+                        <span className={hraBreakdown.exemption === hraBreakdown.limit2 ? 'text-green-600' : 'text-[#000a2e]'}>{formatCurrency(hraBreakdown.limit2)}</span>
                     </div>
-                    <div className="flex justify-between items-center text-xs font-semibold pt-1">
-                        <span className="text-slate-500">Actual HRA Received</span>
-                        <span className="text-[#000a2e]">{formatCurrency(hraReceived)}</span>
+                    <div className={`flex justify-between items-center text-xs font-semibold pt-1 ${hraBreakdown.exemption === hraReceived ? 'text-green-600' : ''}`}>
+                        <span className={hraBreakdown.exemption === hraReceived ? 'text-green-600' : 'text-slate-500'}>Actual HRA Received</span>
+                        <span className={hraBreakdown.exemption === hraReceived ? 'text-green-600' : 'text-[#000a2e]'}>{formatCurrency(hraReceived)}</span>
                     </div>
                     <div className="mt-4 p-4 bg-[#000a2e] rounded-sm text-center">
                         <p className="text-[10px] font-bold text-slate-400 mb-1">Maximum Exemption Eligible (Lowest of the three)</p>

@@ -37,13 +37,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, onOpenConsulta
           onClick={() => handleLinkClick('home')}
         >
           {/* Brand Logo - Image */}
-          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="BeFinLit India" className="h-28 w-auto object-contain" />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="BeFinLit India" className="h-20 md:h-28 w-auto object-contain" />
 
           {/* Divider */}
-          <div className="h-8 w-px bg-befinlit-navy/20"></div>
+          <div className="hidden md:block h-8 w-px bg-befinlit-navy/20"></div>
 
           {/* Tagline - Beside logo */}
-          <p className="text-sm font-medium text-befinlit-gold tracking-wide">
+          <p className="hidden md:block text-sm font-medium text-befinlit-gold tracking-wide">
             #BecomeFinanciallyLiterate
           </p>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, User, Wallet } from 'lucide-react';
 import { Section, InputField, ToggleField, DynamicRow } from './salary-calculator/FormSections';
 import ResultsView from './salary-calculator/ResultsView';
 import Compliances from './salary-calculator/Compliances';
@@ -16,7 +16,7 @@ import Section80GGCalculator from './salary-calculator/Section80GGCalculator';
 import { TaxSavingSuggestions } from './salary-calculator/TaxSavingSuggestions';
 
 const initialInput: UserInput = {
-    userAge: 0, fatherAge: 0, motherAge: 0, isMetro: true,
+    userAge: 0, fatherAge: 0, motherAge: 0, isMetro: true, isGovtEmployee: false,
     basicSalary: 0, da: 0, specialAllowance: 0, leaveEncashment: 0,
     joiningBonus: 0, perquisites: 0, customAllowances: [],
     hraReceived: 0, actualRentPaid: 0, rentFrequency: 'monthly',
@@ -103,20 +103,23 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
 
                         {/* SECTION A */}
                         <div className="space-y-8">
-                            <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
+                            <h2 className="text-2xl font-bold font-serif text-befinlit-navy mb-6 flex items-center gap-3">
+                                <User className="text-befinlit-gold" />
                                 Section A: Taxpayer Profile
                             </h2>
                             <Section title="Demographic Details" description="Foundational details required to determine tax slab eligibility." delay={100}>
                                 <InputField label="Current Age" name="userAge" value={inputs.userAge} onChange={handleInputChange} showCurrency={false} tooltip="Determines tax slab limits in Old Regime." />
                                 <ToggleField label="Residence Location" name="isMetro" value={inputs.isMetro} onChange={handleInputChange} leftLabel="Metro City" rightLabel="Non-Metro" subText="Metro: Mumbai, Delhi, Kolkata, Chennai." />
-                                <InputField label="Father's Age" name="fatherAge" value={inputs.fatherAge || 0} onChange={handleInputChange} showCurrency={false} />
-                                <InputField label="Mother's Age" name="motherAge" value={inputs.motherAge || 0} onChange={handleInputChange} showCurrency={false} />
+                                <ToggleField label="Employment Type" name="isGovtEmployee" value={inputs.isGovtEmployee} onChange={handleInputChange} leftLabel="Govt. Employee" rightLabel="Non-Govt." tooltip="Affects 80CCD(2) deduction limits (14% vs 10%)." />
+                                <InputField label="Father's Age" name="fatherAge" value={inputs.fatherAge || 0} onChange={handleInputChange} showCurrency={false} tooltip="Determines deduction limit under section 80D in Old Regime." warning={(inputs.fatherAge || 0) > 0 && (inputs.fatherAge || 0) < 18 ? "Please fill actual age or keep it 0" : undefined} />
+                                <InputField label="Mother's Age" name="motherAge" value={inputs.motherAge || 0} onChange={handleInputChange} showCurrency={false} tooltip="Determines deduction limit under section 80D in Old Regime." warning={(inputs.motherAge || 0) > 0 && (inputs.motherAge || 0) < 18 ? "Please fill actual age or keep it 0" : undefined} />
                             </Section>
                         </div>
 
                         {/* SECTION B: SALARY COMPONENTS */}
                         <div className="space-y-12">
-                            <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
+                            <h2 className="text-2xl font-bold font-serif text-befinlit-navy mb-6 flex items-center gap-3">
+                                <Wallet className="text-befinlit-gold" />
                                 Section B: Salary Components
                             </h2>
 
@@ -150,7 +153,7 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                                 <HRACalculator
                                     hraReceived={inputs.hraReceived}
                                     actualRentPaid={inputs.actualRentPaid}
-                                    rentFrequency='monthly'
+                                    rentFrequency={inputs.rentFrequency}
                                     hraBreakdown={results.hraBreakdown}
                                     isMetro={inputs.isMetro}
                                     onChange={handleInputChange}
@@ -189,14 +192,14 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
 
                                 <div className="col-span-full mt-10 space-y-12">
                                     <InputField
-                                        label="Section 80C Investments"
+                                        label="Section 80C: Investments"
                                         name="section80C"
                                         value={inputs.section80C}
                                         onChange={handleInputChange}
                                         tooltip="Includes contributions to EPF, LIC premium, PPF, ELSS, School fees, Principal repayment of home loan, etc. Max limit ₹1.5 Lakh."
                                     />
 
-                                    <Section80CCDCalculator inputs={inputs} onChange={handleInputChange} />
+                                    <Section80CCDCalculator inputs={inputs} onChange={handleInputChange} breakdown={results.section80CCD_Breakdown} />
 
                                     <Section80DCalculator inputs={inputs} onChange={handleInputChange} />
 
@@ -231,7 +234,7 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                                             </div>
                                         </div>
                                         <div className="grid grid-cols-1 gap-6">
-                                            <InputField label="Home Loan Interest (Section 24B)" name="section24b" value={inputs.section24b} onChange={handleInputChange} tooltip="Interest payable on capital borrowed for purchase, construction, repair, or reconstruction of house property." />
+                                            <InputField label="Section 24(b): Home Loan Interest" name="section24b" value={inputs.section24b} onChange={handleInputChange} tooltip="Interest payable on capital borrowed for purchase, construction, repair, or reconstruction of house property." />
                                             <ToggleField label="Loan Property Status" name="isHomeLoanSelfOccupied" value={inputs.isHomeLoanSelfOccupied} onChange={handleInputChange} leftLabel="Self Occupied" rightLabel="Let Out" />
                                             {!inputs.isHomeLoanSelfOccupied && (
                                                 <InputField
@@ -259,7 +262,10 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                                     <h4 className="text-sm font-bold text-befinlit-navy mb-6 text-center">Do you want basic tax saving suggestions?</h4>
                                     <div className="flex gap-4">
                                         <button
-                                            onClick={() => setWantsSuggestions('yes')}
+                                            onClick={() => {
+                                                setWantsSuggestions('yes');
+                                                setShowTips(true);
+                                            }}
                                             className="flex-1 py-3 rounded-sm bg-[#000a2e] text-white font-bold text-xs uppercase tracking-widest hover:bg-befinlit-navy/90 transition-colors"
                                         >
                                             Yes

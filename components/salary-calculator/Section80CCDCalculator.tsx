@@ -1,13 +1,18 @@
 import React from 'react';
 import { HelpCircle } from 'lucide-react';
-import { UserInput } from './types';
+import { UserInput, ComparisonResult } from './types';
 
 interface Section80CCDCalculatorProps {
     inputs: UserInput;
     onChange: (name: keyof UserInput, value: any) => void;
+    breakdown?: ComparisonResult['section80CCD_Breakdown'];
 }
 
-const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs, onChange }) => {
+const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs, onChange, breakdown }) => {
+    // Fallback if breakdown is not yet available (initial render)
+    const eligible1B = breakdown?.eligible1B ?? Math.min(inputs.section80CCD1B, 50000);
+    const eligible2 = breakdown?.eligible2_Old ?? inputs.section80CCD2; // Defaulting to Old Regime eligible logic for summary
+
     return (
         <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm col-span-full">
             <h4 className="text-sm font-bold text-[#000a2e] mb-5 flex items-center gap-2">
@@ -15,7 +20,7 @@ const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs,
                 <div className="group/tooltip relative">
                     <HelpCircle className="w-3 h-3 text-slate-300 cursor-help" />
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-[#000a2e] text-white text-[10px] rounded-sm opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-10 font-normal shadow-lg leading-relaxed">
-                        80CCD(1B): Additional voluntary contribution (Self) up to ₹50,000.<br />80CCD(2): Employer's contribution (Usually 14%/10% of salary).
+                        80CCD(1B): Additional voluntary contribution (Self).<br />80CCD(2): Employer's contribution.<br /><span className="text-yellow-300 font-bold block mt-1">Please enter actual contribution figures. Calculator will apply applicable limits.</span>
                     </div>
                 </div>
             </h4>
@@ -53,10 +58,25 @@ const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs,
                     </div>
                 </div>
 
-                <div className="bg-slate-50 p-6 rounded-sm flex flex-col justify-center items-center text-center">
-                    <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">Aggregate NPS Relief</p>
-                    <p className="text-3xl font-black text-[#000a2e]">₹{(Math.min(inputs.section80CCD1B, 50000) + inputs.section80CCD2).toLocaleString('en-IN')}</p>
-                    <p className="text-[10px] text-slate-500 font-medium mt-3 italic">Employer contribution is tax-free in both regimes.</p>
+                <div className="bg-slate-50 p-4 rounded-sm space-y-3 h-fit border border-slate-100">
+                    <p className="text-xs font-bold text-slate-400 mb-2 text-center">Aggregate NPS Relief</p>
+
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2">
+                            <span className="text-slate-500">80CCD(1B) (Self)</span>
+                            <span className="text-[#000a2e]">₹{Math.round(eligible1B).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs font-semibold pt-1">
+                            <span className="text-slate-500">80CCD(2) (Employer)</span>
+                            <span className="text-[#000a2e]">₹{Math.round(eligible2).toLocaleString('en-IN')}</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 p-4 bg-[#000a2e] rounded-sm text-center">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1">Total Eligible Relief</p>
+                        <p className="text-xl font-bold text-yellow-400">₹{Math.round(eligible1B + eligible2).toLocaleString('en-IN')}</p>
+                    </div>
+                    <p className="text-[9px] text-slate-400 text-center font-medium italic">Employer contribution is tax-free in both regimes.</p>
                 </div>
             </div>
         </div>

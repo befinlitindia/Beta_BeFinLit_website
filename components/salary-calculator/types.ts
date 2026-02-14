@@ -16,6 +16,7 @@ export interface UserInput {
     fatherAge?: number;
     motherAge?: number;
     isMetro: boolean;
+    isGovtEmployee: boolean;
 
     // --- Block 1: Fixed Taxable Components ---
     basicSalary: number;
@@ -106,6 +107,11 @@ export interface ComparisonResult {
         limit2: number;
         limit3: number;
         eligibleDeduction: number;
+    };
+    section80CCD_Breakdown: {
+        eligible1B: number;
+        eligible2_Old: number;
+        eligible2_New: number;
     };
 }
 

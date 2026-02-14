@@ -60,19 +60,19 @@ const LTACalculator: React.FC<LTACalculatorProps> = ({
                     </div>
                 </div>
 
-                <div className="bg-slate-50 p-4 rounded-sm space-y-3 flex flex-col justify-center">
+                <div className="bg-slate-50 p-4 rounded-sm space-y-3">
                     <p className="text-xs font-bold text-slate-400 mb-2 text-center">Exemption Rule</p>
-                    <div className={`flex justify-between items-center text-xs font-semibold p-2 rounded-sm border ${isReceivedLower ? 'bg-green-50 border-green-200 text-green-700' : 'text-slate-500 border-transparent'}`}>
-                        <span>Received Amount</span>
+                    <div className={`flex justify-between items-center text-xs font-semibold border-b border-slate-200 pb-2 ${isReceivedLower ? 'text-green-600' : 'text-slate-500'}`}>
+                        <span>LTA Received</span>
                         <span>₹{ltaReceived.toLocaleString('en-IN')}</span>
                     </div>
-                    <div className={`flex justify-between items-center text-xs font-semibold p-2 rounded-sm border ${isSpentLower ? 'bg-green-50 border-green-200 text-green-700' : 'text-slate-500 border-transparent'}`}>
-                        <span>Spent Amount</span>
+                    <div className={`flex justify-between items-center text-xs font-semibold pt-1 ${isSpentLower ? 'text-green-600' : 'text-slate-500'}`}>
+                        <span>Actual Spent</span>
                         <span>₹{ltaSpent.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className="mt-4 p-4 bg-[#000a2e] rounded-sm text-center">
-                        <p className="text-[10px] font-bold text-slate-400 mb-1">Final LTA Exemption (Lower of above)</p>
+                        <p className="text-[10px] font-bold text-slate-400 mb-1">Final LTA Exemption (Lower of the two)</p>
                         <p className="text-xl font-bold text-yellow-400">₹{exemption.toLocaleString('en-IN')}</p>
                     </div>
                 </div>
