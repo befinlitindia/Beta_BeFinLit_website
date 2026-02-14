@@ -1,7 +1,19 @@
 import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
 import { ComparisonResult, UserInput } from '../types';
 
-let chatSession: Chat | null = null;
+// Initialize AI globally with safety
+const apiKey = import.meta.env.VITE_API_KEY || '';
+let genAI: any = null;
+
+try {
+    if (apiKey) {
+        genAI = new GoogleGenAI({ apiKey });
+    }
+} catch (e) {
+    console.error("AI Initialization failed:", e);
+}
+
+let chatSession: any = null;
 
 const SYSTEM_INSTRUCTION = `
 You are the BeFinLit India Tax Advisor, a helpful and knowledgeable financial assistant.
@@ -21,13 +33,17 @@ Guidelines:
 `;
 
 export const initializeChat = async () => {
-    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY || process.env.API_KEY });
-    chatSession = ai.chats.create({
-        model: 'gemini-2.0-flash-exp',
-        config: {
-            systemInstruction: SYSTEM_INSTRUCTION,
-        },
-    });
+    if (!genAI) return;
+    try {
+        chatSession = genAI.chats.create({
+            model: 'gemini-1.5-flash',
+            config: {
+                systemInstruction: SYSTEM_INSTRUCTION,
+            },
+        });
+    } catch (e) {
+        console.error("Failed to start AI chat:", e);
+    }
 };
 
 export const sendMessageToGemini = async (
@@ -71,9 +87,7 @@ User Question: ${userMessage}
 };
 
 export const getTaxSuggestions = async (input: UserInput, result: ComparisonResult): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY || process.env.API_KEY });
-
-    // Fix: Corrected property 'totalIncome' to 'grossTotalIncome' to match TaxResult interface
+    // Corrected property 'totalIncome' to 'grossTotalIncome' to match TaxResult interface
     const prompt = `
     Analyze this Indian Taxpayer Profile for FY 2025-26 (AY 2026-27).
     
@@ -96,12 +110,14 @@ export const getTaxSuggestions = async (input: UserInput, result: ComparisonResu
     Provide 3-5 concise, high-impact tax saving tips. 
     If Old Regime is better, explain why. If New Regime is better, check if they can save more in Old by increasing investments.
     Focus on 80C gap, NPS, Health Insurance, and HRA optimization.
-    Format as a simple list. Do not use conversational filler.
+    Format as a simple list. Do not use conversational filler. Be brief and direct.
     `;
 
+    if (!genAI) return "AI service not initialized.";
+
     try {
-        const response: GenerateContentResponse = await ai.models.generateContent({
-            model: 'gemini-2.0-flash-exp',
+        const response: GenerateContentResponse = await genAI.models.generateContent({
+            model: 'gemini-1.5-flash',
             contents: prompt,
         });
         return response.text || "No suggestions available.";

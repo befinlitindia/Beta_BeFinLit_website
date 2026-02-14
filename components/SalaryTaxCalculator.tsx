@@ -6,7 +6,6 @@ import Compliances from './salary-calculator/Compliances';
 import LeadForm from './salary-calculator/LeadForm';
 import { UserInput, CustomComponent } from './salary-calculator/types';
 import { calculateTax } from './salary-calculator/services/taxService';
-import { getTaxSuggestions } from './salary-calculator/services/geminiService';
 import AIAdvisor from './salary-calculator/AIAdvisor';
 import HRACalculator from './salary-calculator/HRACalculator';
 import LTACalculator from './salary-calculator/LTACalculator';
@@ -14,6 +13,7 @@ import Section80DCalculator from './salary-calculator/Section80DCalculator';
 import Section80CCDCalculator from './salary-calculator/Section80CCDCalculator';
 import Section80GCalculator from './salary-calculator/Section80GCalculator';
 import Section80GGCalculator from './salary-calculator/Section80GGCalculator';
+import { TaxSavingSuggestions } from './salary-calculator/TaxSavingSuggestions';
 
 const initialInput: UserInput = {
     userAge: 0, fatherAge: 0, motherAge: 0, isMetro: true,
@@ -38,6 +38,7 @@ interface Props {
 const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
     const [inputs, setInputs] = useState<UserInput>(initialInput);
     const [showTips, setShowTips] = useState(false);
+    const [wantsSuggestions, setWantsSuggestions] = useState<'none' | 'yes' | 'no'>('none');
     const [tips, setTips] = useState<string | null>(null);
     const [loadingTips, setLoadingTips] = useState(false);
 
@@ -61,14 +62,6 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
             ...prev,
             [key]: prev[key].map(item => item.id === id ? { ...item, [field]: value } : item)
         }));
-    };
-
-    const fetchTips = async () => {
-        setShowTips(true);
-        setLoadingTips(true);
-        const result = await getTaxSuggestions(inputs, results);
-        setTips(result);
-        setLoadingTips(false);
     };
 
     return (
@@ -261,28 +254,47 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                         <div className="sticky top-32 space-y-12">
                             <ResultsView result={results} />
 
-                            {!showTips ? (
-                                <button
-                                    onClick={fetchTips}
-                                    className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3 tracking-widest"
-                                >
-                                    💡 Get AI tax saving tips
-                                </button>
-                            ) : (
-                                <div className="bg-white rounded-sm p-10 border-l-8 border-yellow-400 shadow-2xl animate-in zoom-in duration-300">
-                                    <div className="flex items-center justify-between mb-8">
-                                        <h4 className="text-sm font-black text-[#000a2e]">AI optimization strategy</h4>
-                                        <button onClick={() => setShowTips(false)} className="text-slate-400 hover:text-[#000a2e] transition-colors">✕</button>
+                            {wantsSuggestions === 'none' && (
+                                <div className="bg-white rounded-sm p-8 border border-befinlit-navy/10 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <h4 className="text-sm font-bold text-befinlit-navy mb-6 text-center">Do you want basic tax saving suggestions?</h4>
+                                    <div className="flex gap-4">
+                                        <button
+                                            onClick={() => setWantsSuggestions('yes')}
+                                            className="flex-1 py-3 rounded-sm bg-[#000a2e] text-white font-bold text-xs uppercase tracking-widest hover:bg-befinlit-navy/90 transition-colors"
+                                        >
+                                            Yes
+                                        </button>
+                                        <button
+                                            onClick={() => setWantsSuggestions('no')}
+                                            className="flex-1 py-3 rounded-sm border border-befinlit-navy/20 text-befinlit-navy font-bold text-xs uppercase tracking-widest hover:bg-slate-50 transition-colors"
+                                        >
+                                            No
+                                        </button>
                                     </div>
-                                    {loadingTips ? (
-                                        <div className="flex flex-col items-center py-12">
-                                            <div className="w-10 h-10 border-4 border-[#000a2e] border-t-transparent rounded-full animate-spin"></div>
-                                            <p className="text-xs font-bold text-slate-400 mt-6 tracking-widest">Analyzing data...</p>
-                                        </div>
-                                    ) : (
-                                        <div className="text-sm text-slate-700 leading-relaxed space-y-4 font-medium" dangerouslySetInnerHTML={{ __html: tips ? tips.replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') : '' }} />
-                                    )}
                                 </div>
+                            )}
+
+                            {wantsSuggestions === 'yes' && (
+                                <>
+                                    {!showTips ? (
+                                        <button
+                                            onClick={() => setShowTips(true)}
+                                            className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3 tracking-widest"
+                                        >
+                                            💡 Basic tax saving suggestions
+                                        </button>
+                                    ) : (
+                                        <div className="relative animate-in zoom-in duration-300">
+                                            <button
+                                                onClick={() => setShowTips(false)}
+                                                className="absolute top-4 right-4 z-10 p-2 text-slate-400 hover:text-[#000a2e] transition-colors bg-white rounded-full shadow-sm"
+                                            >
+                                                ✕
+                                            </button>
+                                            <TaxSavingSuggestions inputs={inputs} results={results} />
+                                        </div>
+                                    )}
+                                </>
                             )}
 
                             <Compliances />
