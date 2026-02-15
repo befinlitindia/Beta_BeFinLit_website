@@ -713,6 +713,15 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                 </p>
               </div>
             </div>
+            <div className="flex items-start gap-3">
+              <AlertCircle className="text-red-700 shrink-0 mt-1" size={18} />
+              <div className="text-sm text-red-800">
+                <p className="font-bold mb-1">Clubbing of Income</p>
+                <p>
+                  Provisions of clubbing can come into picture if invoiced to wife, children, etc. Using family members' PANs to divert income may lead to that income being "clubbed" back into your own taxable income, defeating the purpose and potentially attracting penalties.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
