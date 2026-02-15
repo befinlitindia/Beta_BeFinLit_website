@@ -74,13 +74,13 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                 <div className="relative flex items-center justify-center mb-6">
                     <button
                         onClick={() => onNavigate('tools')}
-                        className="absolute left-0 flex items-center gap-2 text-befinlit-navy/40 hover:text-befinlit-navy transition-colors font-bold text-xs uppercase tracking-widest"
+                        className="absolute left-0 flex items-center gap-2 text-befinlit-navy/40 hover:text-befinlit-navy transition-colors font-bold text-xs"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> Back to Toolkits
                     </button>
-                    <div className="inline-block px-3 py-1 rounded-full border border-befinlit-navy/20 text-[10px] uppercase tracking-widest font-bold text-befinlit-navy bg-white/50 backdrop-blur-sm">
+                    <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
                         Tax Efficiency Engine
-                    </div>
+                    </span>
                 </div>
 
                 {/* Blog-style Intro Section */}
@@ -88,11 +88,10 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
 
 
 
-                    <h1 className="text-3xl md:text-5xl font-black text-[#000a2e] mb-6 leading-[1.1] tracking-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold font-serif text-befinlit-navy leading-tight mb-6">
                         Income Tax Optimizer for Salaried Individuals: AY 2026-27 Version
                     </h1>
-
-                    <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto italic opacity-80">
+                    <p className="text-lg md:text-xl text-befinlit-navy/70 italic font-serif leading-relaxed max-w-2xl mx-auto">
                         This comprehensive tool helps salaried individuals estimate their tax liability for the Financial Year 2025-26.
                         Simply enter your income details and deductions to instantly compare the Old vs. New Regime and optimize your tax planning.
                     </p>
@@ -260,21 +259,21 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                             {wantsSuggestions === 'none' && (
                                 <div className="bg-white rounded-sm p-8 border border-befinlit-navy/10 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
                                     <h4 className="text-sm font-bold text-befinlit-navy mb-6 text-center">Do you want basic tax saving suggestions?</h4>
-                                    <div className="flex gap-4">
+                                    <div className="flex flex-col gap-3">
                                         <button
                                             onClick={() => {
                                                 setWantsSuggestions('yes');
                                                 setShowTips(true);
                                             }}
-                                            className="flex-1 py-3 rounded-sm bg-[#000a2e] text-white font-bold text-xs uppercase tracking-widest hover:bg-befinlit-navy/90 transition-colors"
+                                            className="w-full py-4 rounded-sm bg-[#000a2e] text-white font-bold text-xs hover:bg-befinlit-navy/90 transition-colors"
                                         >
-                                            Yes
+                                            Yes, Show Suggestions
                                         </button>
                                         <button
                                             onClick={() => setWantsSuggestions('no')}
-                                            className="flex-1 py-3 rounded-sm border border-befinlit-navy/20 text-befinlit-navy font-bold text-xs uppercase tracking-widest hover:bg-slate-50 transition-colors"
+                                            className="w-full py-4 rounded-sm border border-befinlit-navy/20 text-befinlit-navy font-bold text-xs hover:bg-slate-50 transition-colors"
                                         >
-                                            No
+                                            No, I'm Done
                                         </button>
                                     </div>
                                 </div>
@@ -285,7 +284,7 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                                     {!showTips ? (
                                         <button
                                             onClick={() => setShowTips(true)}
-                                            className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3 tracking-widest"
+                                            className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
                                         >
                                             💡 Basic tax saving suggestions
                                         </button>

@@ -11,7 +11,7 @@ const TopicView: React.FC<TopicViewProps> = ({ topic, onNavigate }) => {
     const resources = getResourcesByTag(topic);
 
     return (
-        <div className="animate-fade-in pt-40 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="animate-fade-in pt-32 md:pt-48 pb-20 px-6 max-w-7xl mx-auto">
             <header className="mb-16 border-b border-befinlit-navy/10 pb-12">
                 <div className="flex items-center gap-3 mb-4">
                     <Tag className="text-befinlit-gold" size={20} />

@@ -36,14 +36,14 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
     }, []);
 
     return (
-        <article className="max-w-[1400px] mx-auto px-4 md:px-8 pt-48 pb-12">
+        <article className="max-w-[1400px] mx-auto px-4 md:px-8 pt-32 md:pt-48 pb-12">
             <div className="relative flex items-center justify-center mb-6">
                 {onNavigate && (
                     <button
                         onClick={() => onNavigate('playbooks')}
                         className="absolute left-0 flex items-center gap-2 text-befinlit-navy/40 hover:text-befinlit-navy transition-colors font-bold text-xs uppercase tracking-widest"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> Back to Playbooks
                     </button>
                 )}
                 <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
@@ -111,7 +111,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                 {/* Section 1: Income Tax Act, 1961 */}
                 <section id="income-tax" className="scroll-mt-32">
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-8">
-                        <h3 className="text-3xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
+                        <h3 className="text-2xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
                         <p className="text-left text-befinlit-navy/70 leading-relaxed">A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training—like a software developer writing code, a designer creating a logo, or a doctor treating a patient.</p>
                     </div>
 
@@ -124,7 +124,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                         </p>
                     </div>
 
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <FileText className="text-befinlit-gold" /> Income Tax Act 2025
                     </h2>
 
@@ -211,12 +211,12 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Withholding Tax Flowchart */}
                 <section id="withholding-tax" className="scroll-mt-32">
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <Globe className="text-befinlit-gold" /> Taxes Paid Abroad (Withholding Tax)
                     </h2>
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
                         <div className="text-left mb-10">
-                            <h3 className="text-3xl font-bold text-befinlit-navy mb-3">What is DTAA?</h3>
+                            <h3 className="text-2xl font-bold text-befinlit-navy mb-3">What is DTAA?</h3>
                             <p className="text-befinlit-navy/70 max-w-2xl leading-relaxed">A <b className="font-bold text-befinlit-navy">D</b>ouble <b className="font-bold text-befinlit-navy">T</b>axation <b className="font-bold text-befinlit-navy">A</b>voidance <b className="font-bold text-befinlit-navy">A</b>greement (DTAA) is a tax treaty between India and another country. It ensures that you don't pay tax on the same income in both countries. By using the DTAA, your foreign client can deduct tax at a lower rate (e.g., 10%) instead of their country's default rate.</p>
                         </div>
                         <div className="space-y-6 max-w-4xl mx-auto">
@@ -248,7 +248,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Books of Accounts Section */}
                 <section id="books-of-accounts" className="scroll-mt-32">
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <BookOpen className="text-befinlit-gold" /> Books of Accounts & Presumptive Scheme
                     </h2>
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
@@ -312,11 +312,11 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Section 2: GST Provisions */}
                 <section id="gst" className="scroll-mt-32">
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <ShieldCheck className="text-befinlit-gold" /> GST for Service Providers
                     </h2>
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
-                        <h3 className="text-3xl font-bold font-serif text-left mb-6 text-befinlit-navy">When to get GST Registration?</h3>
+                        <h3 className="text-2xl font-bold font-serif text-left mb-6 text-befinlit-navy">When to get GST Registration?</h3>
                         <div className="grid md:grid-cols-2 gap-6 text-center mb-10">
                             <div className="bg-red-50 p-6 rounded-sm border border-red-200">
                                 <h4 className="font-bold text-lg mb-2 text-red-800">Mandatory Registration</h4>
@@ -328,7 +328,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </div>
                         </div>
 
-                        <h3 className="text-3xl font-bold font-serif text-left mt-12 mb-8 text-befinlit-navy">Compliance after Registration (for exporters)</h3>
+                        <h3 className="text-2xl font-bold font-serif text-left mt-12 mb-8 text-befinlit-navy">Compliance after Registration (for exporters)</h3>
                         <div className="space-y-6 max-w-4xl mx-auto">
                             <div className="grid md:grid-cols-2 gap-6 items-start">
                                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-sm h-full">
@@ -358,11 +358,11 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Section 3: FEMA & RBI Guidelines */}
                 <section id="fema" className="scroll-mt-32">
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <Globe className="text-befinlit-gold" /> FEMA & RBI Guidelines for Forex
                     </h2>
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
-                        <h3 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy">Receiving Foreign Payments Correctly</h3>
+                        <h3 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy">Receiving Foreign Payments Correctly</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="bg-befinlit-cream p-6 rounded-sm border border-befinlit-navy/10">
                                 <h4 className="font-bold text-lg mb-2 text-befinlit-navy">FIRC (Your Proof)</h4>
@@ -387,7 +387,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Section 4: Payment Options */}
                 <section id="payments" className="scroll-mt-32">
-                    <h2 className="text-3xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
+                    <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <IndianRupee className="text-befinlit-gold" /> Choosing a Payment Platform (2025)
                     </h2>
                     <div className="bg-white p-6 rounded-sm shadow-sm border border-befinlit-navy/5 overflow-x-auto">
@@ -460,7 +460,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     </p>
                     <button
                         onClick={onOpenConsultation}
-                        className="bg-befinlit-gold text-befinlit-navy font-bold px-8 py-3 rounded-sm hover:bg-white transition-all shadow-lg"
+                        className="w-full bg-befinlit-gold text-befinlit-navy font-bold px-8 py-4 rounded-sm hover:bg-white transition-all shadow-lg"
                     >
                         Schedule a Consultation
                     </button>

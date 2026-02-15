@@ -42,7 +42,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
 
       <div className="relative z-10 animate-fade-in">
         {/* Hero Section */}
-        <section className="pt-48 pb-24 px-4 md:px-8 max-w-[1400px] mx-auto text-center">
+        <section className="pt-32 md:pt-48 pb-16 md:pb-24 px-4 md:px-8 max-w-[1400px] mx-auto text-center">
           <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy mb-8 bg-white/50 backdrop-blur-sm">
             Your Finance Experts
           </span>
@@ -55,19 +55,19 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
           <div className="flex flex-col sm:flex-row sm:items-stretch items-center justify-center gap-4">
             <button
               onClick={() => onNavigate('playbooks')}
-              className="bg-befinlit-navy text-befinlit-cream px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:bg-befinlit-lightNavy transition-all w-full sm:w-80 hover:shadow-lg hover:-translate-y-0.5"
+              className="bg-befinlit-navy text-befinlit-cream px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:bg-befinlit-gold hover:text-befinlit-navy transition-all w-full hover:shadow-lg hover:-translate-y-0.5 text-sm"
             >
               Explore our Playbooks <BookOpen size={18} />
             </button>
             <button
               onClick={() => onNavigate('tools')}
-              className="bg-befinlit-gold text-befinlit-navy px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all w-full sm:w-80 hover:shadow-lg hover:-translate-y-0.5"
+              className="bg-befinlit-gold text-befinlit-navy px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all w-full hover:shadow-lg hover:-translate-y-0.5 text-sm"
             >
               Use our Toolkits <Wrench size={18} />
             </button>
             <button
               onClick={onOpenConsultation}
-              className="border border-befinlit-navy text-befinlit-navy px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:shadow-lg hover:-translate-y-0.5 transition-all w-full sm:w-80 bg-white/30 backdrop-blur-sm"
+              className="border border-befinlit-navy text-befinlit-navy px-6 py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:shadow-lg hover:-translate-y-0.5 transition-all w-full bg-white/30 backdrop-blur-sm text-sm"
             >
               Schedule a Consultation <Calendar size={18} />
             </button>

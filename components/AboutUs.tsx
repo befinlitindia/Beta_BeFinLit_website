@@ -9,7 +9,7 @@ interface AboutUsProps {
 const AboutUs: React.FC<AboutUsProps> = ({ onNavigate, onOpenConsultation }) => {
   return (
     <div className="animate-fade-in">
-      <section className="pt-48 pb-20 px-4 md:px-8 max-w-[1400px] mx-auto">
+      <section className="pt-32 md:pt-48 pb-20 px-4 md:px-8 max-w-[1400px] mx-auto">
         <div className="text-center mb-16">
           <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy mb-8 bg-white/50 backdrop-blur-sm">
             Our Story

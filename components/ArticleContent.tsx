@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { FileSearch, TrendingUp, ShieldAlert, BookOpen, User, Mail, Phone, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { FileSearch, TrendingUp, ShieldAlert, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 
 // --- Sub-components for better organization ---
 
 const IncomeImpactCalculator = () => {
   const [salary, setSalary] = useState('');
   const [freelance, setFreelance] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
-  const [hasUnlocked, setHasUnlocked] = useState(false);
   const [result, setResult] = useState<null | {
     taxDiff: number,
     salaryTax: number,
@@ -119,103 +117,9 @@ const IncomeImpactCalculator = () => {
 
   const handleCalculateClick = () => {
     if (!salary || !freelance) return;
-    if (hasUnlocked) {
-      performCalculation();
-    } else {
-      setShowPopup(true);
-    }
+    performCalculation();
   }
 
-  // Lead Gen State
-  const [leadName, setLeadName] = useState('');
-  const [leadEmail, setLeadEmail] = useState('');
-  const [leadPhone, setLeadPhone] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [phoneError, setPhoneError] = useState('');
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePhone = (phone: string) => {
-    // Strictly 10 digits
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phone);
-  };
-
-  // --- CONFIGURATION ---
-  // PASTE YOUR GOOGLE APPS SCRIPT WEB URL INSIDE THE QUOTES BELOW
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwNoxsLR-NxlNO1CHLsBUfvatKrUPiqLT4GkvsOxTb7T8uqaD10Qfmj5EGPenaLg3kv1Q/exec";
-  // ---------------------
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Helper to send data
-  const sendDataToSheet = async (eventType: 'LEAD_GEN' | 'CALCULATION' | 'RESET', additionalData = {}) => {
-    if (!GOOGLE_SHEET_URL) {
-      console.warn("Google Sheet URL not set. Data not sent.");
-      return;
-    }
-
-    const payload = {
-      timestamp: new Date().toISOString(),
-      eventType: eventType,
-      name: leadName || 'N/A',
-      email: leadEmail || 'N/A',
-      phone: leadPhone || 'N/A',
-      salaryInput: salary,
-      freelanceInput: freelance,
-      source: "Moonlighter's Playbook",
-      ...additionalData
-    };
-
-    try {
-      // mode: 'no-cors' is essential for Google Scripts to work without error in browser
-      await fetch(GOOGLE_SHEET_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload)
-      });
-      console.log(`Sent ${eventType} data to sheet`);
-    } catch (error) {
-      console.error("Error sending data:", error);
-    }
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setEmailError('');
-    setPhoneError('');
-
-    let isValid = true;
-
-    if (!validateEmail(leadEmail)) {
-      setEmailError('Please enter a valid email address');
-      isValid = false;
-    }
-
-    if (!validatePhone(leadPhone)) {
-      setPhoneError('Please enter a valid 10-digit phone number');
-      isValid = false;
-    }
-
-    if (!isValid) return;
-
-    setIsSubmitting(true);
-
-    // 1. Send Lead Gen Data
-    await sendDataToSheet('LEAD_GEN');
-
-    // 2. Unlock
-    setIsSubmitting(false);
-    setHasUnlocked(true);
-    performCalculation(); // This will trigger the first calculation
-    setShowPopup(false);
-  };
 
   const formatINR = (val: number) =>
     new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
@@ -239,7 +143,8 @@ const IncomeImpactCalculator = () => {
   const implications = getImplications();
 
   const handleStartOver = () => {
-    sendDataToSheet('RESET');
+    setSalary('');
+    setFreelance('');
     setResult(null);
   };
 
@@ -259,7 +164,7 @@ const IncomeImpactCalculator = () => {
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label className="text-xs uppercase tracking-wider font-semibold text-white/50 block mb-2">Annual Gross Salary (₹)</label>
+            <label className="text-xs font-semibold text-white/50 block mb-2">Annual Gross Salary (₹)</label>
             <input
               type="number"
               value={salary}
@@ -269,7 +174,7 @@ const IncomeImpactCalculator = () => {
             />
           </div>
           <div>
-            <label className="text-xs uppercase tracking-wider font-semibold text-white/50 block mb-2">Freelance Revenue (₹)</label>
+            <label className="text-xs font-semibold text-white/50 block mb-2">Freelance Revenue (₹)</label>
             <input
               type="number"
               value={freelance}
@@ -280,25 +185,28 @@ const IncomeImpactCalculator = () => {
           </div>
         </div>
 
-        {!result ? (
-          <button onClick={handleCalculateClick} className="w-full bg-befinlit-gold text-befinlit-navy font-bold py-3 rounded-sm hover:bg-white transition-colors">
-            Calculate Impact
-          </button>
-        ) : (
+        <button
+          onClick={handleCalculateClick}
+          className="w-full bg-befinlit-gold text-befinlit-navy font-bold py-4 rounded-sm hover:bg-white transition-all text-sm shadow-lg mb-8"
+        >
+          {result ? "Recalculate Results" : "Calculate Tax Leakage"}
+        </button>
+
+        {result && (
           <div className="space-y-6 animate-fade-in">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
-                <p className="text-[10px] uppercase text-white/40 mb-1">Before Side-Hustle</p>
+                <p className="text-[10px] text-white/40 mb-1">Before Side-Hustle</p>
                 <p className="text-sm font-medium text-white/80">Salary Only Tax</p>
                 <p className="text-xl font-bold text-white mt-1">{formatINR(result.salaryTax)}</p>
               </div>
               <div className="bg-white/5 p-4 border border-white/10 rounded-sm">
-                <p className="text-[10px] uppercase text-white/40 mb-1">With Side-Hustle</p>
+                <p className="text-[10px] text-white/40 mb-1">With Side-Hustle</p>
                 <p className="text-sm font-medium text-white/80">Combined Total Tax</p>
                 <p className="text-xl font-bold text-white mt-1">{formatINR(result.combinedTax)}</p>
               </div>
               <div className="bg-befinlit-gold/20 p-4 border border-befinlit-gold/30 rounded-sm">
-                <p className="text-[10px] uppercase text-befinlit-gold mb-1">Additional Liability</p>
+                <p className="text-[10px] text-befinlit-gold mb-1">Additional Liability</p>
                 <p className="text-sm font-medium text-befinlit-gold">The "Success Penalty"</p>
                 <p className="text-xl font-bold text-befinlit-gold mt-1">{formatINR(result.taxDiff)}</p>
               </div>
@@ -306,7 +214,7 @@ const IncomeImpactCalculator = () => {
 
             <div className="bg-white/10 p-6 rounded-sm border border-befinlit-gold/30">
               <div className="text-center">
-                <p className="text-xs uppercase text-white/60 mb-2 font-bold">The Verdict</p>
+                <p className="text-xs text-white/60 mb-2 font-bold">The Verdict</p>
                 <p className="text-2xl font-bold text-befinlit-gold">
                   {formatINR(result.taxDiff)}
                 </p>
@@ -322,7 +230,7 @@ const IncomeImpactCalculator = () => {
 
             {implications.length > 0 && (
               <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-sm">
-                <h4 className="text-[10px] uppercase tracking-widest font-bold text-red-400 mb-2 flex items-center gap-2">
+                <h4 className="text-[10px] tracking-widest font-bold text-red-400 mb-2 flex items-center gap-2">
                   <AlertCircle size={14} /> Critical Implications
                 </h4>
                 <ul className="space-y-2">
@@ -336,73 +244,18 @@ const IncomeImpactCalculator = () => {
               </div>
             )}
 
-            <button onClick={handleStartOver} className="text-xs text-white/40 hover:text-white underline block mx-auto">Start Over</button>
+            <div className="flex flex-col items-center gap-4 mt-8">
+              <button
+                onClick={handleStartOver}
+                className="text-white/20 hover:text-red-400 transition-colors text-[10px]"
+              >
+                Reset Fields
+              </button>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Lead Gen Popup */}
-      {showPopup && !hasUnlocked && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-befinlit-navy/90 backdrop-blur-sm">
-          <div className="bg-befinlit-cream text-befinlit-navy p-8 rounded-sm max-w-md w-full relative shadow-2xl">
-            <button onClick={() => setShowPopup(false)} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><X size={20} /></button>
-            <h4 className="text-xl font-bold mb-2">Unlock Your Comparison Report</h4>
-            <p className="text-sm text-gray-600 mb-6">We use official New Tax Regime slabs to generate your personalized tax impact report.</p>
-            <form onSubmit={handleFormSubmit} className="space-y-4">
-              <div className="relative">
-                <User size={16} className="absolute left-3 top-3.5 text-gray-400" />
-                <input
-                  required
-                  type="text"
-                  placeholder="Full Name"
-                  value={leadName}
-                  onChange={e => setLeadName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-sm focus:border-befinlit-navy outline-none"
-                />
-              </div>
-              <div className="relative">
-                <Mail size={16} className="absolute left-3 top-3.5 text-gray-400" />
-                <input
-                  required
-                  type="email"
-                  placeholder="Email Address"
-                  value={leadEmail}
-                  onChange={e => {
-                    setLeadEmail(e.target.value);
-                    if (emailError) setEmailError('');
-                  }}
-                  className={`w-full pl-10 pr-4 py-3 border rounded-sm outline-none focus:border-befinlit-navy ${emailError ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
-              </div>
-              <div className="relative">
-                <Phone size={16} className="absolute left-3 top-3.5 text-gray-400" />
-                <input
-                  required
-                  type="tel"
-                  placeholder="Phone Number (10 digits)"
-                  value={leadPhone}
-                  onChange={e => {
-                    // Allow only numbers
-                    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
-                    setLeadPhone(val);
-                    if (phoneError) setPhoneError('');
-                  }}
-                  className={`w-full pl-10 pr-4 py-3 border rounded-sm outline-none focus:border-befinlit-navy ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {phoneError && <p className="text-xs text-red-500 mt-1">{phoneError}</p>}
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-befinlit-navy text-white font-bold py-3 rounded-sm hover:bg-befinlit-lightNavy disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? "Unlocking..." : "Reveal Comparison"}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
@@ -720,20 +573,17 @@ interface EntityTaxEstimatorProps {
 
 const EntityTaxEstimator: React.FC<EntityTaxEstimatorProps> = ({ onOpenConsultation }) => {
   return (
-    <div className="bg-befinlit-cream border border-befinlit-gold/30 p-8 rounded-sm">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-          <h4 className="text-lg font-bold text-befinlit-navy mb-2">Compare Entity Tax Liabilities</h4>
-          <p className="text-sm text-befinlit-navy/70 max-w-4xl">
-            Want to see exactly how much tax you save in an individually owned business vs other business organisations for your specific income? We have a comprehensive model. Reach out to us over email. <br /><br />
-            <button
-              onClick={onOpenConsultation}
-              className="mt-4 inline-block bg-befinlit-navy text-befinlit-cream px-6 py-3 rounded-sm font-bold hover:bg-befinlit-gold hover:text-befinlit-navy transition-all shadow-md">
-              Schedule a paid Consultation
-            </button>
-          </p>
-        </div>
-      </div>
+    <div className="bg-befinlit-cream border border-befinlit-gold/30 p-6 md:p-10 rounded-sm text-center w-full">
+      <h4 className="text-xl font-bold text-befinlit-navy mb-4 font-serif">Optimize Your Business Structure</h4>
+      <p className="text-sm text-befinlit-navy/70 mb-8 leading-relaxed italic font-serif max-w-4xl mx-auto">
+        Are you questioning if your current business structure is the most tax-efficient? We have built a comprehensive simulation model to compare tax liabilities across business entities for your specific revenue levels. Reach out to us to find your optimal path.
+      </p>
+      <button
+        onClick={onOpenConsultation}
+        className="w-full bg-befinlit-navy text-befinlit-cream px-6 py-4 rounded-sm font-bold hover:bg-befinlit-gold hover:text-befinlit-navy transition-all shadow-md text-sm"
+      >
+        Schedule a Consultation
+      </button>
     </div>
   );
 };
@@ -749,14 +599,14 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
   const [showHelpModal, setShowHelpModal] = useState(false);
 
   return (
-    <article className="max-w-[1400px] mx-auto px-4 md:px-8 pt-48 pb-12">
+    <article className="max-w-[1400px] mx-auto px-4 md:px-8 pt-32 md:pt-48 pb-12">
       <div className="relative flex items-center justify-center mb-6">
         {onNavigate && (
           <button
             onClick={() => onNavigate('playbooks')}
             className="absolute left-0 flex items-center gap-2 text-befinlit-navy/40 hover:text-befinlit-navy transition-colors font-bold text-xs uppercase tracking-widest"
           >
-            <ArrowLeft size={16} /> Back
+            <ArrowLeft size={16} /> Back to Playbooks
           </button>
         )}
         <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
