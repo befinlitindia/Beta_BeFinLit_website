@@ -106,7 +106,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
           </button>
         </div>
         <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
-          Finance 101
+          Calculator
         </span>
       </div>
 
@@ -121,6 +121,12 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
 
       <div className="bg-befinlit-navy text-befinlit-cream border border-befinlit-gold/20 rounded-sm shadow-2xl overflow-hidden mb-12">
         <div className="p-8">
+          <p className="text-sm text-white/70 mb-1 italic">
+            Based on New Tax Regime rules.
+          </p>
+          <p className="text-[11px] text-white/50 mb-6 italic leading-relaxed">
+            Note: We apply 50% presumptive rate (u/s 44ADA<sup>*</sup>) on freelance revenue and follow the new tax regime by default.
+          </p>
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div className="space-y-2">
               <label className="text-xs font-bold text-white/50">Annual Gross Salary (₹)</label>
@@ -186,9 +192,11 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                     <span>Total Effective Taxable Income</span>
                     <span className="font-bold text-white">{formatINR(result.totalIncome)}</span>
                   </div>
-                  <p className="text-[11px] italic pt-2 text-white/40">
-                    Note: For revenue above ₹75L, we have applied the mandatory 80% default margin for this estimation as Presumptive Taxation (44ADA) ceases to apply.
-                  </p>
+                  {result.fRaw >= 7500000 && (
+                    <p className="text-[11px] italic pt-2 text-white/40">
+                      Note: For revenue above ₹75L, we have applied the mandatory 80% default margin for this estimation as Presumptive Taxation (44ADA) ceases to apply.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -202,7 +210,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                   <h3 className="text-red-400 font-bold mb-4 flex items-center gap-2 text-xs">
                     <AlertCircle size={16} /> Critical Implications
                   </h3>
-                  <ul className="space-y-3 text-sm text-white/70 leading-relaxed list-disc pl-5 marker:text-red-500 text-left">
+                  <ul className="space-y-2 text-sm text-white/70 leading-relaxed list-disc pl-5 marker:text-red-500 text-left">
                     {result.fRaw >= 2000000 && (
                       <li>You have crossed the ₹20 Lakhs GST threshold. Obtaining a GST registration and filing returns is now mandatory.</li>
                     )}
@@ -210,7 +218,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                       <li>With revenue above ₹50 Lakhs, if any part of your freelance income is received in cash (exceeding 5% threshold), a Tax Audit becomes mandatory.</li>
                     )}
                     {result.fRaw >= 7500000 && (
-                      <li>Revenue has crossed ₹75 Lakhs: You can no longer opt for Section 44ADA. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.</li>
+                      <li>Revenue has crossed ₹75 Lakhs: You can no longer opt for Section 44ADA<sup>*</sup>. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.</li>
                     )}
                   </ul>
                 </div>
@@ -248,6 +256,34 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
           )}
         </div>
       </div>
+
+      <section className="mb-16 border-t border-befinlit-navy/10 pt-12 print:hidden">
+        <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-2 font-serif">
+          <span className="text-befinlit-gold">*</span> Glossary of Changes
+        </h2>
+        <p className="text-sm text-befinlit-navy/70 mb-8 leading-relaxed italic font-serif text-center md:text-left">
+          The above sections are in line with the Income Tax Act, 1961. However, the Income Tax Act, 2025 will come into effect from 1 April 2026. The relevant sections and the content changes have been updated below:
+        </p>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse bg-white border border-befinlit-navy/10 rounded-sm overflow-hidden shadow-sm">
+            <thead className="bg-befinlit-navy text-white text-xs tracking-widest font-bold">
+              <tr>
+                <th className="p-4 border-b border-white/10 text-center">Particulars</th>
+                <th className="p-4 border-b border-white/10 text-center">Section in 1961</th>
+                <th className="p-4 border-b border-white/10 text-center">Section in 2025</th>
+              </tr>
+            </thead>
+            <tbody className="text-sm text-befinlit-navy/80">
+              <tr className="hover:bg-befinlit-gold/5 transition-colors">
+                <td className="p-4 border-b border-befinlit-navy/5">Presumptive Taxation (Business & Professionals)</td>
+                <td className="p-4 border-b border-befinlit-navy/5 text-center">44AD & 44ADA</td>
+                <td className="p-4 border-b border-befinlit-navy/5 font-bold text-befinlit-navy text-center">58</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <div className="text-center">
         <p className="text-xs text-befinlit-navy/40 font-bold mb-2">Crafted by BeFinLit India Specialists</p>

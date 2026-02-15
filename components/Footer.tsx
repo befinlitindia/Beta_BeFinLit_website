@@ -44,16 +44,17 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }) => {
               <ul className="space-y-2 text-sm text-white/60">
                 <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Home</button></li>
                 <li><button onClick={() => onNavigate('playbooks')} className="hover:text-white transition-colors text-left">The Playbooks</button></li>
-                <li><button onClick={() => onNavigate('tools')} className="hover:text-white transition-colors text-left">The Toolkit</button></li>
+                <li><button onClick={() => onNavigate('tools')} className="hover:text-white transition-colors text-left">The Toolkits</button></li>
                 <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">About Us</button></li>
               </ul>
             </div>
             <div>
               <h4 className="text-befinlit-gold text-xs uppercase tracking-widest font-semibold mb-4">Browse by Topic</h4>
               <ul className="space-y-2 text-sm text-white/60">
-                <li><button onClick={() => onNavigate('topic', 'Finance 101')} className="hover:text-white transition-colors text-left">Finance 101</button></li>
-                <li><button onClick={() => onNavigate('topic', 'Calculator')} className="hover:text-white transition-colors text-left">Calculators</button></li>
-                <li><button onClick={() => onNavigate('topic', 'Risk Analysis')} className="hover:text-white transition-colors text-left">Risk Analysis</button></li>
+                <li><button onClick={() => onNavigate('playbook')} className="hover:text-white transition-colors text-left">Moonlighter's Playbook</button></li>
+                <li><button onClick={() => onNavigate('salary-calculator')} className="hover:text-white transition-colors text-left">Salary Tax Calculator</button></li>
+                <li><button onClick={() => onNavigate('side-hustle-estimator')} className="hover:text-white transition-colors text-left">Side-hustle Surcharge Estimator</button></li>
+                <li><button onClick={() => onNavigate('financial-guide')} className="hover:text-white transition-colors text-left">Freelancer's & Professional's Playbook</button></li>
               </ul>
             </div>
             <div>
@@ -74,7 +75,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }) => {
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 

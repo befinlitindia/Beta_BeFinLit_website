@@ -18,7 +18,7 @@ const Playbooks: React.FC<PlaybooksProps> = ({ onNavigate }) => {
           <span className="text-befinlit-gold font-bold tracking-[0.2em] uppercase text-xs">The Playbooks</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-befinlit-navy mb-6 font-serif">The Playbooks</h1>
-        <p className="text-lg text-befinlit-navy/60 max-w-2xl leading-relaxed">
+        <p className="text-lg text-befinlit-navy/60 max-w-2xl leading-relaxed italic">
           In-depth technical guides and strategic blueprints for the modern Indian professional.
         </p>
       </header>

@@ -51,7 +51,7 @@ export const toolsList: ResourceItem[] = [
         title: "The Side-Hustle Surcharge Estimator",
         subtitle: "The Success Penalty Calculator",
         description: SUCCESS_PENALTY_CALCULATOR_DESCRIPTION,
-        tag: "Risk Analysis",
+        tag: "Calculator",
         status: "Ready",
         type: 'tool',
         linkText: 'Launch Tool'

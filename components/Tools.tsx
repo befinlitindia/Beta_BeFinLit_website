@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Calculator, Wrench, Landmark } from 'lucide-react';
+import { ArrowRight, Calculator, Wrench, Landmark, Tag } from 'lucide-react';
 import { SALARY_TAX_CALCULATOR_DESCRIPTION, SUCCESS_PENALTY_CALCULATOR_DESCRIPTION } from './content';
 import { toolsList } from './data';
 
@@ -33,17 +33,17 @@ const Tools: React.FC<ToolsProps> = ({ onNavigate }) => {
               : 'bg-gray-50 border-gray-100 opacity-60 cursor-not-allowed'
               }`}
           >
-            <div className={`w-full md:w-1/3 aspect-[4/3] rounded-sm flex items-center justify-center p-6 relative overflow-hidden shrink-0 ${tool.status === "Ready" ? 'bg-befinlit-navy' : 'bg-gray-300'
+            <div className={`w-full md:w-1/3 aspect-[4/3] rounded-sm flex items-center justify-center p-6 relative overflow-hidden shrink-0 ${tool.status === "Ready" ? 'bg-befinlit-gold' : 'bg-gray-300'
               }`}>
-              <Landmark size={40} className="text-befinlit-gold opacity-10 absolute -bottom-2 -right-2" />
-              <div className="text-white text-center font-bold font-serif leading-tight">
-                <Calculator size={32} className="mx-auto mb-2 text-befinlit-gold" />
-                <p className="text-sm uppercase tracking-widest text-befinlit-gold mb-1">Utility</p>
+              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#1e3a8a 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
+              <Calculator size={40} className="text-befinlit-navy opacity-10 absolute -bottom-2 -left-2" />
+              <div className="text-befinlit-navy text-center font-bold font-serif leading-tight z-10">
+                <p className="text-lg">{tool.title}</p>
               </div>
             </div>
             <div className="flex-grow">
               <div className="flex items-center gap-4 mb-3 text-[10px] uppercase tracking-widest font-bold">
-                <span className="text-befinlit-gold">{tool.tag}</span>
+                <span className="text-befinlit-gold flex items-center gap-1"><Tag size={12} /> {tool.tag}</span>
                 <span className={tool.status === "Ready" ? "text-green-600" : "text-gray-400"}>
                   • {tool.status}
                 </span>

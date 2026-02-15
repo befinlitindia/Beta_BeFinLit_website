@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileSearch, TrendingUp, ShieldAlert, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { FileSearch, TrendingUp, ShieldAlert, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft, Info } from 'lucide-react';
 
 // --- Sub-components for better organization ---
 
@@ -129,13 +129,13 @@ const IncomeImpactCalculator = () => {
     const f = result.freelanceRaw;
     const notes = [];
     if (f > 2000000) {
-      notes.push("You have crossed the ₹20 Lakhs GST threshold. Obtaining a GST registration and filing returns is now mandatory.");
+      notes.push(<span>You have crossed the ₹20 Lakhs GST threshold. Obtaining a GST registration and filing returns is now mandatory.</span>);
     }
     if (f > 5000000) {
-      notes.push("With revenue above ₹50 Lakhs, if any part of your freelance income is received in cash (exceeding 5% threshold), a Tax Audit becomes mandatory.");
+      notes.push(<span>With revenue above ₹50 Lakhs, if any part of your freelance income is received in cash (exceeding 5% threshold), a Tax Audit becomes mandatory.</span>);
     }
     if (f >= 7500000) {
-      notes.push("Revenue has crossed ₹75 Lakhs: You can no longer opt for Section 44ADA<sup>*</sup>. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.");
+      notes.push(<span>Revenue has crossed ₹75 Lakhs: You can no longer opt for Section 44ADA<sup>*</sup>. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.</span>);
     }
     return notes;
   };
@@ -212,6 +212,28 @@ const IncomeImpactCalculator = () => {
               </div>
             </div>
 
+            <div className="bg-white/5 border border-white/10 p-8 rounded-sm">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Info size={20} className="text-befinlit-gold" />
+                Detailed Breakdown
+              </h3>
+              <div className="space-y-4 text-sm text-white/70 leading-relaxed">
+                <div className="flex justify-between border-b border-white/5 pb-2">
+                  <span>Taxable Base (Freelance u/s 44ADA)</span>
+                  <span className="font-bold text-white">{formatINR(result.combinedIncome - result.salaryIncome)}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-2">
+                  <span>Total Effective Taxable Income</span>
+                  <span className="font-bold text-white">{formatINR(result.combinedIncome)}</span>
+                </div>
+                {result.freelanceRaw >= 7500000 && (
+                  <p className="text-[11px] italic pt-2 text-white/40">
+                    Note: For revenue above ₹75L, we have applied the mandatory 80% default margin for this estimation as Presumptive Taxation (44ADA) ceases to apply.
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div className="bg-white/10 p-6 rounded-sm border border-befinlit-gold/30">
               <div className="text-center">
                 <p className="text-xs text-white/60 mb-2 font-bold">The Verdict</p>
@@ -229,14 +251,14 @@ const IncomeImpactCalculator = () => {
             </div>
 
             {implications.length > 0 && (
-              <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-sm">
-                <h4 className="text-[10px] tracking-widest font-bold text-red-400 mb-2 flex items-center gap-2">
+              <div className="bg-red-500/10 border border-red-500/20 p-8 rounded-sm mb-8 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+                <h4 className="text-[10px] tracking-widest font-bold text-red-400 mb-4 flex items-center gap-2">
                   <AlertCircle size={14} /> Critical Implications
                 </h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 text-sm text-white/70 leading-relaxed list-disc pl-5 marker:text-red-500 text-left">
                   {implications.map((note, i) => (
-                    <li key={i} className="text-xs text-white/70 flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-red-400 mt-1.5 shrink-0" />
+                    <li key={i}>
                       {note}
                     </li>
                   ))}
@@ -249,7 +271,7 @@ const IncomeImpactCalculator = () => {
                 onClick={handleStartOver}
                 className="text-white/20 hover:text-red-400 transition-colors text-[10px]"
               >
-                Reset Fields
+                Reset All Fields
               </button>
             </div>
           </div>

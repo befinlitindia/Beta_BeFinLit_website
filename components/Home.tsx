@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, ShieldCheck, TrendingUp, BookOpen, Wrench, Calculator, Calendar } from 'lucide-react';
-import { MOONLIGHTER_PLAYBOOK_DESCRIPTION, SALARY_TAX_CALCULATOR_DESCRIPTION } from './content';
+import { MOONLIGHTER_PLAYBOOK_DESCRIPTION, SALARY_TAX_CALCULATOR_DESCRIPTION, SUCCESS_PENALTY_CALCULATOR_DESCRIPTION } from './content';
 
 interface HomeProps {
   onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator') => void;
@@ -158,7 +158,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
           <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
             <h2 className="text-sm md:text-base uppercase tracking-[0.3em] font-bold text-befinlit-gold mb-10 text-center shadow-sm">Featured Toolkit</h2>
             <div
-              onClick={() => onNavigate('salary-calculator')}
+              onClick={() => onNavigate('side-hustle-estimator')}
               className="group cursor-pointer bg-white border border-befinlit-navy/10 p-8 md:p-12 rounded-sm flex flex-col md:flex-row-reverse gap-8 items-center hover:border-befinlit-gold transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-1"
             >
               <div className="w-full md:w-1/2 overflow-hidden rounded-sm shadow-inner">
@@ -166,14 +166,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
                   <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#0F172A 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
                   <Calculator size={80} className="text-befinlit-navy opacity-20 absolute -bottom-4 -left-4 -rotate-12" />
                   <div className="text-befinlit-navy text-center z-10">
-                    <h3 className="text-3xl font-bold leading-tight">The Toolkit for<br />Salaried Individuals</h3>
+                    <h3 className="text-3xl font-bold leading-tight">The Side-Hustle<br />Surcharge Estimator</h3>
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <h3 className="text-2xl font-bold text-befinlit-navy mb-4 group-hover:text-befinlit-gold transition-colors">Compare New vs Old Tax Regimes</h3>
+                <h3 className="text-2xl font-bold text-befinlit-navy mb-4 group-hover:text-befinlit-gold transition-colors">The Success Penalty Calculator</h3>
                 <p className="text-sm text-befinlit-navy/60 mb-6 leading-relaxed">
-                  {SALARY_TAX_CALCULATOR_DESCRIPTION}
+                  {SUCCESS_PENALTY_CALCULATOR_DESCRIPTION}
                 </p>
                 <div className="flex items-center gap-2 text-befinlit-navy font-bold text-sm group/btn">
                   Launch Toolkit <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
