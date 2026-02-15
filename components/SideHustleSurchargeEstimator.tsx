@@ -185,7 +185,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                 </h3>
                 <div className="space-y-4 text-sm text-white/70 leading-relaxed">
                   <div className="flex justify-between border-b border-white/5 pb-2">
-                    <span>Taxable Base (Freelance u/s 44ADA)</span>
+                    <span>Taxable Base {result.fRaw < 7500000 && <>(u/s 44ADA<sup>*</sup>)</>}</span>
                     <span className="font-bold text-white">{formatINR(result.fTaxable)}</span>
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-2">
@@ -194,7 +194,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                   </div>
                   {result.fRaw >= 7500000 && (
                     <p className="text-[11px] italic pt-2 text-white/40">
-                      Note: For revenue above ₹75L, we have applied the mandatory 80% default margin for this estimation as Presumptive Taxation (44ADA) ceases to apply.
+                      Note: For revenue above ₹75L, we have applied an approx. 80% default margin for this estimation as Presumptive Taxation (44ADA<sup>*</sup>) ceases to apply.
                     </p>
                   )}
                 </div>

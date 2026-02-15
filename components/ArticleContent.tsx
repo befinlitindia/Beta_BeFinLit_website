@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileSearch, TrendingUp, ShieldAlert, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft, Info } from 'lucide-react';
+import { FileSearch, TrendingUp, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft, Info, ShieldAlert } from 'lucide-react';
 
 // --- Sub-components for better organization ---
 
@@ -219,7 +219,7 @@ const IncomeImpactCalculator = () => {
               </h3>
               <div className="space-y-4 text-sm text-white/70 leading-relaxed">
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span>Taxable Base (Freelance u/s 44ADA)</span>
+                  <span>Taxable Base {result.freelanceRaw < 7500000 && <>(u/s 44ADA<sup>*</sup>)</>}</span>
                   <span className="font-bold text-white">{formatINR(result.combinedIncome - result.salaryIncome)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
@@ -228,7 +228,7 @@ const IncomeImpactCalculator = () => {
                 </div>
                 {result.freelanceRaw >= 7500000 && (
                   <p className="text-[11px] italic pt-2 text-white/40">
-                    Note: For revenue above ₹75L, we have applied the mandatory 80% default margin for this estimation as Presumptive Taxation (44ADA) ceases to apply.
+                    Note: For revenue above ₹75L, we have applied an approx. 80% default margin for this estimation as Presumptive Taxation (44ADA<sup>*</sup>) ceases to apply.
                   </p>
                 )}
               </div>
@@ -620,7 +620,6 @@ interface Props {
 }
 
 const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => {
-  const [showHelpModal, setShowHelpModal] = useState(false);
 
   return (
     <article className="max-w-[1400px] mx-auto px-4 md:px-8 pt-32 md:pt-48 pb-12">
@@ -636,7 +635,7 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
           </div>
         )}
         <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
-          Finance 101
+          Freelancer 101
         </span>
       </div>
 
@@ -763,28 +762,7 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
       </section>
 
       {/* 44AD vs ADA Nuance */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
-          <ShieldAlert className="text-befinlit-gold" />
-          <span>The 44AD<sup>*</sup> vs 44ADA<sup>*</sup> "Grey Area"</span>
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed">
-              Many freelancers file under 44AD<sup>*</sup> (declaring 6%/8% profit) because it's more beneficial than 44ADA<sup>*</sup> (50% profit).
-            </p>
-            <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed font-bold">
-              Is it wrong? Technically, no. Is it safe? Absolutely not.
-            </p>
-            <p className="text-befinlit-navy/70 text-xs leading-relaxed">
-              If your TDS is deducted under 194J<sup>*</sup> (Technical / Professional Services), claiming to be a "trader" under 44AD<sup>*</sup> invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
-            </p>
-          </div>
-          <div className="bg-befinlit-navy text-white p-6 rounded-sm text-center">
-            <p className="font-serif italic text-lg mb-4">"Compliance is expensive. Non-compliance is unaffordable."</p>
-          </div>
-        </div>
-      </section>
+
 
       {/* Glossary */}
       <section className="mb-16 border-t border-befinlit-navy/10 pt-12 print:hidden">
@@ -834,22 +812,7 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
         <EntityTaxEstimator onOpenConsultation={onOpenConsultation} />
       </section>
 
-      {/* Contact Modal */}
-      {showHelpModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-befinlit-navy/90 backdrop-blur-sm">
-          <div className="bg-white p-8 rounded-sm max-sm w-full relative text-center">
-            <button onClick={() => setShowHelpModal(false)} className="absolute top-4 right-4 text-gray-400"><X size={20} /></button>
-            <Mail size={48} className="text-befinlit-gold mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-befinlit-navy mb-2">Let's Discuss</h3>
-            <p className="text-gray-600 text-sm mb-6">
-              Every case is unique. Drop us a line and we'll help you structure this right.
-            </p>
-            <a href="mailto:befinlitindia@gmail.com" className="block w-full bg-befinlit-navy text-white font-bold py-3 rounded-sm hover:bg-befinlit-lightNavy">
-              befinlitindia@gmail.com
-            </a>
-          </div>
-        </div>
-      )}
+
 
     </article>
   );

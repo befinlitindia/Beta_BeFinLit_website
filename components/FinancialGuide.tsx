@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, BookOpen, FileText, Globe, IndianRupee, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, BookOpen, FileText, Globe, IndianRupee, ShieldCheck, ShieldAlert } from 'lucide-react';
 
 interface Props {
     onNavigate?: (page: any) => void;
@@ -49,7 +49,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     </div>
                 )}
                 <span className="inline-block py-1 px-3 border border-befinlit-navy/20 rounded-full text-[10px] uppercase tracking-widest font-bold text-befinlit-navy">
-                    Finance 101
+                    Freelancer 101
                 </span>
             </div>
 
@@ -307,6 +307,29 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                         </ul>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 44AD vs ADA Nuance */}
+                    <div className="mt-16">
+                        <h3 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-3">
+                            <ShieldAlert className="text-befinlit-gold" />
+                            <span>The 44AD<sup>*</sup> vs 44ADA<sup>*</sup> "Grey Area"</span>
+                        </h3>
+                        <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
+                            <div>
+                                <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed">
+                                    Many freelancers file under 44AD<sup>*</sup> (declaring 6%/8% profit) because it's more beneficial than 44ADA<sup>*</sup> (50% profit).
+                                </p>
+                                <p className="text-befinlit-navy/80 mb-4 text-sm leading-relaxed font-bold">
+                                    Is it wrong? Technically, no. Is it safe? Absolutely not.
+                                </p>
+                                <p className="text-befinlit-navy/70 text-xs leading-relaxed">
+                                    If your TDS is deducted under 194J<sup>*</sup> (Technical / Professional Services), claiming to be a "trader" under 44AD<sup>*</sup> invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
+                                </p>
+                            </div>
+                            <div className="bg-befinlit-navy text-white p-6 rounded-sm text-center">
+                                <p className="font-serif italic text-lg mb-4">"Compliance is expensive. Non-compliance is unaffordable."</p>
                             </div>
                         </div>
                     </div>

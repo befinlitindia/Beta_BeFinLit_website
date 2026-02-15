@@ -18,7 +18,7 @@ export const playbooksList: ResourceItem[] = [
         title: "The Moonlighter's Playbook",
         subtitle: "How to Side-Hustle Without Getting into Trouble",
         description: MOONLIGHTER_PLAYBOOK_DESCRIPTION,
-        tag: "Finance 101",
+        tag: "Freelancer 101",
         readTime: "12 min read",
         type: 'playbook',
         linkText: 'Read Playbook'
@@ -28,7 +28,7 @@ export const playbooksList: ResourceItem[] = [
         title: "The Freelancer's and Professional's Playbook",
         subtitle: "Navigate through all the compliances in one place.",
         description: "A master blueprint covering Income Tax Act 2025, Withholding Taxes, GST for exporters, Foreign Exchange Management Act (FEMA) and RBI guidelines for the professionals and freelancers.",
-        tag: "Finance 101",
+        tag: "Freelancer 101",
         readTime: "15 min read",
         type: 'playbook',
         linkText: 'Read Playbook'
