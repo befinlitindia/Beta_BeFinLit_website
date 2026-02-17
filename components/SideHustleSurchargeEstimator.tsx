@@ -229,7 +229,7 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
                 </div>
               )}
 
-              <div className="bg-white/5 border border-white/10 p-6 rounded-sm flex flex-col md:flex-row items-center justify-between gap-6 mb-8 text-left">
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm flex flex-col md:flex-row items-center gap-8 mb-8 text-left">
                 <div className="flex items-center gap-4">
                   <BookOpen size={32} className="text-befinlit-gold shrink-0" />
                   <div>
