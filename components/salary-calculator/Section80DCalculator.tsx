@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelpCircle } from 'lucide-react';
 import { UserInput } from './types';
+import { preventNonNumericInput } from '../utils';
 
 interface Section80DCalculatorProps {
     inputs: UserInput;
@@ -27,6 +28,8 @@ const Section80DCalculator: React.FC<Section80DCalculatorProps> = ({ inputs, onC
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
                         <input
                             type="number"
+                            onKeyDown={preventNonNumericInput}
+                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
                             value={inputs.section80D_SelfInsurance || ''}
                             onChange={(e) => onChange('section80D_SelfInsurance', parseFloat(e.target.value) || 0)}
                             className="w-full pl-7 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-sm text-sm font-semibold focus:ring-1 focus:ring-[#000a2e] outline-none"
@@ -41,6 +44,8 @@ const Section80DCalculator: React.FC<Section80DCalculatorProps> = ({ inputs, onC
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
                         <input
                             type="number"
+                            onKeyDown={preventNonNumericInput}
+                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
                             value={inputs.section80D_ParentsInsurance || ''}
                             onChange={(e) => onChange('section80D_ParentsInsurance', parseFloat(e.target.value) || 0)}
                             className="w-full pl-7 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-sm text-sm font-semibold focus:ring-1 focus:ring-[#000a2e] outline-none"
@@ -63,6 +68,8 @@ const Section80DCalculator: React.FC<Section80DCalculatorProps> = ({ inputs, onC
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
                         <input
                             type="number"
+                            onKeyDown={preventNonNumericInput}
+                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
                             value={inputs.section80D_PreventiveCheckup || ''}
                             onChange={(e) => onChange('section80D_PreventiveCheckup', parseFloat(e.target.value) || 0)}
                             className="w-full pl-7 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-sm text-sm font-semibold focus:ring-1 focus:ring-[#000a2e] outline-none"

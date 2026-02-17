@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelpCircle } from 'lucide-react';
 import { UserInput, ComparisonResult } from './types';
+import { preventNonNumericInput } from '../utils';
 
 interface Section80CCDCalculatorProps {
     inputs: UserInput;
@@ -33,6 +34,8 @@ const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs,
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
                             <input
                                 type="number"
+                                onKeyDown={preventNonNumericInput}
+                                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                                 value={inputs.section80CCD1B || ''}
                                 onChange={(e) => onChange('section80CCD1B', parseFloat(e.target.value) || 0)}
                                 className="w-full pl-7 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-sm text-sm font-semibold focus:ring-1 focus:ring-[#000a2e] outline-none"
@@ -48,6 +51,8 @@ const Section80CCDCalculator: React.FC<Section80CCDCalculatorProps> = ({ inputs,
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">₹</span>
                             <input
                                 type="number"
+                                onKeyDown={preventNonNumericInput}
+                                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                                 value={inputs.section80CCD2 || ''}
                                 onChange={(e) => onChange('section80CCD2', parseFloat(e.target.value) || 0)}
                                 className="w-full pl-7 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-sm text-sm font-semibold focus:ring-1 focus:ring-[#000a2e] outline-none"

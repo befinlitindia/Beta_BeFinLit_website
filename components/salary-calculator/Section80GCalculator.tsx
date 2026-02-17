@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelpCircle, Plus, Trash2 } from 'lucide-react';
 import { UserInput, DonationItem, ComparisonResult } from './types';
+import { preventNonNumericInput } from '../utils';
 
 interface Section80GCalculatorProps {
     inputs: UserInput;
@@ -102,6 +103,8 @@ const DonationBlock = ({
                                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-[10px]">₹</span>
                                 <input
                                     type="number"
+                                    onKeyDown={preventNonNumericInput}
+                                    onWheel={(e) => (e.target as HTMLInputElement).blur()}
                                     value={d.amount || ''}
                                     onChange={(e) => onUpdate(d.id, 'amount', parseFloat(e.target.value) || 0)}
                                     className="w-full pl-7 pr-3 py-1.5 bg-white border border-slate-200 rounded-sm text-[11px] font-bold text-[#000a2e] focus:border-[#000a2e] outline-none transition-all"

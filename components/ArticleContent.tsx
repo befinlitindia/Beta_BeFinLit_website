@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { preventNonNumericInput } from './utils';
 import { FileSearch, TrendingUp, BookOpen, Mail, ChevronRight, X, Check, XCircle, AlertCircle, ArrowLeft, Info, ShieldAlert } from 'lucide-react';
 
 // --- Sub-components for better organization ---
@@ -169,6 +170,8 @@ const IncomeImpactCalculator = () => {
               type="number"
               value={salary}
               onChange={e => setSalary(e.target.value)}
+              onKeyDown={preventNonNumericInput}
+              onWheel={(e) => (e.target as HTMLInputElement).blur()}
               className="w-full bg-white/10 border border-white/20 p-3 rounded-sm text-white focus:border-befinlit-gold outline-none"
               placeholder="e.g. 4200000"
             />
@@ -179,6 +182,8 @@ const IncomeImpactCalculator = () => {
               type="number"
               value={freelance}
               onChange={e => setFreelance(e.target.value)}
+              onKeyDown={preventNonNumericInput}
+              onWheel={(e) => (e.target as HTMLInputElement).blur()}
               className="w-full bg-white/10 border border-white/20 p-3 rounded-sm text-white focus:border-befinlit-gold outline-none"
               placeholder="e.g. 2500000"
             />

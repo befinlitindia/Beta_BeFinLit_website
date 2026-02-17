@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Calculator, ArrowRight, Info } from 'lucide-react';
+import { preventNonNumericInput } from './utils';
 
 const TaxCalculator: React.FC = () => {
   const [revenue, setRevenue] = useState<string>('');
-  const [result, setResult] = useState<{taxable: number; savings: number} | null>(null);
+  const [result, setResult] = useState<{ taxable: number; savings: number } | null>(null);
 
   const calculateTax = () => {
     const income = parseFloat(revenue.replace(/,/g, ''));
@@ -11,12 +12,12 @@ const TaxCalculator: React.FC = () => {
 
     // 44ADA Logic: 50% is deemed profit
     const deemedProfit = income * 0.5;
-    
+
     // Simple comparison assuming 30% expense ratio vs 50% presumptive
     // This is a simplified illustrative calculation
-    const actualExpenseAssumption = income * 0.3; 
+    const actualExpenseAssumption = income * 0.3;
     const profitRegular = income - actualExpenseAssumption;
-    
+
     setResult({
       taxable: deemedProfit,
       savings: profitRegular - deemedProfit // Hypothetical savings in taxable base
@@ -54,6 +55,8 @@ const TaxCalculator: React.FC = () => {
             <div className="relative">
               <input
                 type="number"
+                onKeyDown={preventNonNumericInput}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 value={revenue}
                 onChange={(e) => setRevenue(e.target.value)}
                 placeholder="e.g. 800000"
@@ -78,11 +81,11 @@ const TaxCalculator: React.FC = () => {
               <p className="text-2xl font-bold text-white">{formatCurrency(result.taxable)}</p>
               <p className="text-[10px] text-white/40 mt-1 italic">Only 50% of your revenue is taxed.</p>
             </div>
-            
+
             <div className="flex items-start gap-3 p-4">
               <Info className="text-befinlit-gold shrink-0 mt-1" size={18} />
               <p className="text-xs text-white/70 leading-relaxed">
-                By opting for presumptive taxation, you don't need to maintain detailed books of accounts if your income is below ₹75 Lakhs (updated limit). <br/>
+                By opting for presumptive taxation, you don't need to maintain detailed books of accounts if your income is below ₹75 Lakhs (updated limit). <br />
                 <span className="text-befinlit-gold underline cursor-pointer mt-1 inline-block">Read more about Sec 44ADA</span>
               </p>
             </div>

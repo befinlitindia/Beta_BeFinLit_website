@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TrendingUp, AlertCircle, Info, ArrowLeft, BookOpen, Calculator, Landmark } from 'lucide-react';
+import { preventNonNumericInput } from './utils';
 
 interface Props {
   onNavigate: (page: any) => void;
@@ -132,6 +133,8 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
               <label className="text-xs font-bold text-white/50">Annual Gross Salary (₹)</label>
               <input
                 type="number"
+                onKeyDown={preventNonNumericInput}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 value={salary}
                 onChange={e => setSalary(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 p-4 rounded-sm outline-none focus:border-befinlit-gold transition-colors text-lg text-white"
@@ -142,6 +145,8 @@ const SideHustleSurchargeEstimator: React.FC<Props> = ({ onNavigate }) => {
               <label className="text-xs font-bold text-white/50">Freelance Revenue (₹)</label>
               <input
                 type="number"
+                onKeyDown={preventNonNumericInput}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 value={freelance}
                 onChange={e => setFreelance(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 p-4 rounded-sm outline-none focus:border-befinlit-gold transition-colors text-lg text-white"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelpCircle, Plus, Trash2 } from 'lucide-react';
 import { CustomComponent } from './types';
+import { preventNonNumericInput } from '../utils';
 
 interface SectionProps {
     title: string;
@@ -52,6 +53,8 @@ export const InputField: React.FC<InputFieldProps> = ({ label, name, value, onCh
             {showCurrency && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs group-focus-within:text-[#000a2e]">₹</span>}
             <input
                 type="number"
+                onKeyDown={preventNonNumericInput}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 value={value === 0 ? '' : value}
                 onChange={(e) => onChange(name, parseFloat(e.target.value) || 0)}
                 className={`w-full ${showCurrency ? 'pl-8' : 'pl-3'} pr-3 py-2 bg-slate-50 border ${warning ? 'border-amber-400' : 'border-slate-200'} rounded-sm text-sm text-[#000a2e] font-bold focus:outline-none focus:ring-1 ${warning ? 'focus:ring-amber-500' : 'focus:ring-[#000a2e]'} focus:bg-white transition-all hover:border-slate-300 placeholder-slate-300`}
