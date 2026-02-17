@@ -73,12 +73,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
 
         {/* What are our goals? */}
         <section className="py-24 px-4 md:px-8 max-w-[1400px] mx-auto border-t border-befinlit-navy/5 relative overflow-hidden">
+          {/* Watermark */}
+          <div className="absolute top-12 left-1/2 -translate-x-1/2 text-[120px] md:text-[180px] font-bold text-befinlit-navy/[0.03] pointer-events-none select-none leading-[0.8] md:leading-none z-0 font-serif text-center">
+            OUR<br className="md:hidden" />GOALS
+          </div>
 
           <div className="relative z-10 flex flex-col items-center mb-16">
-            {/* Watermark */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 text-[120px] md:text-[180px] font-bold text-befinlit-navy/[0.03] pointer-events-none select-none leading-[0.8] md:leading-none z-0 font-serif text-center">
-              OUR<br className="md:hidden" />GOALS
-            </div>
 
             <div className="h-16 w-px bg-gradient-to-b from-transparent to-befinlit-gold/50 mb-6 relative z-10"></div>
             <h2 className="text-sm md:text-base uppercase tracking-[0.3em] font-bold text-befinlit-gold text-center shadow-sm relative z-10">
