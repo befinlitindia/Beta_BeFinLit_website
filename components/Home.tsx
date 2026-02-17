@@ -169,8 +169,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <h3 className="text-2xl font-bold text-befinlit-navy mb-2 group-hover:text-befinlit-gold transition-colors">The Side-Hustle Tax Realizer</h3>
-                <p className="text-befinlit-navy/40 text-sm mb-4 font-medium italic">The Success Penalty Calculator</p>
+                <div className="text-sm text-befinlit-gold font-bold uppercase tracking-wider mb-2">The Side-Hustle Tax Realizer</div>
+                <h3 className="text-2xl font-bold text-befinlit-navy mb-4 group-hover:text-befinlit-gold transition-colors">The Success Penalty Calculator</h3>
                 <p className="text-sm text-befinlit-navy/60 mb-6 leading-relaxed">
                   {SUCCESS_PENALTY_CALCULATOR_DESCRIPTION}
                 </p>
