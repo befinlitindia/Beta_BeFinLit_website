@@ -76,7 +76,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenConsultation }) => {
 
           <div className="relative z-10 flex flex-col items-center mb-16">
             {/* Watermark */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px] font-bold text-befinlit-navy/[0.03] pointer-events-none select-none leading-[0.8] md:leading-none z-0 font-serif text-center w-full whitespace-nowrap">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 text-[120px] md:text-[180px] font-bold text-befinlit-navy/[0.03] pointer-events-none select-none leading-[0.8] md:leading-none z-0 font-serif text-center">
               OUR<br className="md:hidden" />GOALS
             </div>
 
