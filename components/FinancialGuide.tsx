@@ -114,7 +114,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                 <section id="income-tax" className="scroll-mt-32">
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-8">
                         <h3 className="text-2xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
-                        <p className="text-left text-befinlit-navy/70 leading-relaxed">A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training—like a software developer writing code, a designer creating a logo, or a doctor treating a patient.</p>
+                        <p className="text-left text-befinlit-navy/70 leading-relaxed">A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training - like a software developer writing code, a designer creating a logo, or a doctor treating a patient.</p>
                     </div>
 
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-12">

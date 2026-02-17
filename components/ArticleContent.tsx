@@ -662,7 +662,7 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
         <div className="bg-white p-6 border-l-4 border-befinlit-navy shadow-sm mt-10">
           <h4 className="font-bold text-befinlit-navy mb-2">The New Transparency</h4>
           <p className="text-sm italic">
-            The Indian tax system has gone digital-first. Between the Annual Information Statement (AIS) and seamless data-sharing, your financial footprint is clearer than ever. The old days of 'hiding' side income are over—today, the smartest move is to be visible, compliant, and tax-efficient from day one.
+            The Indian tax system has gone digital-first. Between the Annual Information Statement (AIS) and seamless data-sharing, your financial footprint is clearer than ever. The old days of 'hiding' side income are over - today, the smartest move is to be visible, compliant, and tax-efficient from day one.
           </p>
         </div>
       </div>
@@ -691,7 +691,7 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
           The Growth Phase: When the Same PAN Hurts
         </h2>
         <p className="text-befinlit-navy/80 mb-6 text-sm leading-relaxed">
-          As you scale, you hit the "Surcharge Trap". Your side income is added to your salary, often pushing you into the 10% or 15% surcharge brackets. Suddenly, your effective tax rate isn't 30%—it's 42%+.
+          As you scale, you hit the "Surcharge Trap". Your side income is added to your salary, often pushing you into the 10% or 15% surcharge brackets. Suddenly, your effective tax rate isn't 30% - it's 42%+.
         </p>
 
         {/* Interactive Income Impact Calculator */}

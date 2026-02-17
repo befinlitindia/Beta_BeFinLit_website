@@ -33,12 +33,12 @@ const AboutUs: React.FC<AboutUsProps> = ({ onNavigate, onOpenConsultation }) => 
               BeFinLit India (Become Financially Literate) started as a response to the growing confusion in the Indian financial landscape. With the rapid changes in tax laws and the rise of the creator and freelance economies, the gap between traditional advice and modern needs has never been wider.
             </p>
             <p>
-              Our goal isn't just to provide a service—it's to provide literacy. We believe that when an individual understands the "why" behind their taxes and investments, they make choices that lead to long-term prosperity.
+              Our goal isn't just to provide a service - it's to provide literacy. We believe that when an individual understands the "why" behind their taxes and investments, they make choices that lead to long-term prosperity.
             </p>
 
             <div className="pt-8 border-t border-befinlit-navy/10 mt-8">
               <blockquote className="text-xl text-befinlit-navy/70 italic leading-relaxed">
-                "Financial literacy isn't a luxury—it's a survival skill for the modern professional."
+                "Financial literacy isn't a luxury - it's a survival skill for the modern professional."
               </blockquote>
             </div>
           </div>
