@@ -653,14 +653,14 @@ const ArticleContent: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
       {/* Intro */}
       <div className="prose prose-lg prose-slate font-serif mx-auto text-befinlit-navy/80 mb-16">
-        <p>
+        <p className="mb-8">
           Remote work has turned the 9-to-5 into a 24/7 opportunity. With digital freelance platforms, anyone can earn in Dollars or Euros from their bedroom. But just because you can take that extra project doesn't mean you've figured out the tax bill that comes with it.
         </p>
         <p>
           In this playbook, we’re breaking down exactly how to manage your double income, stay on the right side of the law, and keep more of what you earn.
         </p>
         <div className="bg-white p-6 border-l-4 border-befinlit-navy shadow-sm mt-10">
-          <h4 className="font-bold text-befinlit-navy mb-2">The New Transparency</h4>
+          <h4 className="font-bold text-befinlit-navy mb-2">Transparency: The New Norm</h4>
           <p className="text-sm italic">
             The Indian tax system has gone digital-first. Between the Annual Information Statement (AIS) and seamless data-sharing, your financial footprint is clearer than ever. The old days of 'hiding' side income are over - today, the smartest move is to be visible, compliant, and tax-efficient from day one.
           </p>
