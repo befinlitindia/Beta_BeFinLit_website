@@ -1,14 +1,14 @@
 import React from 'react';
 import { ArrowRight, Calculator, Wrench, Landmark, Tag } from 'lucide-react';
 import { SALARY_TAX_CALCULATOR_DESCRIPTION, SUCCESS_PENALTY_CALCULATOR_DESCRIPTION } from './content';
-import { toolsList } from './data';
+import { getVisibleTools } from './data';
 
 interface ToolsProps {
   onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator') => void;
 }
 
 const Tools: React.FC<ToolsProps> = ({ onNavigate }) => {
-
+  const visibleTools = getVisibleTools();
 
   return (
     <div className="animate-fade-in pt-48 pb-20 px-4 md:px-8 max-w-[1400px] mx-auto">
@@ -24,7 +24,7 @@ const Tools: React.FC<ToolsProps> = ({ onNavigate }) => {
       </header>
 
       <div className="grid gap-8">
-        {toolsList.map((tool) => (
+        {visibleTools.map((tool) => (
           <div
             key={tool.id}
             onClick={() => tool.status === "Ready" && onNavigate(tool.id as any)}

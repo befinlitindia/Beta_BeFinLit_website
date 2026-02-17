@@ -10,6 +10,7 @@ export interface ResourceItem {
     readTime?: string; // Specific to playbooks
     status?: string;   // Specific to tools
     linkText?: string; // Custom text for the button
+    isDraft?: boolean; // If true, only shows in development/draft mode
 }
 
 export const playbooksList: ResourceItem[] = [
@@ -21,7 +22,8 @@ export const playbooksList: ResourceItem[] = [
         tag: "Freelance 101",
         readTime: "12 min read",
         type: 'playbook',
-        linkText: 'Read Playbook'
+        linkText: 'Read Playbook',
+        isDraft: false
     },
     {
         id: 'financial-guide',
@@ -31,7 +33,8 @@ export const playbooksList: ResourceItem[] = [
         tag: "Freelance 101",
         readTime: "15 min read",
         type: 'playbook',
-        linkText: 'Read Playbook'
+        linkText: 'Read Playbook',
+        isDraft: true
     }
 ];
 
@@ -44,7 +47,8 @@ export const toolsList: ResourceItem[] = [
         tag: "Calculator",
         status: "Ready",
         type: 'tool',
-        linkText: 'Launch Tool'
+        linkText: 'Launch Tool',
+        isDraft: true
     },
     {
         id: 'side-hustle-estimator',
@@ -54,11 +58,20 @@ export const toolsList: ResourceItem[] = [
         tag: "Freelance 101",
         status: "Ready",
         type: 'tool',
-        linkText: 'Launch Tool'
+        linkText: 'Launch Tool',
+        isDraft: false
     }
 ];
 
-export const getAllResources = () => [...playbooksList, ...toolsList];
+const isDraftMode = import.meta.env.VITE_DRAFT_MODE === 'true';
+
+export const getVisiblePlaybooks = () =>
+    isDraftMode ? playbooksList : playbooksList.filter(p => !p.isDraft);
+
+export const getVisibleTools = () =>
+    isDraftMode ? toolsList : toolsList.filter(t => !t.isDraft);
+
+export const getAllResources = () => [...getVisiblePlaybooks(), ...getVisibleTools()];
 
 export const getResourcesByTag = (tag: string) => {
     return getAllResources().filter(item => item.tag === tag);

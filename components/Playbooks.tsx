@@ -1,14 +1,14 @@
 import React from 'react';
 import { ArrowRight, BookOpen, Clock, Tag } from 'lucide-react';
 import { MOONLIGHTER_PLAYBOOK_DESCRIPTION } from './content';
-import { playbooksList } from './data';
+import { getVisiblePlaybooks } from './data';
 
 interface PlaybooksProps {
   onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'financial-guide') => void;
 }
 
 const Playbooks: React.FC<PlaybooksProps> = ({ onNavigate }) => {
-
+  const visiblePlaybooks = getVisiblePlaybooks();
 
   return (
     <div className="animate-fade-in pt-32 md:pt-48 pb-20 px-4 md:px-8 max-w-[1400px] mx-auto">
@@ -24,7 +24,7 @@ const Playbooks: React.FC<PlaybooksProps> = ({ onNavigate }) => {
       </header>
 
       <div className="space-y-12">
-        {playbooksList.map((item) => (
+        {visiblePlaybooks.map((item) => (
           <div
             key={item.id}
             onClick={() => onNavigate(item.id as any)}
