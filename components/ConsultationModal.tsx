@@ -60,7 +60,7 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
         setFormData(prev => ({ ...prev, payLater: false }));
     };
 
-    const handleSubmit = async (payLater: boolean) => {
+    const handleSubmit = async () => {
         setIsSubmitting(true);
 
         // Hardcoded fallback URL for convenience, allows form to work without secrets
@@ -86,7 +86,7 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
                     whatsapp: formData.whatsapp,
                     query: formData.query,
                     consultation_type: formData.consultationType === 'email' ? 'Email Reply' : 'Audio/Video Call',
-                    payment_preference: payLater ? 'Pay Later' : 'Pay Now',
+                    payment_preference: 'Pay Now',
                     created_at: new Date().toISOString()
                 })
             });
@@ -209,8 +209,8 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
                     <Clock size={16} /> Timeline & Process
                 </h4>
                 <ul className="text-sm text-befinlit-navy/80 space-y-2 list-disc pl-4">
-                    <li><strong>Buffer Time:</strong> We require a minimum of <strong>3 days</strong> to draft the advisory after verifying all facts.</li>
                     <li><strong>Process:</strong> We may revert via email to clarify facts before drafting the final advisory.</li>
+                    <li><strong>Buffer Time:</strong> We require a minimum of <strong>3 days</strong> to draft the advisory after verifying all facts.</li>
                 </ul>
             </div>
 
@@ -219,38 +219,24 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
                     <CreditCard size={16} /> Consultation Fees
                 </h4>
                 <p className="text-sm text-befinlit-navy/80 mb-2">
-                    Starts from <strong>₹1,999</strong>. Final quote depends on query complexity.
+                    Flat fee: <strong>₹1,999</strong>.
                 </p>
                 <p className="text-xs text-befinlit-navy/60 italic">
-                    Proforma invoice will be shared after receiving your query.
+                    Invoice will be shared before sharing the final delivery of the advisory over email.
                 </p>
             </div>
 
             <div className="space-y-3">
-                <label className="block text-sm font-bold text-befinlit-navy">Select Payment Option</label>
-
                 <button
-                    onClick={() => handleSubmit(false)}
+                    onClick={handleSubmit}
                     disabled={isSubmitting}
                     className="w-full p-4 border border-befinlit-navy/20 rounded-sm flex items-center justify-between hover:border-befinlit-gold group bg-white hover:bg-befinlit-cream transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <div className="text-left">
-                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Pay Now'}</span>
-                        <span className="text-xs text-befinlit-navy/60">Pay at time of proforma invoice</span>
+                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Submit Request'}</span>
+                        <span className="text-xs text-befinlit-navy/60">Pay at time of invoice</span>
                     </div>
-                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹1,999+</span>
-                </button>
-
-                <button
-                    onClick={() => handleSubmit(true)}
-                    disabled={isSubmitting}
-                    className="w-full p-4 border border-befinlit-navy/20 rounded-sm flex items-center justify-between hover:border-befinlit-gold group bg-white hover:bg-befinlit-cream transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <div className="text-left">
-                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Pay Later'}</span>
-                        <span className="text-xs text-befinlit-navy/60">Pay before final draft (Includes ₹299 fee)</span>
-                    </div>
-                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹2,298+</span>
+                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹1,999</span>
                 </button>
             </div>
 
@@ -265,91 +251,14 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
 
     const renderCallStep = () => (
         <div className="space-y-6 animate-fade-in">
-            <div className="bg-white border border-befinlit-navy/20 rounded-sm p-4 text-center">
-                <h5 className="font-bold text-befinlit-navy mb-1 flex items-center justify-center gap-2">
-                    <Calendar size={16} /> Available Dates
-                </h5>
-                <p className="text-xs text-befinlit-navy/60 font-medium mb-3">
-                    {(() => {
-                        const today = new Date();
-                        const end = new Date(today);
-                        end.setDate(today.getDate() + 29);
-
-                        const startMonth = today.toLocaleString('default', { month: 'long' });
-                        const startYear = today.getFullYear();
-                        const endMonth = end.toLocaleString('default', { month: 'long' });
-                        const endYear = end.getFullYear();
-
-                        if (startMonth === endMonth && startYear === endYear) {
-                            return `${startMonth} ${startYear}`;
-                        } else if (startYear === endYear) {
-                            return `${startMonth} - ${endMonth} ${startYear}`;
-                        } else {
-                            return `${startMonth} ${startYear} - ${endMonth} ${endYear}`;
-                        }
-                    })()}
-                </p>
-
-                {/* Calendar Grid */}
-                <div className="grid grid-cols-7 gap-1 mb-2 text-xs font-bold text-befinlit-navy/60">
-                    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
-                </div>
-                <div className="grid grid-cols-7 gap-1">
-                    {(() => {
-                        const today = new Date();
-                        const days = [];
-                        const PUBLIC_HOLIDAYS_2026 = [
-                            "2026-01-26", "2026-03-04", "2026-03-21", "2026-03-26", "2026-03-31",
-                            "2026-04-03", "2026-05-01", "2026-05-27", "2026-06-26", "2026-08-15",
-                            "2026-08-26", "2026-09-04", "2026-10-02", "2026-10-20", "2026-11-08",
-                            "2026-11-24", "2026-12-25"
-                        ];
-
-                        // Generate 30 days
-                        for (let i = 0; i < 30; i++) {
-                            const date = new Date(today);
-                            date.setDate(today.getDate() + i);
-
-                            const dateString = date.toISOString().split('T')[0];
-                            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-                            const isHoliday = PUBLIC_HOLIDAYS_2026.includes(dateString);
-                            const isUnavailable = isWeekend || isHoliday;
-
-                            days.push(
-                                <div
-                                    key={i}
-                                    className={`
-                                            aspect-square flex items-center justify-center text-xs rounded-sm relative group
-                                            ${isUnavailable
-                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                            : 'bg-befinlit-cream text-befinlit-navy font-bold border border-befinlit-gold/30 hover:bg-befinlit-gold hover:text-white cursor-default'
-                                        }
-                                        `}
-                                    title={isHoliday ? "Public Holiday" : isWeekend ? "Weekend (Closed)" : "Available"}
-                                >
-                                    {date.getDate()}
-                                    {isUnavailable && (
-                                        <div className="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 bg-befinlit-navy text-white text-[10px] p-1 rounded whitespace-nowrap z-10 mb-1">
-                                            {isHoliday ? "Holiday" : "Closed"}
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        }
-                        return days;
-                    })()}
-                </div>
-                <p className="text-[10px] text-befinlit-navy/40 mt-2 text-center">
-                    *Grey dates are unavailable. Showing next 30 days.
-                </p>
-
-                <a
-                    href="#"
-                    onClick={(e) => { e.preventDefault(); alert("Redirecting to BeFinLit India Calendar..."); }}
-                    className="mt-4 block w-full py-2 bg-befinlit-navy text-befinlit-cream text-xs font-bold rounded-sm hover:bg-befinlit-lightNavy transition-colors"
-                >
-                    View Full Calendar
-                </a>
+            <div className="bg-blue-50 p-4 border border-blue-100 rounded-sm">
+                <h4 className="font-bold text-befinlit-navy flex items-center gap-2 mb-2">
+                    <Clock size={16} /> Timeline & Process
+                </h4>
+                <ul className="text-sm text-befinlit-navy/80 space-y-2 list-disc pl-4">
+                    <li><strong>Process:</strong> We may revert via email, WhatsApp, or call to clarify facts before scheduling the final call.</li>
+                    <li><strong>Buffer Time:</strong> We require a minimum of <strong>3 days</strong> to prepare for the call after verifying all facts.</li>
+                </ul>
             </div>
 
             <div className="bg-yellow-50 p-4 border border-yellow-100 rounded-sm">
@@ -357,35 +266,24 @@ const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, onClose }
                     <CreditCard size={16} /> Consultation Fees
                 </h4>
                 <p className="text-sm text-befinlit-navy/80 mb-2">
-                    Video consultation starts from <strong>₹2,999</strong>.
+                    Video consultation flat fee: <strong>₹2,499</strong>.
+                </p>
+                <p className="text-xs text-befinlit-navy/60 italic">
+                    Invoice will be shared before the video call.
                 </p>
             </div>
 
             <div className="space-y-3">
-                <label className="block text-sm font-bold text-befinlit-navy">Select Payment Option</label>
-
                 <button
-                    onClick={() => handleSubmit(false)}
+                    onClick={handleSubmit}
                     disabled={isSubmitting}
                     className="w-full p-4 border border-befinlit-navy/20 rounded-sm flex items-center justify-between hover:border-befinlit-gold group bg-white hover:bg-befinlit-cream transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <div className="text-left">
-                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Pay Now'}</span>
-                        <span className="text-xs text-befinlit-navy/60">Standard Rate</span>
+                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Submit Request'}</span>
+                        <span className="text-xs text-befinlit-navy/60">Pay before call</span>
                     </div>
-                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹2,999</span>
-                </button>
-
-                <button
-                    onClick={() => handleSubmit(true)}
-                    disabled={isSubmitting}
-                    className="w-full p-4 border border-befinlit-navy/20 rounded-sm flex items-center justify-between hover:border-befinlit-gold group bg-white hover:bg-befinlit-cream transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <div className="text-left">
-                        <span className="block font-bold text-befinlit-navy">{isSubmitting ? 'Sending...' : 'Pay Later'}</span>
-                        <span className="text-xs text-befinlit-navy/60">Pay before call (Includes ₹399 fee)</span>
-                    </div>
-                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹3,398</span>
+                    <span className="text-befinlit-navy font-bold group-hover:text-befinlit-gold">₹2,499</span>
                 </button>
             </div>
 
