@@ -274,7 +274,7 @@ const IncomeImpactCalculator = () => {
             <div className="flex flex-col items-center gap-4 mt-8">
               <button
                 onClick={handleStartOver}
-                className="px-6 py-3 border border-white/20 rounded-sm text-xs font-bold text-white/60 hover:text-white hover:border-white transition-all uppercase tracking-widest"
+                className="px-6 py-3 bg-white/5 border border-white/10 rounded-sm text-xs font-bold text-befinlit-gold hover:bg-white/10 transition-all shadow-sm"
               >
                 Reset All Fields
               </button>
