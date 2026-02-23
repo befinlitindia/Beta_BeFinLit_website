@@ -63,7 +63,8 @@ export const toolsList: ResourceItem[] = [
     }
 ];
 
-const isDraftMode = import.meta.env.VITE_DRAFT_MODE === 'true';
+// Only show drafts in development mode AND if the flag is set
+const isDraftMode = !import.meta.env.PROD && import.meta.env.VITE_DRAFT_MODE === 'true';
 
 export const getVisiblePlaybooks = () =>
     isDraftMode ? playbooksList : playbooksList.filter(p => !p.isDraft);
