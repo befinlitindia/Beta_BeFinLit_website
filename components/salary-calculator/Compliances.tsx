@@ -32,7 +32,7 @@ const Compliances: React.FC = () => {
     ];
 
     return (
-        <div className="mt-12 bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden h-full flex flex-col">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full px-8 py-5 flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition-colors group"

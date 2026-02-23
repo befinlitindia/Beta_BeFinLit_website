@@ -67,6 +67,8 @@ export interface UserInput {
 export interface TaxResult {
     grossTotalIncome: number;
     totalDeductions: number;
+    totalExemptions: number;
+    chapterVIA: number;
     netTaxableIncome: number;
     baseTax: number;
     rebate87A: number;
@@ -76,7 +78,11 @@ export interface TaxResult {
     totalTax: number;
     effectiveRate: number;
     standardDeduction: number;
+    professionalTax: number;
+    entertainmentAllowance: number;
     slabBreakdown: { limit: string; rate: string; amount: number }[];
+    itemizedExemptions: { name: string; value: number }[];
+    itemizedDeductions: { name: string; value: number }[];
 }
 
 export type Regime = 'OLD' | 'NEW';

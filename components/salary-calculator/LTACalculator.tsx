@@ -77,7 +77,7 @@ const LTACalculator: React.FC<LTACalculatorProps> = ({
                     </div>
 
                     <div className="mt-4 p-4 bg-[#000a2e] rounded-sm text-center">
-                        <p className="text-[10px] font-bold text-slate-400 mb-1">Final LTA Exemption (Lower of the two)</p>
+                        <p className="text-[10px] font-bold text-slate-400 mb-1">Final LTA Exemption (Lowest of the two)</p>
                         <p className="text-xl font-bold text-yellow-400">₹{exemption.toLocaleString('en-IN')}</p>
                     </div>
                 </div>

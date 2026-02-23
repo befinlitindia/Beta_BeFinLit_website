@@ -67,20 +67,20 @@ const calculateOldRegimeTax = (taxableIncome: number, age: number): { baseTax: n
         const taxable5 = Math.min(taxableIncome, 500000) - slabLimit;
         const amount5 = round(Math.max(0, taxable5 * 0.05));
         tax += amount5;
-        slabs.push({ limit: `₹${(slabLimit / 1000).toFixed(0)}k - ₹5L`, rate: '5%', amount: amount5 });
+        slabs.push({ limit: `₹${slabLimit.toLocaleString('en-IN')} - ₹5,00,000`, rate: '5%', amount: amount5 });
 
         if (taxableIncome > 500000) {
             const taxable20 = Math.min(taxableIncome, 1000000) - 500000;
             const amount20 = round(Math.max(0, taxable20 * 0.20));
             tax += amount20;
-            slabs.push({ limit: '₹5L - ₹10L', rate: '20%', amount: amount20 });
+            slabs.push({ limit: '₹5,00,000 - ₹10,00,000', rate: '20%', amount: amount20 });
         }
 
         if (taxableIncome > 1000000) {
             const taxable30 = taxableIncome - 1000000;
             const amount30 = round(Math.max(0, taxable30 * 0.30));
             tax += amount30;
-            slabs.push({ limit: 'Above ₹10L', rate: '30%', amount: amount30 });
+            slabs.push({ limit: 'Above ₹10,00,000', rate: '30%', amount: amount30 });
         }
     }
 
@@ -91,13 +91,13 @@ const calculateNewRegimeTax = (taxableIncome: number): { baseTax: number; slabs:
     let tax = 0;
     const slabs = [];
     const brackets = [
-        { limit: 400000, label: 'Up to ₹4L', rate: 0, rateStr: '0%' },
-        { limit: 800000, label: '₹4L - ₹8L', rate: 0.05, rateStr: '5%' },
-        { limit: 1200000, label: '₹8L - ₹12L', rate: 0.10, rateStr: '10%' },
-        { limit: 1600000, label: '₹12L - ₹16L', rate: 0.15, rateStr: '15%' },
-        { limit: 2000000, label: '₹16L - ₹20L', rate: 0.20, rateStr: '20%' },
-        { limit: 2400000, label: '₹20L - ₹24L', rate: 0.25, rateStr: '25%' },
-        { limit: Infinity, label: 'Above ₹24L', rate: 0.30, rateStr: '30%' }
+        { limit: 400000, label: 'Up to ₹4,00,000', rate: 0, rateStr: '0%' },
+        { limit: 800000, label: '₹4,00,000 - ₹8,00,000', rate: 0.05, rateStr: '5%' },
+        { limit: 1200000, label: '₹8,00,000 - ₹12,00,000', rate: 0.10, rateStr: '10%' },
+        { limit: 1600000, label: '₹12,00,000 - ₹16,00,000', rate: 0.15, rateStr: '15%' },
+        { limit: 2000000, label: '₹16,00,000 - ₹20,00,000', rate: 0.20, rateStr: '20%' },
+        { limit: 2400000, label: '₹20,00,000 - ₹24,00,000', rate: 0.25, rateStr: '25%' },
+        { limit: Infinity, label: 'Above ₹24,00,000', rate: 0.30, rateStr: '30%' }
     ];
 
     let prevLimit = 0;
@@ -233,11 +233,46 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
     const oldTotal = roundTo10(oldTaxAfterRebate + oldSurchargeRes.surcharge - oldSurchargeRes.marginalRelief + oldFinalCess);
     const newTotal = roundTo10(newTaxAfterRelief87A + newSurchargeRes.surcharge - newSurchargeRes.marginalRelief + newFinalCess);
 
+    // --- Itemized Collection ---
+    const exemptionsOld: { name: string; value: number }[] = [];
+    if (hraEx > 0) exemptionsOld.push({ name: 'HRA Exemption u/s 10(13A)', value: hraEx });
+    if (ltaEx > 0) exemptionsOld.push({ name: 'LTA Exemption u/s 10(5)', value: ltaEx });
+    input.customExemptions.forEach(e => {
+        if (e.value > 0) exemptionsOld.push({ name: e.name || 'Other Exemption', value: e.value });
+    });
+
+    const chapterVIA_Old: { name: string; value: number }[] = [];
+    if (ded80C > 0) chapterVIA_Old.push({ name: 'Section 80C: Investments', value: ded80C });
+    if (ded80CCD1B > 0) chapterVIA_Old.push({ name: 'Section 80CCD(1B): NPS', value: ded80CCD1B });
+    if (ded80CCD2_Old > 0) chapterVIA_Old.push({ name: 'Section 80CCD(2): Employer NPS', value: ded80CCD2_Old });
+    if (ded80D > 0) chapterVIA_Old.push({ name: 'Section 80D: Health Insurance', value: ded80D });
+    if (input.section80E > 0) chapterVIA_Old.push({ name: 'Section 80E: Education Loan', value: input.section80E });
+    if (ded80GG > 0) chapterVIA_Old.push({ name: 'Section 80GG: Rent Paid', value: ded80GG });
+    if (total80G > 0) chapterVIA_Old.push({ name: 'Section 80G: Donations', value: total80G });
+    if (dedTTA_TTB > 0) chapterVIA_Old.push({ name: `Section ${input.userAge >= 60 ? '80TTB' : '80TTA'}: Interest`, value: dedTTA_TTB });
+    input.customDeductions.forEach(d => {
+        if (d.value > 0) chapterVIA_Old.push({ name: d.name || 'Other Deduction', value: d.value });
+    });
+
+    const chapterVIA_New: { name: string; value: number }[] = [];
+    if (ded80CCD2_New > 0) chapterVIA_New.push({ name: 'Section 80CCD(2): Employer NPS', value: ded80CCD2_New });
+    input.customDeductions.forEach(d => {
+        if (d.value > 0) chapterVIA_New.push({ name: d.name || 'Other Deduction', value: d.value });
+    });
+
+    const totalExOld = hraEx + ltaEx + customExs;
+    const totalVIAOld = totalDeductionsOld - (stdOld + totalExOld + input.professionalTax + entAllowanceDed);
+
+    const totalExNew = 0;
+    const totalVIANew = totalDeductionsNew - stdNew;
+
     return {
         oldRegime: {
             grossTotalIncome: gtiOld,
             totalDeductions: totalDeductionsOld,
-            netTaxableIncome: unroundedNetOld, // Display unrounded value first
+            totalExemptions: totalExOld,
+            chapterVIA: totalVIAOld,
+            netTaxableIncome: unroundedNetOld,
             baseTax: oldBaseRes.baseTax,
             rebate87A: oldRebate87A,
             surcharge: oldSurchargeRes.surcharge,
@@ -246,12 +281,18 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
             totalTax: oldTotal,
             effectiveRate: gtiOld > 0 ? (oldTotal / gtiOld) * 100 : 0,
             standardDeduction: stdOld,
-            slabBreakdown: oldBaseRes.slabs
+            professionalTax: input.professionalTax,
+            entertainmentAllowance: entAllowanceDed,
+            slabBreakdown: oldBaseRes.slabs,
+            itemizedExemptions: exemptionsOld,
+            itemizedDeductions: chapterVIA_Old
         },
         newRegime: {
             grossTotalIncome: gtiNew,
             totalDeductions: totalDeductionsNew,
-            netTaxableIncome: unroundedNetNew, // Display unrounded value
+            totalExemptions: totalExNew,
+            chapterVIA: totalVIANew,
+            netTaxableIncome: unroundedNetNew,
             baseTax: newBaseRes.baseTax,
             rebate87A: newRebate87A,
             surcharge: newSurchargeRes.surcharge,
@@ -260,7 +301,11 @@ export const calculateTax = (input: UserInput): ComparisonResult => {
             totalTax: newTotal,
             effectiveRate: gtiNew > 0 ? (newTotal / gtiNew) * 100 : 0,
             standardDeduction: stdNew,
-            slabBreakdown: newBaseRes.slabs
+            professionalTax: 0, // Not available in new regime
+            entertainmentAllowance: 0, // Not available in new regime
+            slabBreakdown: newBaseRes.slabs,
+            itemizedExemptions: [],
+            itemizedDeductions: chapterVIA_New
         },
         recommendation: newTotal <= oldTotal ? 'NEW' : 'OLD',
         savings: Math.max(0, Math.abs(newTotal - oldTotal)),

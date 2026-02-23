@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft, User, Wallet } from 'lucide-react';
+import { ArrowLeft, User, Wallet, RotateCcw } from 'lucide-react';
 import { Section, InputField, ToggleField, DynamicRow } from './salary-calculator/FormSections';
 import ResultsView from './salary-calculator/ResultsView';
 import Compliances from './salary-calculator/Compliances';
@@ -65,6 +65,12 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
         }));
     };
 
+    const handleReset = () => {
+        setInputs(initialInput);
+        setWantsSuggestions('none');
+        setShowTips(false);
+    };
+
     return (
         <div className="min-h-screen bg-[#fdfbf7] font-sans selection:bg-[#000a2e]/10">
 
@@ -100,15 +106,23 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-16">
-                    <div className="xl:col-span-7 space-y-20">
+                <div className="space-y-24">
+                    <div className="space-y-20">
 
                         {/* SECTION A */}
                         <div className="space-y-8">
-                            <h2 className="text-2xl font-bold font-serif text-befinlit-navy mb-6 flex items-center gap-3">
-                                <User className="text-befinlit-gold" />
-                                Section A: Taxpayer Profile
-                            </h2>
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-2xl font-bold font-serif text-befinlit-navy flex items-center gap-3">
+                                    <User className="text-befinlit-gold" />
+                                    Section A: Taxpayer Profile
+                                </h2>
+                                <button
+                                    onClick={handleReset}
+                                    className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-red-50 text-slate-500 hover:text-red-600 transition-all rounded-sm font-bold text-[10px] uppercase tracking-widest border border-slate-200 hover:border-red-100 shadow-sm"
+                                >
+                                    <RotateCcw size={12} /> Reset Calculator
+                                </button>
+                            </div>
                             <Section title="Demographic Details" description="Foundational details required to determine tax slab eligibility." delay={100}>
                                 <InputField label="Current Age" name="userAge" value={inputs.userAge} onChange={handleInputChange} showCurrency={false} tooltip="Determines tax slab limits in Old Regime." />
                                 <ToggleField label="Residence Location" name="isMetro" value={inputs.isMetro} onChange={handleInputChange} leftLabel="Metro City" rightLabel="Non-Metro" subText="Metro: Mumbai, Delhi, Kolkata, Chennai." />
@@ -277,57 +291,68 @@ const SalaryTaxCalculator: React.FC<Props> = ({ onNavigate }) => {
                         </div>
                     </div>
 
-                    <div className="xl:col-span-5">
-                        <div className="sticky top-32 space-y-12">
-                            <ResultsView result={results} />
+                    <div className="space-y-16">
+                        <ResultsView result={results} />
 
-                            {wantsSuggestions === 'none' && (
-                                <div className="bg-white rounded-sm p-8 border border-befinlit-navy/10 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <h4 className="text-sm font-bold text-befinlit-navy mb-6 text-center">Do you want basic tax saving suggestions?</h4>
-                                    <div className="flex flex-col gap-3">
-                                        <button
-                                            onClick={() => {
-                                                setWantsSuggestions('yes');
-                                                setShowTips(true);
-                                            }}
-                                            className="w-full py-4 rounded-sm bg-[#000a2e] text-white font-bold text-xs hover:bg-befinlit-navy/90 transition-colors"
-                                        >
-                                            Yes, Show Suggestions
-                                        </button>
-                                        <button
-                                            onClick={() => setWantsSuggestions('no')}
-                                            className="w-full py-4 rounded-sm border border-befinlit-navy/20 text-befinlit-navy font-bold text-xs hover:bg-slate-50 transition-colors"
-                                        >
-                                            No, I'm Done
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-
-                            {wantsSuggestions === 'yes' && (
-                                <>
-                                    {!showTips ? (
-                                        <button
-                                            onClick={() => setShowTips(true)}
-                                            className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
-                                        >
-                                            💡 Basic tax saving suggestions
-                                        </button>
-                                    ) : (
-                                        <div className="relative animate-in zoom-in duration-300">
+                        {/* Suggestions (7) & Compliances (5) Split Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                            {/* Left Side: Suggestions (7/12) */}
+                            <div className="lg:col-span-7 w-full h-full">
+                                {wantsSuggestions === 'none' && (
+                                    <div className="bg-white rounded-sm p-8 border border-befinlit-navy/10 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500 h-full flex flex-col justify-center">
+                                        <h4 className="text-sm font-bold text-befinlit-navy mb-6 text-center italic font-serif">Do you want basic tax saving suggestions?</h4>
+                                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                             <button
-                                                onClick={() => setShowTips(false)}
-                                                className="absolute top-4 right-4 z-10 p-2 text-slate-400 hover:text-[#000a2e] transition-colors bg-white rounded-full shadow-sm"
+                                                onClick={() => {
+                                                    setWantsSuggestions('yes');
+                                                    setShowTips(true);
+                                                }}
+                                                className="px-8 py-4 rounded-sm bg-[#000a2e] text-white font-bold text-xs hover:bg-befinlit-navy/90 transition-colors shrink-0"
                                             >
-                                                ✕
+                                                Yes, Show Suggestions
                                             </button>
-                                            <TaxSavingSuggestions inputs={inputs} results={results} />
+                                            <button
+                                                onClick={() => setWantsSuggestions('no')}
+                                                className="px-8 py-4 rounded-sm border border-befinlit-navy/20 text-befinlit-navy font-bold text-xs hover:bg-slate-50 transition-colors shrink-0"
+                                            >
+                                                No, I'm Done
+                                            </button>
                                         </div>
-                                    )}
-                                </>
-                            )}
+                                    </div>
+                                )}
 
-                            <Compliances />
+                                {wantsSuggestions === 'yes' && (
+                                    <div className="animate-in zoom-in duration-300">
+                                        {!showTips ? (
+                                            <button
+                                                onClick={() => setShowTips(true)}
+                                                className="w-full py-6 rounded-sm bg-[#000a2e] text-white font-bold text-sm shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
+                                            >
+                                                💡 Basic tax saving suggestions
+                                            </button>
+                                        ) : (
+                                            <div className="relative">
+                                                <button
+                                                    onClick={() => setShowTips(false)}
+                                                    className="absolute top-4 right-4 z-10 p-2 text-slate-400 hover:text-[#000a2e] transition-colors bg-white rounded-full shadow-sm"
+                                                >
+                                                    ✕
+                                                </button>
+                                                <TaxSavingSuggestions inputs={inputs} results={results} />
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right Side: Compliances (5/12) */}
+                            <div className="lg:col-span-5 w-full">
+                                <Compliances />
+                            </div>
+                        </div>
+
+                        {/* Centered LeadForm at Bottom */}
+                        <div className="max-w-4xl mx-auto w-full">
                             <LeadForm />
                         </div>
                     </div>
