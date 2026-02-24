@@ -66,11 +66,28 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
             {/* Intro */}
             <div className="prose prose-lg prose-slate font-serif mx-auto text-befinlit-navy/80 mb-16">
                 <p>
-                    The gig economy has liberated talent from traditional employment. Whether you're a consultant, a designer, or a developer, you are your own boss. But with great freedom comes great compliance. From income tax slabs to GST registrations, navigating the regulatory maze is the price of admission for your independent career.
+                    The gig economy has liberated talent from traditional employment. Whether you're a consultant, a designer, or a developer, you are your own boss. But with great freedom comes great compliance. From income tax slabs to GST registrations, navigating the regulatory maze is the price of admission for your independent career. Let's navigate this complexity together through this playbook.
                 </p>
             </div>
 
-            {/* Internal Navigation */}
+            {/* Who is a Professional & Primers */}
+            <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-16 space-y-6">
+                <div>
+                    <h3 className="text-2xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
+                    <p className="text-left text-befinlit-navy/70 leading-relaxed">
+                        A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training - like a software developer writing code, a designer creating a logo, or a doctor treating a patient.
+                    </p>
+                </div>
+                <div className="pt-6 border-t border-befinlit-navy/10">
+                    <p className="text-left text-befinlit-navy/80 leading-relaxed font-serif">
+                        We will use the <b className="font-bold text-befinlit-navy">Income Tax Act, 2025</b> as our primary guide for understanding how to navigate this maze. According to the <b className="font-bold text-befinlit-navy">Income Tax Act, 2025</b>, a professional can operate their work in different business structures like <b className="font-bold text-befinlit-navy">Sole Proprietorship (Individual), Partnership, Limited Liability Partnership (LLP), One Person Company (OPC) and Private Limited Company (Pvt Ltd)</b>. To understand the differences between these business structures and compare their pros and cons,{' '}
+                        <button onClick={() => onNavigate && onNavigate('playbook')} className="text-befinlit-gold font-bold underline hover:text-befinlit-navy transition-colors inline-block">
+                            refer to the Moonlighter's Playbook.
+                        </button>
+                    </p>
+                </div>
+            </div>
+
             {/* Internal Navigation */}
             <nav className="bg-befinlit-navy/95 backdrop-blur-md rounded-sm border border-befinlit-navy/10 sticky top-[138px] z-40 mb-12 shadow-sm print:hidden w-full transition-all duration-300">
                 <ul className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-between w-full text-xs md:text-sm font-bold tracking-wider divide-y md:divide-y-0 md:divide-x divide-white/10">
@@ -112,99 +129,185 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                 {/* Section 1: Income Tax Act, 1961 */}
                 <section id="income-tax" className="scroll-mt-32">
-                    <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-8">
-                        <h3 className="text-2xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
-                        <p className="text-left text-befinlit-navy/70 leading-relaxed">A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training - like a software developer writing code, a designer creating a logo, or a doctor treating a patient.</p>
-                    </div>
-
-                    <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-12">
-                        <p className="text-left text-befinlit-navy/80 leading-relaxed font-serif">
-                            While different Acts (like GST) might have their own rules, we will use the <b className="font-bold text-befinlit-navy">Income Tax Act, 2025</b> as our primary guide. According to the Act, a professional can operate their work in different business structures like <b className="font-bold text-befinlit-navy">Sole Proprietorship (Individual), Partnership, LLP, and Pvt Ltd</b>. To understand the differences between these business structures and compare their pros and cons,{' '}
-                            <button onClick={() => onNavigate && onNavigate('playbook')} className="text-befinlit-gold font-bold underline hover:text-befinlit-navy transition-colors inline-block">
-                                refer to the Moonlighter's Playbook.
-                            </button>
-                        </p>
-                    </div>
-
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <FileText className="text-befinlit-gold" /> Income Tax Act 2025
                     </h2>
 
                     <div className="flex flex-col gap-8">
-                        {/* General Rule - Full Width */}
+                        {/* General Rule - 3 Column Layout */}
                         <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
-                            <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy">General Rule: Income Tax for All Professionals</h3>
+                            <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy">What does running a business mean?</h3>
                             <p className="text-befinlit-navy/70 leading-relaxed mb-6">
-                                By default, <b className="font-bold text-befinlit-navy">ALL</b> professionals in <b className="font-bold text-befinlit-navy">ALL</b> business structures (Sole Proprietorship, Partnership, LLP, Pvt Ltd) are required to:
+                                By default, <b className="font-bold text-befinlit-navy">all</b> professionals in <b className="font-bold text-befinlit-navy">all</b> business structures (Sole Proprietorship, Partnership, LLP, OPC and Pvt Ltd) are required to:
                             </p>
-                            <ul className="list-disc list-inside space-y-2 text-befinlit-navy/80 mb-6 pl-4">
-                                <li>Maintain <b className="font-bold">detailed books of accounts</b> (Profit & Loss, Balance Sheet, etc.).</li>
-                                <li>File <b className="font-bold">ITR-3</b> (or applicable corporate return), declaring actual income and expenses.</li>
-                                <li>Keep proof of every expense claimed.</li>
-                            </ul>
-                            <p className="text-sm text-befinlit-navy/60 italic border-t border-befinlit-navy/10 pt-4">This is the "heavier foundation" required for most businesses.</p>
+
+                            <div className="grid md:grid-cols-3 gap-6 mb-6">
+                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-6 rounded-sm text-left">
+                                    <h4 className="font-bold text-befinlit-gold mb-2">Maintaining Detailed Books</h4>
+                                    <p className="text-sm text-white/80">Involves following double entry accounting system to prepare financial statements.</p>
+                                </div>
+                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-6 rounded-sm text-left">
+                                    <h4 className="font-bold text-befinlit-gold mb-2">File Detailed Return of Income</h4>
+                                    <p className="text-sm text-white/80">Involves ITR 3, ITR 5 or ITR 6 as applicable for business entity with profit and loss account and balance sheet figures.</p>
+                                </div>
+                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-6 rounded-sm text-left">
+                                    <h4 className="font-bold text-befinlit-gold mb-2">Keep documentary evidence</h4>
+                                    <p className="text-sm text-white/80">Involves documenting all expenses and incomes for 8 years</p>
+                                </div>
+                            </div>
+
+                            <p className="text-sm text-befinlit-navy/60 italic border-t border-befinlit-navy/10 pt-4">This is the "heavier foundation" required for most businesses. However, for small businesses, there is a better, more simplified way to structure your compliance.</p>
                         </div>
 
-                        {/* Simplified Scheme - Split Layout */}
+                        {/* Simplified Scheme - Expanded Layout */}
+                        {/* Simplified Scheme - Expanded Layout */}
                         <div className="flex flex-col md:flex-row gap-8">
                             <div className="w-full md:w-2/3 space-y-8">
                                 <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 h-full flex flex-col relative overflow-hidden">
                                     <div className="absolute top-0 right-0 bg-befinlit-gold text-befinlit-navy text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
                                         Optimization Hack
                                     </div>
-                                    <div className="flex-grow">
-                                        <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy"><span>Section 58: The Simplified Exception</span></h3>
-                                        <p className="text-befinlit-navy/70 mb-6 leading-relaxed">
-                                            Usage of this section is <b className="font-bold text-befinlit-navy">RESTRICTED</b>. It is available ONLY if you meet BOTH conditions:
-                                        </p>
-                                        <ul className="space-y-3 mb-8 text-sm">
-                                            <li className="flex items-start gap-3">
-                                                <span className="bg-befinlit-navy text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0 mt-0.5">1</span>
-                                                <span className="text-befinlit-navy/80">You are a <b className="font-bold text-befinlit-navy">Specified Professional</b> (see list →).</span>
-                                            </li>
-                                            <li className="flex items-start gap-3">
-                                                <span className="bg-befinlit-navy text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shrink-0 mt-0.5">2</span>
-                                                <span className="text-befinlit-navy/80">Your structure is a <b className="font-bold text-befinlit-navy">Sole Proprietorship</b> or <b className="font-bold text-befinlit-navy">Partnership</b> (LLPs & Pvt Ltd cannot use this).</span>
-                                            </li>
-                                        </ul>
+                                    <div className="flex-grow flex flex-col">
+                                        <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy"><span>*Section 58: The Presumptive Taxation Scheme</span></h3>
 
-                                        <div className="bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 mb-6">
-                                            <h4 className="font-bold text-lg text-befinlit-navy mb-2">The Benefit: Pay Tax on Half</h4>
-                                            <p className="text-sm text-befinlit-navy/70 leading-relaxed">If eligible, you can declare just 50% of your gross receipts as profit and pay tax on that. No detailed books required!</p>
+                                        <div className="bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow flex flex-col justify-center mb-8">
+                                            <h4 className="font-bold text-lg text-befinlit-navy mb-3">How is this simplified?</h4>
+                                            <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-4">
+                                                Your profit is calculated at <b className="font-bold text-befinlit-navy">50% of your gross receipts</b> (or actual profit, whichever is higher), and you only pay tax on that amount.
+                                            </p>
+                                            <p className="text-sm text-befinlit-navy/70 leading-relaxed">
+                                                You are completely exempt from the "heavier foundation". Instead, you just need to:
+                                            </p>
+                                            <ul className="list-disc list-inside space-y-1 text-befinlit-navy/80 text-sm mt-3 pl-4">
+                                                <li>Maintain simple books (invoices, bank statement, cash book, debtors, and creditors).</li>
+                                                <li>File the simplified <b className="font-bold">ITR-4</b>.</li>
+                                                <li>No requirement to maintain documentary evidence of every expense and income for 8 years.</li>
+                                            </ul>
                                         </div>
 
-                                        <h4 className="font-bold text-xs uppercase tracking-widest text-befinlit-navy/50 mb-4">Who is Eligible? (Income Limit)</h4>
-                                        <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                                            <div className="flex-1 text-center bg-white border border-befinlit-navy/20 p-4 rounded-sm">
-                                                <p className="font-serif font-bold text-xl text-befinlit-navy mb-1">≤ ₹50 Lakh</p>
-                                                <p className="text-[10px] uppercase tracking-wider text-befinlit-navy/60">Standard Limit</p>
+                                        <div className="pt-2">
+                                            <p className="text-befinlit-navy/90 mb-6 leading-relaxed font-bold bg-white p-5 rounded-sm shadow-sm border border-befinlit-navy/5">
+                                                Usage of this section is <b className="text-befinlit-gold font-bold">restricted</b>. It is available only if you meet all the following conditions:
+                                            </p>
+                                            <div className="grid md:grid-cols-3 gap-6">
+                                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-5 rounded-sm text-left">
+                                                    <h4 className="font-bold text-befinlit-gold mb-3">Specified Professional</h4>
+                                                    <p className="text-xs text-white/80 leading-relaxed">Only selected professionals are eligible for this list. <a href="#specified-prof-list" className="text-befinlit-gold underline hover:text-white transition-colors block mt-2">Check the list →</a></p>
+                                                </div>
+                                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-5 rounded-sm text-left">
+                                                    <h4 className="font-bold text-befinlit-gold mb-3">Receipts Limit</h4>
+                                                    <p className="text-xs text-white/80 leading-relaxed mb-2">Your annual receipts should be:</p>
+                                                    <ul className="text-xs text-white/80 space-y-1 list-disc pl-4">
+                                                        <li>Up to ₹50 Lakh (Standard)</li>
+                                                        <li>Up to ₹75 Lakh (If 95% via banking channels)</li>
+                                                    </ul>
+                                                </div>
+                                                <div className="bg-befinlit-navy border border-befinlit-navy/10 p-5 rounded-sm text-left">
+                                                    <h4 className="font-bold text-befinlit-gold mb-3">Structure</h4>
+                                                    <p className="text-xs text-white/80 leading-relaxed mb-2">Must be <b className="font-bold text-white">Sole Proprietorship</b> or <b className="font-bold text-white">Partnership</b>.</p>
+                                                    <p className="text-[10px] text-white/60 italic">(LLPs, OPCs & Pvt Ltd excluded)</p>
+                                                </div>
                                             </div>
-                                            <div className="flex-1 text-center bg-green-50 border border-green-200 p-4 rounded-sm">
-                                                <p className="font-serif font-bold text-xl text-green-700 mb-1">≤ ₹75 Lakh</p>
-                                                <p className="text-[10px] uppercase tracking-wider text-green-800/60">If 95% Digital</p>
+
+                                            {/* The 44AD Debate */}
+                                            <div className="mt-8 bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow">
+                                                <h4 className="font-bold text-lg text-befinlit-navy mb-3">Debate: Not in the specified professional list?</h4>
+                                                <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-3">
+                                                    In case you do not fall directly in the list of specified professionals, you can choose to opt for the alternate scheme of <b>Section 44AD</b> (now *Section 58 in the Income Tax Act 2025). This scheme is primarily meant for businesses rather than professionals.
+                                                </p>
+                                                <p className="text-sm text-befinlit-navy/70 leading-relaxed">
+                                                    <b className="font-bold text-befinlit-red-700">Caution:</b> If your clients deduct your TDS under *<b>Section 194J</b> (specifically designated for professional fees), but you declare your income as a non-professional business under Section 44AD, this mismatch may trigger <b className="font-bold text-befinlit-navy">red flags</b> and inquiries from the Income Tax Department.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-befinlit-navy text-befinlit-cream p-8 rounded-sm h-full flex flex-col justify-center">
-                                <h3 className="text-xl font-bold mb-4 text-befinlit-gold text-center font-serif">Specified Professionals</h3>
-                                <p className="text-xs text-white/60 mb-8 text-center uppercase tracking-widest leading-relaxed">
-                                    Only these professions are eligible for the simplified Section 58 scheme
+                            <div id="specified-prof-list" className="bg-befinlit-navy text-befinlit-cream p-8 rounded-sm h-full flex flex-col w-full md:w-1/3">
+                                <h3 className="text-xl font-bold mb-1 text-befinlit-gold text-center font-serif">Specified Professions</h3>
+                                <p className="text-[10px] text-white/50 mb-6 text-center italic tracking-wider">as provided in *Section 62(4) of the Act</p>
+                                <p className="text-[11px] text-white/70 mb-2 text-left leading-relaxed font-bold">
+                                    You can be eligible, if the nature of your profession (examples provided) is specified below:
                                 </p>
-                                <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm font-medium">
-                                    <span>✓ Legal</span>
-                                    <span>✓ Medical</span>
-                                    <span>✓ Engineering</span>
-                                    <span>✓ Architectural</span>
-                                    <span>✓ Accountancy</span>
-                                    <span>✓ Tech Consultancy</span>
-                                    <span>✓ Interior Decor</span>
-                                    <span>✓ Co. Secretary</span>
-                                    <span>✓ IT Professional</span>
-                                    <span>✓ Auth. Rep</span>
-                                    <span className="col-span-2">✓ Film Artist (actor, etc.)</span>
-                                    <span className="col-span-2">✓ Other notified</span>
+                                <p className="text-[10px] text-white/50 mb-6 text-left italic tracking-wider leading-relaxed">
+                                    Please note: This is not an exhaustive list.
+                                </p>
+                                <div className="space-y-4 text-sm font-medium flex-grow mb-auto">
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Legal:</span> <span className="text-xs text-white/70 font-normal ml-1">Advocates, Solicitors, Legal Consultants.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Medical:</span> <span className="text-xs text-white/70 font-normal ml-1">Physicians, Surgeons, Dentists.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Engineering:</span> <span className="text-xs text-white/70 font-normal ml-1">Civil, Mechanical, Electrical Engineers.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Architectural:</span> <span className="text-xs text-white/70 font-normal ml-1">Certified Architects, Town Planners.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Accountancy:</span> <span className="text-xs text-white/70 font-normal ml-1">Chartered Accountants.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Technical Consultancy:</span> <span className="text-xs text-white/70 font-normal ml-1">Management consultants, Technical advisors.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Interior Decoration:</span> <span className="text-xs text-white/70 font-normal ml-1">Interior designers, Consultants.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Information Technology:</span> <span className="text-xs text-white/70 font-normal ml-1">Software developers, Web designers, IT consultants.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Authorized Representatives:</span> <span className="text-xs text-white/70 font-normal ml-1">Representatives for a fee before Tribunal or authority.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-start">
+                                        <span className="text-befinlit-gold mt-1">✓</span>
+                                        <div>
+                                            <span className="font-bold underline">Film Artists:</span> <span className="text-xs text-white/70 font-normal ml-1">Actors, Producers, Directors.</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3 items-center">
+                                        <span className="text-befinlit-gold">✓</span>
+                                        <span className="font-bold underline">Company Secretary</span>
+                                    </div>
+                                </div>
+
+                                {/* Moved Social Media Influencers block */}
+                                <div className="mt-8 bg-white/5 p-5 rounded-sm border border-white/10 flex-grow-0">
+                                    <h4 className="font-bold text-sm text-befinlit-gold mb-2">Social Media Influencers?</h4>
+                                    <p className="text-xs text-white/80 leading-relaxed mb-2">
+                                        While a dedicated professional code has been specified for social media influencers, they have not been added to the <a href="#specified-prof-list" className="text-befinlit-gold underline hover:text-white transition-colors">list of professional services</a>.
+                                    </p>
+                                    <p className="text-xs text-white/80 leading-relaxed">
+                                        Given the same, if a professional as an SMI works as a film artist, photographer, or financial consultant, they are eligible for the above scheme.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +352,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                 </section>
 
                 {/* Books of Accounts Section */}
-                <section id="books-of-accounts" className="scroll-mt-32">
+                < section id="books-of-accounts" className="scroll-mt-32" >
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <BookOpen className="text-befinlit-gold" /> Books of Accounts & Presumptive Scheme
                     </h2>
@@ -274,7 +377,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                 <div className="w-full md:w-2/5">
                                     <div className="p-6 rounded-sm bg-gray-50 border border-gray-200 h-full flex flex-col justify-center text-center">
                                         <h4 className="font-bold text-lg text-befinlit-navy mb-2">The Best Part</h4>
-                                        <p className="text-sm text-befinlit-navy/70 leading-relaxed">You do <b className="font-bold text-befinlit-navy">NOT</b> need complex accounting. Just keep basic records of what comes in and what goes out.</p>
+                                        <p className="text-sm text-befinlit-navy/70 leading-relaxed">You do <b className="font-bold text-befinlit-navy">not</b> need complex accounting. Just keep basic records of what comes in and what goes out.</p>
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +397,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                     </div>
                                 </div>
                                 <div className="w-full md:w-1/5 text-center hidden md:block">
-                                    <p className="font-bold text-xs uppercase tracking-widest text-red-500">← Maintain ALL if ←</p>
+                                    <p className="font-bold text-xs uppercase tracking-widest text-red-500">← Maintain all if ←</p>
                                     <p className="text-[10px] text-gray-400 mt-1 uppercase">Tax Audit Required</p>
                                 </div>
                                 <div className="w-full md:w-2/5">
@@ -325,7 +428,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                     Is it wrong? Technically, no. Is it safe? Absolutely not.
                                 </p>
                                 <p className="text-befinlit-navy/70 text-xs leading-relaxed">
-                                    If your TDS is deducted under 194J<sup>*</sup> (Technical / Professional Services), claiming to be a "trader" under 44AD<sup>*</sup> invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
+                                    If your TDS is deducted under *194J<sup>*</sup> (Technical / Professional Services), claiming to be a "trader" under 44AD<sup>*</sup> invites the officer to ask you to prove you <em>don't</em> fall under the notified professional list. That is a litigation battle you want to avoid.
                                 </p>
                             </div>
                             <div className="bg-befinlit-navy text-white p-6 rounded-sm text-center">
@@ -333,10 +436,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Section 2: GST Provisions */}
-                <section id="gst" className="scroll-mt-32">
+                < section id="gst" className="scroll-mt-32" >
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <ShieldCheck className="text-befinlit-gold" /> GST for Service Providers
                     </h2>
@@ -379,10 +482,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Section 3: FEMA & RBI Guidelines */}
-                <section id="fema" className="scroll-mt-32">
+                < section id="fema" className="scroll-mt-32" >
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <Globe className="text-befinlit-gold" /> FEMA & RBI Guidelines for Forex
                     </h2>
@@ -408,10 +511,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                         </div>
 
                     </div>
-                </section>
+                </section >
 
                 {/* Section 4: Payment Options */}
-                <section id="payments" className="scroll-mt-32">
+                < section id="payments" className="scroll-mt-32" >
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
                         <IndianRupee className="text-befinlit-gold" /> Choosing a Payment Platform (2025)
                     </h2>
@@ -475,10 +578,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             <p className="text-befinlit-navy/70 text-sm leading-relaxed">While not mandatory for most freelancers working from home, if you are running the same as a full-time business from a commercial premises (co-shared workspace) or if your local authority insists, it is a good practice to obtain one.</p>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Call to Action similar to other Playbooks */}
-                <section className="mt-16 bg-befinlit-navy text-befinlit-cream p-10 rounded-sm text-center">
+                < section className="mt-16 bg-befinlit-navy text-befinlit-cream p-10 rounded-sm text-center" >
                     <h2 className="text-2xl font-bold font-serif mb-4 text-befinlit-gold">Need Personalized Financial Guidance?</h2>
                     <p className="text-white/70 max-w-2xl mx-auto mb-8">
                         Navigating the complex world of freelance taxes and compliance can be overwhelming. Schedule a consultation with us to get advice tailored to your specific situation.
@@ -489,10 +592,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     >
                         Schedule a Consultation
                     </button>
-                </section>
+                </section >
 
                 {/* Glossary */}
-                <section className="mb-16 border-t border-befinlit-navy/10 pt-12 print:hidden">
+                < section className="mb-16 border-t border-befinlit-navy/10 pt-12 print:hidden" >
                     <h2 className="text-2xl font-bold text-befinlit-navy mb-6 flex items-center gap-2 font-serif">
                         <span className="text-befinlit-gold">*</span> Glossary of Changes
                     </h2>
@@ -538,10 +641,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </tbody>
                         </table>
                     </div>
-                </section>
+                </section >
 
 
-            </main>
+            </main >
         </article >
     );
 };
