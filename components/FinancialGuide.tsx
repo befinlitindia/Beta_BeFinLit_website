@@ -143,7 +143,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
 
                             <div className="grid md:grid-cols-3 gap-6 mb-6">
                                 <div className="bg-befinlit-navy border border-befinlit-navy/10 p-6 rounded-sm text-left">
-                                    <h4 className="font-bold text-befinlit-gold mb-2">Maintaining Detailed Books</h4>
+                                    <h4 className="font-bold text-befinlit-gold mb-2">Maintain Detailed Books</h4>
                                     <p className="text-sm text-white/80">Involves following double entry accounting system to prepare financial statements.</p>
                                 </div>
                                 <div className="bg-befinlit-navy border border-befinlit-navy/10 p-6 rounded-sm text-left">
@@ -180,8 +180,8 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                             </p>
                                             <ul className="list-disc list-inside space-y-1 text-befinlit-navy/80 text-sm mt-3 pl-4">
                                                 <li>Maintain simple books (invoices, bank statement, cash book, debtors, and creditors).</li>
-                                                <li>File the simplified <b className="font-bold">ITR-4</b>.</li>
-                                                <li>No requirement to maintain documentary evidence of every expense and income for 8 years.</li>
+                                                <li>File the simplified <b className="font-bold">ITR-4</b> (if no other income sources are present).</li>
+                                                <li>Not maintain documentary evidence of every expense and income for 8 years.</li>
                                             </ul>
                                         </div>
 
@@ -199,7 +199,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                                     <p className="text-xs text-white/80 leading-relaxed mb-2">Your annual receipts should be:</p>
                                                     <ul className="text-xs text-white/80 space-y-1 list-disc pl-4">
                                                         <li>Up to ₹50 Lakh (Standard)</li>
-                                                        <li>Up to ₹75 Lakh (If 95% via banking channels)</li>
+                                                        <li>Up to ₹75 Lakh (If 95% of receipts are via banking channels)</li>
                                                     </ul>
                                                 </div>
                                                 <div className="bg-befinlit-navy border border-befinlit-navy/10 p-5 rounded-sm text-left">
@@ -210,13 +210,13 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                             </div>
 
                                             {/* The 44AD Debate */}
-                                            <div className="mt-8 bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow">
-                                                <h4 className="font-bold text-lg text-befinlit-navy mb-3">Debate: Not in the specified professional list?</h4>
+                                            <div id="debate-section" className="mt-8 bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow">
+                                                <h4 className="font-bold text-lg text-befinlit-navy mb-3">Debate: Not in the <a href="#specified-prof-list" className="text-befinlit-gold underline hover:text-befinlit-navy transition-colors">specified professional list</a>?</h4>
                                                 <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-3">
-                                                    In case you do not fall directly in the list of specified professionals, you can choose to opt for the alternate scheme of <b>Section 44AD<sup>*</sup></b>. This scheme is primarily meant for businesses rather than professionals.
+                                                    In case you do not fall directly in the list of specified professionals, you can choose to opt for the alternate scheme of <b>Section 44AD<sup>*</sup> of the Act</b> wherein your taxable profit is calculated at 6% (or 8%) or actual profit, whichever is higher. However, the basic logic of this scheme is meant for businesses which are trading in goods, and therefore, purchases become a major expense for such entities, leading to a profit margin close to 6-8%. For professionals, it is recommended to conservatively file under <b>section 44ADA<sup>*</sup> of the Act</b> only.
                                                 </p>
                                                 <p className="text-sm text-befinlit-navy/70 leading-relaxed">
-                                                    <b className="font-bold text-befinlit-red-700">Caution:</b> If your clients deduct your TDS under <b>Section 194J<sup>*</sup></b> (specifically designated for professional fees), but you declare your income as a non-professional business under Section 44AD<sup>*</sup>, this mismatch may trigger <b className="font-bold text-befinlit-navy">red flags</b> and inquiries from the Income Tax Department.
+                                                    <b className="font-bold text-red-600">Caution:</b> If your clients deduct your TDS under <b>Section 194J<sup>*</sup> of the Act</b> (Fees for technical or professional services), but you declare your income as a non-professional business under <b>Section 44AD<sup>*</sup> of the Act</b>, this may trigger <b className="font-bold text-befinlit-navy">red flags</b> and inquiries from the Income Tax Department.
                                                 </p>
                                             </div>
                                         </div>
@@ -225,14 +225,14 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </div>
                             <div id="specified-prof-list" className="bg-befinlit-navy text-befinlit-cream p-8 rounded-sm h-full flex flex-col w-full md:w-1/3">
                                 <h3 className="text-xl font-bold mb-1 text-befinlit-gold text-center font-serif">Specified Professions</h3>
-                                <p className="text-[10px] text-white/50 mb-6 text-center italic tracking-wider">as provided in Section 44AA(4)* of the Act</p>
+                                <p className="text-[10px] text-white/50 mb-6 text-center italic tracking-wider">as provided in Section 44AA* of the Act</p>
                                 <p className="text-[11px] text-white/70 mb-2 text-left leading-relaxed font-bold">
                                     You can be eligible, if the nature of your profession (examples provided) is specified below:
                                 </p>
                                 <p className="text-[10px] text-white/50 mb-6 text-left italic tracking-wider leading-relaxed">
                                     Please note: This is not an exhaustive list.
                                 </p>
-                                <div className="space-y-4 text-sm font-medium flex-grow mb-auto">
+                                <div className="space-y-4 text-sm font-medium flex-1 pb-8">
                                     <div className="flex gap-3 items-start">
                                         <span className="text-befinlit-gold mt-1">✓</span>
                                         <div>
@@ -300,13 +300,13 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                 </div>
 
                                 {/* Moved Social Media Influencers block */}
-                                <div className="mt-8 bg-white/5 p-5 rounded-sm border border-white/10 flex-grow-0">
+                                <div className="mt-auto bg-white/5 p-5 rounded-sm border border-white/10 flex-grow-0 pt-5">
                                     <h4 className="font-bold text-sm text-befinlit-gold mb-2">Social Media Influencers?</h4>
                                     <p className="text-xs text-white/80 leading-relaxed mb-2">
-                                        While a dedicated professional code has been specified for social media influencers, they have not been added to the <a href="#specified-prof-list" className="text-befinlit-gold underline hover:text-white transition-colors">list of professional services</a>.
+                                        Recently, a dedicated professional code was specified for social media influencers ('SMI'). However, they have not been added to this above mentioned list in the Income Tax Act. This has led to a confusion amongst SMI.
                                     </p>
                                     <p className="text-xs text-white/80 leading-relaxed">
-                                        Given the same, if a professional as an SMI works as a film artist, photographer, or financial consultant, they are eligible for the above scheme.
+                                        If an SMI works as a film artist, consultant, etc from the above mentioned fields, they fall under the purview of the specified professionals. For other SMIs, <a href="#debate-section" className="text-befinlit-gold underline hover:text-white transition-colors">as mentioned</a>, scheme under <b>section 44AD<sup>*</sup> of the Act</b> can be chosen. However, as a conservative approach, opt for <b>44ADA<sup>*</sup> of the Act</b> as a professional.
                                     </p>
                                 </div>
                             </div>
