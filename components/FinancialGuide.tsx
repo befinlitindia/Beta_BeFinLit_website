@@ -74,13 +74,13 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
             <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5 mb-16 space-y-6">
                 <div>
                     <h3 className="text-2xl font-serif font-bold text-left text-befinlit-navy mb-4">Who is a Professional?</h3>
-                    <p className="text-left text-befinlit-navy/70 leading-relaxed">
+                    <p className="text-left text-sm text-befinlit-navy/70 leading-relaxed">
                         A professional is someone who earns money by selling their specialized skill, knowledge, or intellectual talent rather than selling a physical product. Instead of selling goods, they help people solve problems using their specialized training - like a software developer writing code, a designer creating a logo, or a doctor treating a patient.
                     </p>
                 </div>
                 <div className="pt-6 border-t border-befinlit-navy/10">
-                    <p className="text-left text-befinlit-navy/80 leading-relaxed font-serif">
-                        We will use the <b className="font-bold text-befinlit-navy">Income Tax Act, 2025</b> as our primary guide for understanding how to navigate this maze. According to the <b className="font-bold text-befinlit-navy">Income Tax Act, 2025</b>, a professional can operate their work in different business structures like <b className="font-bold text-befinlit-navy">Sole Proprietorship (Individual), Partnership, Limited Liability Partnership (LLP), One Person Company (OPC) and Private Limited Company (Pvt Ltd)</b>. To understand the differences between these business structures and compare their pros and cons,{' '}
+                    <p className="text-left text-sm text-befinlit-navy/80 leading-relaxed font-serif">
+                        We will use the <b className="font-bold text-befinlit-navy">Income Tax Act, 1961<sup>*</sup></b> as our primary guide for understanding how to navigate this maze. According to the <b className="font-bold text-befinlit-navy">Income Tax Act, 1961<sup>*</sup></b>, a professional can operate their work in different business structures like <b className="font-bold text-befinlit-navy">Sole Proprietorship (Individual), Partnership, Limited Liability Partnership (LLP), One Person Company (OPC) and Private Limited Company (Pvt Ltd)</b>. To understand the differences between these business structures and compare their pros and cons,{' '}
                         <button onClick={() => onNavigate && onNavigate('playbook')} className="text-befinlit-gold font-bold underline hover:text-befinlit-navy transition-colors inline-block">
                             refer to the Moonlighter's Playbook.
                         </button>
@@ -130,14 +130,14 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                 {/* Section 1: Income Tax Act, 1961 */}
                 <section id="income-tax" className="scroll-mt-32">
                     <h2 className="text-2xl font-bold font-serif text-left mb-8 text-befinlit-navy flex items-center gap-3">
-                        <FileText className="text-befinlit-gold" /> Income Tax Act 2025
+                        <FileText className="text-befinlit-gold" /> Income Tax Act, 1961<sup className="text-befinlit-gold">*</sup>
                     </h2>
 
                     <div className="flex flex-col gap-8">
                         {/* General Rule - 3 Column Layout */}
                         <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
                             <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy">What does running a business mean?</h3>
-                            <p className="text-befinlit-navy/70 leading-relaxed mb-6">
+                            <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-6">
                                 By default, <b className="font-bold text-befinlit-navy">all</b> professionals in <b className="font-bold text-befinlit-navy">all</b> business structures (Sole Proprietorship, Partnership, LLP, OPC and Pvt Ltd) are required to:
                             </p>
 
@@ -168,7 +168,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                         Optimization Hack
                                     </div>
                                     <div className="flex-grow flex flex-col">
-                                        <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy"><span>*Section 58: The Presumptive Taxation Scheme</span></h3>
+                                        <h3 className="text-2xl font-serif font-bold mb-4 text-befinlit-navy"><span>Section 44ADA<sup>*</sup>: The Presumptive Taxation Scheme</span></h3>
 
                                         <div className="bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow flex flex-col justify-center mb-8">
                                             <h4 className="font-bold text-lg text-befinlit-navy mb-3">How is this simplified?</h4>
@@ -213,10 +213,10 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                             <div className="mt-8 bg-befinlit-navy/5 p-6 rounded-sm border border-befinlit-navy/10 flex-grow">
                                                 <h4 className="font-bold text-lg text-befinlit-navy mb-3">Debate: Not in the specified professional list?</h4>
                                                 <p className="text-sm text-befinlit-navy/70 leading-relaxed mb-3">
-                                                    In case you do not fall directly in the list of specified professionals, you can choose to opt for the alternate scheme of <b>Section 44AD</b> (now *Section 58 in the Income Tax Act 2025). This scheme is primarily meant for businesses rather than professionals.
+                                                    In case you do not fall directly in the list of specified professionals, you can choose to opt for the alternate scheme of <b>Section 44AD<sup>*</sup></b>. This scheme is primarily meant for businesses rather than professionals.
                                                 </p>
                                                 <p className="text-sm text-befinlit-navy/70 leading-relaxed">
-                                                    <b className="font-bold text-befinlit-red-700">Caution:</b> If your clients deduct your TDS under *<b>Section 194J</b> (specifically designated for professional fees), but you declare your income as a non-professional business under Section 44AD, this mismatch may trigger <b className="font-bold text-befinlit-navy">red flags</b> and inquiries from the Income Tax Department.
+                                                    <b className="font-bold text-befinlit-red-700">Caution:</b> If your clients deduct your TDS under <b>Section 194J<sup>*</sup></b> (specifically designated for professional fees), but you declare your income as a non-professional business under Section 44AD<sup>*</sup>, this mismatch may trigger <b className="font-bold text-befinlit-navy">red flags</b> and inquiries from the Income Tax Department.
                                                 </p>
                                             </div>
                                         </div>
@@ -225,7 +225,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                             </div>
                             <div id="specified-prof-list" className="bg-befinlit-navy text-befinlit-cream p-8 rounded-sm h-full flex flex-col w-full md:w-1/3">
                                 <h3 className="text-xl font-bold mb-1 text-befinlit-gold text-center font-serif">Specified Professions</h3>
-                                <p className="text-[10px] text-white/50 mb-6 text-center italic tracking-wider">as provided in *Section 62(4) of the Act</p>
+                                <p className="text-[10px] text-white/50 mb-6 text-center italic tracking-wider">as provided in Section 44AA(4)* of the Act</p>
                                 <p className="text-[11px] text-white/70 mb-2 text-left leading-relaxed font-bold">
                                     You can be eligible, if the nature of your profession (examples provided) is specified below:
                                 </p>
@@ -322,7 +322,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                     <div className="bg-white p-8 rounded-sm shadow-sm border border-befinlit-navy/5">
                         <div className="text-left mb-10">
                             <h3 className="text-2xl font-bold text-befinlit-navy mb-3">What is DTAA?</h3>
-                            <p className="text-befinlit-navy/70 max-w-2xl leading-relaxed">A <b className="font-bold text-befinlit-navy">D</b>ouble <b className="font-bold text-befinlit-navy">T</b>axation <b className="font-bold text-befinlit-navy">A</b>voidance <b className="font-bold text-befinlit-navy">A</b>greement (DTAA) is a tax treaty between India and another country. It ensures that you don't pay tax on the same income in both countries. By using the DTAA, your foreign client can deduct tax at a lower rate (e.g., 10%) instead of their country's default rate.</p>
+                            <p className="text-sm text-befinlit-navy/70 max-w-2xl leading-relaxed">A <b className="font-bold text-befinlit-navy">D</b>ouble <b className="font-bold text-befinlit-navy">T</b>axation <b className="font-bold text-befinlit-navy">A</b>voidance <b className="font-bold text-befinlit-navy">A</b>greement (DTAA) is a tax treaty between India and another country. It ensures that you don't pay tax on the same income in both countries. By using the DTAA, your foreign client can deduct tax at a lower rate (e.g., 10%) instead of their country's default rate.</p>
                         </div>
                         <div className="space-y-6 max-w-4xl mx-auto">
                             <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -403,7 +403,7 @@ const FinancialGuide: React.FC<Props> = ({ onNavigate, onOpenConsultation }) => 
                                 <div className="w-full md:w-2/5">
                                     <div className="p-6 rounded-sm bg-red-50 border border-red-100 h-full text-center">
                                         <h4 className="font-bold text-lg text-red-800 mb-2">When Tax Audit is Required</h4>
-                                        <p className="text-sm text-red-700/80 mb-3">You must opt out of Section 58 and get a tax audit if either of these conditions apply:</p>
+                                        <p className="text-sm text-red-700/80 mb-3">You must opt out of Section 44ADA<sup>*</sup> and get a tax audit if either of these conditions apply:</p>
                                         <ul className="text-sm text-red-700/80 list-disc list-inside space-y-1 text-left inline-block">
                                             <li>Your profits are <b className="font-bold">&lt; 50%</b> of gross receipts.</li>
                                             <li>Your gross receipts exceed the presumptive limits (<b className="font-bold">₹50 lakh or ₹75 lakh</b>).</li>
