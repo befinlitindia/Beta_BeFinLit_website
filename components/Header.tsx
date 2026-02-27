@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
-  onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator') => void;
+  onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'glossary' | 'glossary-changes') => void;
   currentPage: string;
   onOpenConsultation: () => void;
 }
@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, onOpenConsulta
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator') => {
+  const handleLinkClick = (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'glossary' | 'glossary-changes') => {
     onNavigate(page);
     setIsMenuOpen(false);
   };
@@ -75,6 +75,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, onOpenConsulta
             The Toolkits
           </button>
           <button
+            onClick={() => handleLinkClick('glossary')}
+            className={`hover:text-befinlit-gold transition-colors relative py-1 ${(currentPage === 'glossary' || currentPage === 'glossary-changes') ? 'text-befinlit-gold after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-befinlit-gold' : ''}`}
+          >
+            The Glossary
+          </button>
+          <button
             onClick={onOpenConsultation}
             className="bg-befinlit-navy text-befinlit-cream px-5 py-2.5 rounded-sm hover:bg-befinlit-lightNavy transition-colors text-xs font-bold tracking-tight shadow-sm"
           >
@@ -98,6 +104,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, onOpenConsulta
           <button onClick={() => handleLinkClick('about')} className="text-left text-befinlit-navy font-bold hover:text-befinlit-gold py-3 border-b border-befinlit-navy/5">About</button>
           <button onClick={() => handleLinkClick('playbooks')} className="text-left text-befinlit-navy font-bold hover:text-befinlit-gold py-3 border-b border-befinlit-navy/5">The Playbooks</button>
           <button onClick={() => handleLinkClick('tools')} className="text-left text-befinlit-navy font-bold hover:text-befinlit-gold py-3 border-b border-befinlit-navy/5">The Toolkits</button>
+          <button onClick={() => handleLinkClick('glossary')} className="text-left text-befinlit-navy font-bold hover:text-befinlit-gold py-3 border-b border-befinlit-navy/5">The Glossary</button>
           <button
             onClick={() => {
               onOpenConsultation();

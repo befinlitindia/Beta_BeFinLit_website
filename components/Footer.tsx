@@ -2,7 +2,7 @@ import React from 'react';
 import { Instagram, Linkedin, Mail } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'financial-guide' | 'topic', topic?: string) => void;
+  onNavigate: (page: 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'financial-guide' | 'topic' | 'glossary' | 'glossary-changes', topic?: string) => void;
   onOpenConsultation?: () => void;
 }
 
@@ -45,6 +45,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenConsultation }) => {
                 <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Home</button></li>
                 <li><button onClick={() => onNavigate('playbooks')} className="hover:text-white transition-colors text-left">The Playbooks</button></li>
                 <li><button onClick={() => onNavigate('tools')} className="hover:text-white transition-colors text-left">The Toolkits</button></li>
+                <li><button onClick={() => onNavigate('glossary')} className="hover:text-white transition-colors text-left">The Glossary</button></li>
                 <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">About Us</button></li>
               </ul>
             </div>

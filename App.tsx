@@ -11,8 +11,10 @@ import SideHustleSurchargeEstimator from './components/SideHustleSurchargeEstima
 import FinancialGuide from './components/FinancialGuide';
 import TopicView from './components/TopicView';
 import ConsultationModal from './components/ConsultationModal';
+import Glossary from './components/Glossary';
+import GlossaryOfChanges from './components/GlossaryOfChanges';
 
-type Page = 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'financial-guide' | 'topic';
+type Page = 'home' | 'about' | 'playbooks' | 'playbook' | 'tools' | 'salary-calculator' | 'side-hustle-estimator' | 'financial-guide' | 'topic' | 'glossary' | 'glossary-changes';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -48,6 +50,10 @@ const App: React.FC = () => {
         return <FinancialGuide onNavigate={navigateTo} onOpenConsultation={openConsultation} />;
       case 'topic':
         return <TopicView topic={selectedTopic} onNavigate={navigateTo} />;
+      case 'glossary':
+        return <Glossary onNavigate={navigateTo} />;
+      case 'glossary-changes':
+        return <GlossaryOfChanges onNavigate={navigateTo} onOpenConsultation={openConsultation} highlightId={selectedTopic} />;
       default:
         return <Home onNavigate={navigateTo} onOpenConsultation={openConsultation} />;
     }

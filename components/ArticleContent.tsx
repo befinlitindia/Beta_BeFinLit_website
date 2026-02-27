@@ -136,7 +136,7 @@ const IncomeImpactCalculator = () => {
       notes.push(<span>With revenue above ₹50 Lakhs, if any part of your freelance income is received in cash (exceeding 5% threshold), a Tax Audit becomes mandatory.</span>);
     }
     if (f >= 7500000) {
-      notes.push(<span>Revenue has crossed ₹75 Lakhs: You can no longer opt for Section 44ADA<sup>*</sup>. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.</span>);
+      notes.push(<span>Revenue has crossed ₹75 Lakhs: You can no longer opt for Section <span onClick={() => onNavigate && onNavigate('glossary-changes', '44ADA')} className="text-befinlit-gold underline cursor-pointer hover:text-befinlit-navy transition-colors">44ADA<sup>*</sup></span>. You must undergo a mandatory Tax Audit, and your taxable base is now calculated at 80% of revenue by default for this estimation.</span>);
     }
     return notes;
   };
@@ -160,7 +160,7 @@ const IncomeImpactCalculator = () => {
           Based on New Tax Regime rules.
         </p>
         <p className="text-[11px] text-white/50 mb-6 italic leading-relaxed">
-          Note: We apply 50% presumptive rate (u/s 44ADA<sup>*</sup>) on freelance revenue and follow the new tax regime by default.
+          Note: We apply 50% presumptive rate (u/s <span onClick={() => onNavigate && onNavigate('glossary-changes', '44ADA')} className="text-befinlit-gold underline cursor-pointer hover:text-befinlit-navy transition-colors">44ADA<sup>*</sup></span>) on freelance revenue and follow the new tax regime by default.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -224,7 +224,7 @@ const IncomeImpactCalculator = () => {
               </h3>
               <div className="space-y-4 text-sm text-white/70 leading-relaxed">
                 <div className="flex justify-between border-b border-white/5 pb-2">
-                  <span>Taxable Base {result.freelanceRaw < 7500000 && <>(u/s 44ADA<sup>*</sup>)</>}</span>
+                  <span>Taxable Base {result.freelanceRaw < 7500000 && <>(u/s <span onClick={() => onNavigate && onNavigate('glossary-changes', '44ADA')} className="text-befinlit-gold underline cursor-pointer hover:text-befinlit-navy transition-colors">44ADA<sup>*</sup></span>)</>}</span>
                   <span className="font-bold text-white">{formatINR(result.combinedIncome - result.salaryIncome)}</span>
                 </div>
                 <div className="flex justify-between border-b border-white/5 pb-2">
@@ -233,7 +233,7 @@ const IncomeImpactCalculator = () => {
                 </div>
                 {result.freelanceRaw >= 7500000 && (
                   <p className="text-[11px] italic pt-2 text-white/40">
-                    Note: For revenue above ₹75L, we have applied an approx. 80% default margin for this estimation as Presumptive Taxation (44ADA<sup>*</sup>) ceases to apply.
+                    Note: For revenue above ₹75L, we have applied an approx. 80% default margin for this estimation as Presumptive Taxation (<span onClick={() => onNavigate && onNavigate('glossary-changes', '44ADA')} className="text-befinlit-gold underline cursor-pointer hover:text-befinlit-navy transition-colors">44ADA<sup>*</sup></span>) ceases to apply.
                   </p>
                 )}
               </div>
